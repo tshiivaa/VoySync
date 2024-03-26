@@ -7,7 +7,7 @@
 </head>
 <body>
 <?php
-include 'connexion.php';
+require 'connexion.php';
 include 'utilisateurs.php';
 $emailErr = "";
 $dateErr = "";
@@ -18,7 +18,7 @@ class utilisateurc
 {
     function testAndSave()
     {
-        $GLOBALS['validForm']  = true;
+        $GLOBALS['validForm'] = true;
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (empty($_POST["email"])) {
                 $GLOBALS['emailErr'] = "Email is required";
@@ -56,8 +56,9 @@ class utilisateurc
             }
 
             if (isset($_POST['email']) && $GLOBALS['validForm']) {
+
                 $sql = "INSERT INTO utilisateurs (email,date_nais,password) VALUES (:email, :date_nais, :password)";
-                $stmt = $GLOBALS['conn']->prepare($sql);
+                $stmt = config::connexion()->prepare($sql);
                 $utilisateur = new utilisateurs($_POST["email"], $_POST["date_nais"], $_POST["password"]);
                 $stmt->execute([':email' => $utilisateur->getEmail(), ':date_nais' => $utilisateur->getdate_nais(), ':password' => $utilisateur->getpassword()]);
                 $stmt = null;
@@ -91,9 +92,9 @@ class utilisateurc
                     $GLOBALS['validForm'] = false;
                 }
             }
-            if ( $GLOBALS['validForm']) {
+            if ($GLOBALS['validForm']) {
                 $sql = "SELECT email, password FROM utilisateurs WHERE email = :email AND password = :password";
-                $stmt = $GLOBALS['conn']->prepare($sql);
+                $stmt = config::connexion()->prepare($sql);
                 $stmt->execute([':email' => $_POST["email"], ':password' => $_POST["password"]]);
                 if ($stmt->fetch()) {
 

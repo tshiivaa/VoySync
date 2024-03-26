@@ -8,7 +8,7 @@
 <body>
 <?php
 
-class utilisateurs
+class  utilisateurs
 {
     private string $email;
     private string $date_nais;
