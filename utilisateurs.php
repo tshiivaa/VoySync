@@ -38,9 +38,6 @@ class utilisateurs
 
 }
 
-//instance
-
-
 ?>
 </body>
 </html>

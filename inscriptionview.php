@@ -3,13 +3,13 @@ include 'inscriptioncontroller.php';
 
 
 if (array_key_exists('save', $_POST)) {
-    $x = new utilisateurc() ;
+    $x = new utilisateurc();
     $x->testAndSave();
 
 }
 if (array_key_exists('connect', $_POST)) {
-    $x = new utilisateurc() ;
-    $x->testAndSave();
+    $x = new utilisateurc();
+    $x->testAndConnect();
 
 }
 ?>
@@ -29,16 +29,23 @@ if (array_key_exists('connect', $_POST)) {
 <div class="container">
     <div class="forms-container">
         <div class="signin-signup">
-            <form action="#" class="sign-in-form">
+            <form action="" method="POST" class="sign-in-form">
                 <h2 class="title">Se connecter</h2>
                 <div class="input-field">
                     <i class="fas fa-user"></i>
-                    <input type="text" placeholder="Adresse e-mail"/>
+                    <input name="email" type="text" placeholder="Adresse e-mail"/>
                 </div>
+
+                <div class="error"><?php if (!empty($emailErr)) echo $emailErr; ?></div>
+
                 <div class="input-field">
                     <i class="fas fa-lock"></i>
-                    <input type="password" placeholder="Mot de passe"/>
+                    <input name="password" type="password" placeholder="Mot de passe"/>
                 </div>
+
+                <div class="error"><?php if (!empty($passwordErr)) echo $passwordErr; ?></div>
+                <div class="error"><?php if (!empty($loginErr)) echo $loginErr; ?></div>
+
                 <input type="submit" name="connect" value="Connexion" class="btn solid"/>
                 <p class="social-text">Ou connectez-vous avec les plateformes sociales</p>
                 <div class="social-media">
