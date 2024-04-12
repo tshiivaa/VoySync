@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+    <style>
+        body {
+           font-family: Arial, sans-serif;
+           margin: 0;
+           padding: 0;
+           background-color: #fbcd5a#f0f0f0;
+           color: #333;
+           border-radius: 20px;
+           overflow-x: hidden;
+        }
+        
+        .container {
+           max-width:5000px;
+           margin: 0 auto;
+           padding: 20px;
+           background-color: #f0f0f0;
+        
+           box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header {
+           display: flex;
+           justify-content: space-between;
+           align-items: center;
+           padding: 20px ;
+           border-bottom: 1px solid #e0e0e0;
+           background-color: #fbcd5a;
+           border-radius: 20px;
+        }
+        
+        .logo {
+           font-size: 24px;
+           font-weight: bold;
+           color: #133b55; /* Added logo color */
+           display: flex;
+           align-items: center;
+        }
+        
+        .logo img {
+           width: 70px;
+           margin-right: 10px;
+        }
+        
+        .search-bar {
+           display: flex;
+           align-items: center;
+           background-color: #ffffff;
+           border-radius: 20px;
+           padding: 10px;
+           box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .search-bar input {
+           margin-right: 10px;
+           padding: 10px;
+           border: none;
+           border-radius: 20px;
+           flex-grow: 1;
+        }
+        
+        .search-bar button {
+           background-color: #f0f0f0;
+           border: none;
+           border-radius: 20px;
+           padding: 10px 20px;
+           cursor: pointer;
+           font-size: 18px;
+           transition: background-color 0.2s ease-in-out;
+        }
+        
+        .search-bar button:hover {
+           background-color: #e0e0f0;
+        }
+        
+        .filters {
+           display: flex;
+           justify-content: space-between;
+           align-items: center;
+        }
+        
+        .filter-button {
+           margin-right: 10px;
+           padding: 10px 20px;
+           border: none;
+           border-radius: 20px;
+           background-color: #fbcd5a;
+           cursor: pointer;
+           font-size: 18px;
+           transition: background-color 0.2s ease-in-out;
+          
+        }
+        
+        .filter-button:hover {
+           background-color: #bd9739;
+           box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .content {
+           display:flex;
+           flex-wrap: wrap;
+           justify-content:center;
+           margin-top: 20px;
+           gap: 10px;
+        }
+        
+        .item {
+        width: calc(33.33% - 20px);
+           margin-bottom: 20px;
+           padding: 20px;
+           background-color: #768de2;
+           border-radius: 20px;
+           box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .item:hover {
+           background-color: #3d57b7;
+        cursor: pointer;}
+        .item {
+        width: calc(33.33% - 20px); /* Ajustez cette valeur selon vos besoins */
+        margin-bottom: 20px;
+        padding: 20px;
+        background-color: #768de2;
+        border-radius: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center; /* Centre le contenu de l'item */
+        display: inline-block; /* Afficher les éléments en ligne */
+        vertical-align: top; /* Aligner les éléments en haut */
+    }
+
+    .item img {
+        max-width: 100%; /* La largeur de l'image ne dépassera pas la largeur de son conteneur */
+        height: auto; /* La hauteur de l'image sera ajustée automatiquement en fonction de sa largeur */
+        border-radius: 10px; /* Ajoutez une bordure arrondie aux images si vous le souhaitez */
+    }
+        
+        
+        </style>
+<head>
+    <title>Home</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo"> <img src="logo.png" alt="Budget" width="70"> <span>Voysync</span> </div>
+            <div class="search-bar"> <input type="text" placeholder="Search"> <button>Search</button> </div>
+            <div class="filters"> <button class="filter-button" id="home-button">Home</button> <button
+                    class="filter-button" id="finance-button">Pochette de voyage virtuelle</button> <button
+                    class="filter-button" id="events-button">Offres</button> </div>
+        </div>
+        <h2>Destinations</h2>
+        <div class="content">
+            <!-- <h2>Destinations</h2> -->
+            <br>
+            <div class="item">
+                <img src="logement1.jpg" alt="Logement 1">
+                <h2>Tunis</h2>
+                
+            </div>
+            <div class="item">
+                <img src="logement2.jpg" alt="Logement 2">
+                <h2>Hammamet</h2>
+                
+            </div>
+            <div class="item">
+                <img src="logement3.jpg" alt="Logement 3">
+                <h2>Nice</h2>
+            
+            </div>
+            <div class="item">
+                <img src="logement4.jpg" alt="Logement 4">
+                <h2>Paris</h2>
+            
+            </div>
+        </div>    </div>
+    <script> // Add event listener to filter buttons const filterButtons = document.querySelectorAll('.filter-button'); filterButtons.forEach((button) => { button.addEventListener('click', () => { const buttonId = button.id; if (buttonId === 'finance-button') { window.location.href = 'finance.html'; } else if (buttonId === 'home-button') { window.location.href = 'home.html'; } else if (buttonId === 'events-button') { window.location.href = 'offres.html'; } }); }); </script>
+</body>
+<script>
+    // Add event listener to filter buttons
+  const filterButtons = document.querySelectorAll('.filter-button');
+  filterButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+          const buttonId = button.id;
+          if (buttonId === 'finance-button') {
+              window.location.href = 'finance.html';
+          } else if (buttonId === 'home-button') {
+              window.location.href = 'home.html';
+          } else if (buttonId === 'events-button') {
+              window.location.href = 'offres.html';
+          }
+      });
+  });
+     </script>
+</html>
