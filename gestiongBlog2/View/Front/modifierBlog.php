@@ -3,27 +3,10 @@ include '../../Model/BlogModel.php';
 include '../../Controller/BlogController.php';
 $error = "";
 
-// Check if modifierid is provided in the URL
-if (isset($_GET['modifierid'])) {
-    $IDart = $_GET['modifierid'];
-
-    // Create an instance of the controller
-    $BlogC = new BlogC();
-
-    // Fetch the blog post data based on the ID
-    $blog = $BlogC->showBlog($IDart);
-
-    // Check if the blog post data is fetched successfully
-    if (!$blog) {
-        // Handle the case where the blog post data is not found
-        echo "Blog post not found.";
-        exit;
-    }
-} else {
-    // Handle the case where modifierid is not provided
-    echo "modifierid parameter is missing.";
-    exit;
-}
+$IDart = $_GET['modifierid'];
+// Créer une instance du contrôleur
+$BlogC = new BlogC();
+$blog = $BlogC->showBlog($IDart);
 
 $valid = 0;
 if (
@@ -138,16 +121,13 @@ if ($valid == 1) {
         <h2>Modifier un article</h2>
         <form method="post" enctype="multipart/form-data">
             <label for="TitreArt">Titre :</label>
-            <input type="text" id="TitreArt" name="TitreArt"
-                value="<?php echo isset($blog['TitreArt']) ? $blog['TitreArt'] : ''; ?>" required>
+            <input type="text" id="TitreArt" name="TitreArt" value="<?php echo $blog['TitreArt']; ?>" required>
 
             <label for="ContenuArt">Contenu :</label>
-            <input type="text" id="ContenuArt" name="ContenuArt"
-                value="<?php echo isset($blog['ContenuArt']) ? $blog['ContenuArt'] : ''; ?>" required>
+            <input type="text" id="ContenuArt" name="ContenuArt" value="<?php echo $blog['ContenuArt']; ?>" required>
 
             <label for="AuteurArt">Auteur :</label>
-            <input type="text" id="AuteurArt" name="AuteurArt"
-                value="<?php echo isset($blog['AuteurArt']) ? $blog['AuteurArt'] : ''; ?>" required maxlength="15">
+            <input type="text" id="AuteurArt" name="AuteurArt" value="<?php echo $blog['AuteurArt']; ?>" required>
 
             <!-- Champ d'upload de l'image -->
             <label for="image">Image :</label>
@@ -158,7 +138,6 @@ if ($valid == 1) {
         </form>
         <?php echo $error; ?>
     </div>
-
 </body>
 
 </html>
