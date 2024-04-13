@@ -47,6 +47,11 @@ if (array_key_exists('connect', $_POST)) {
                 <div class="error"><?php if (!empty($loginErr)) echo $loginErr; ?></div>
 
                 <input type="submit" name="connect" value="Connexion" class="btn solid"/>
+
+                <div class="col-md-6">
+                    <a href="">I forgot my password</a>
+                </div>
+
                 <p class="social-text">Ou connectez-vous avec les plateformes sociales</p>
                 <div class="social-media">
                     <a href="#" class="social-icon">

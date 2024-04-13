@@ -9,6 +9,7 @@
 <?php
 require 'connexion.php';
 include 'utilisateurs.php';
+
 $emailErr = "";
 $dateErr = "";
 $passwordErr = "";
@@ -108,6 +109,40 @@ class utilisateurc
 
 
         }
+    }
+
+    public function listUtilisateurs()
+    {
+        $sql = "SELECT * FROM utilisateurs";
+        $db = config::connexion();
+        try {
+            return $db->query($sql);
+        } catch (Exception $e) {
+            die('Error: ' . $e->getMessage());
+        }
+    }
+
+    public function deleteUtilisateurs($toemaild)
+    {
+        $sql = "DELETE FROM utilisateurs WHERE email = :email";
+        $db = config::connexion()->prepare($sql);
+        $db->execute([':email' => $toemaild]);
+    }
+
+    public function insertUtilisateurs()
+    {
+        $sql = "INSERT INTO utilisateurs (email,password,date_nais) VALUES (:email,:password,:date_nais)";
+        $db = config::connexion()->prepare($sql);
+        $utilisateur = new utilisateurs($_POST["email"], $_POST["password"], $_POST["date_nais"]);
+        $db->execute([':email' => $utilisateur->getEmail(), ':password' => $utilisateur->getpassword(), ':date_nais' => $utilisateur->getdate_nais()]);
+        $db = null;
+    }
+
+    public function updateUtilisateurs($nouveauEmail, $ancienEmail)
+    {
+        $sql = "UPDATE utilisateurs SET email = :nouveauEmail WHERE email = :ancienEmail";
+        $stmt = config::connexion()->prepare($sql);
+        $stmt->execute([':nouveauEmail' => $nouveauEmail, ':ancienEmail' => $ancienEmail]);
     }
 
 
