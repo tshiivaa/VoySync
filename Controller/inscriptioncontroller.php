@@ -8,7 +8,7 @@
 <body>
 <?php
 require 'connexion.php';
-include 'utilisateurs.php';
+include '../Model/utilisateurs.php';
 
 $emailErr = "";
 $dateErr = "";

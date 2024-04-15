@@ -1,5 +1,5 @@
 <?php
-include 'inscriptioncontroller.php';
+include '../Controller/inscriptioncontroller.php';
 $utilisateurC = new utilisateurc();
 $list = $utilisateurC->listUtilisateurs();
 
