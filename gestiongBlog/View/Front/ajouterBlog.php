@@ -1,3 +1,60 @@
+<?php
+include '../../Model/BlogModel.php';
+include '../../Controller/BlogController.php';
+
+if (isset($_POST['submit'])) {
+    // Récupérer les données du formulaire
+    $TitreArt = $_POST['TitreArt'];
+    $ContenuArt = $_POST['ContenuArt'];
+    $DatePubArt = date('Y-m-d H:i:s');
+    $AuteurArt = $_POST['AuteurArt'];
+
+    // Récupérer les données de l'image uploadée
+    $image = $_FILES['file'];
+    $imageName = $image['name'];
+    $imageTmpName = $image['tmp_name'];
+    $imageError = $image['error'];
+
+    // Vérifier s'il n'y a pas d'erreur lors de l'upload
+    if ($imageError === 0) {
+        // Déplacer l'image téléchargée vers le répertoire d'upload
+        $upload_image = '../uploads/' . $imageName;
+        move_uploaded_file($imageTmpName, $upload_image);
+
+        // Préparer la requête SQL
+        $sql = "INSERT INTO blog (TitreArt, ContenuArt, DatePubArt, AuteurArt, img) 
+                VALUES (:TitreArt, :ContenuArt, :DatePubArt, :AuteurArt, :img)";
+
+        // Obtenez la connexion PDO
+        $pdo = Configuration::getConnexion();
+
+        try {
+            // Préparer la déclaration
+            $stmt = $pdo->prepare($sql);
+
+            // Lier les paramètres
+            $stmt->bindParam(':TitreArt', $TitreArt);
+            $stmt->bindParam(':ContenuArt', $ContenuArt);
+            $stmt->bindParam(':DatePubArt', $DatePubArt);
+            $stmt->bindParam(':AuteurArt', $AuteurArt);
+            $stmt->bindParam(':img', $upload_image); // Utiliser le chemin de l'image comme valeur
+
+            // Exécuter la déclaration
+            $stmt->execute();
+
+            // Rediriger vers BlogPage.php en cas de succès
+            header('Location: BlogPage.php');
+            exit(); // Arrêter l'exécution ultérieure
+        } catch (PDOException $e) {
+            // Gérer les erreurs de la base de données
+            die('Error: ' . $e->getMessage());
+        }
+    } else {
+        // Gérer les erreurs d'upload d'image
+        die('Error uploading image.');
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -74,12 +131,15 @@
                 required>
 
             <label for="AuteurArt">Auteur :</label>
-            <input type="text" id="AuteurArt" name="AuteurArt" placeholder="Entrer votre nom (max 30 caractères)"
+            <input type="text" id="AuteurArt" name="AuteurArt" placeholder="Entrer votre nom (max 15 caractères)"
                 required>
 
             <!-- Input field for image upload -->
-            <label for="file">Image :</label>
-            <input type="file" id="file" name="file" accept="image/*" required>
+            <!-- <label for="file">Image :</label>
+            <input type="file" id="file" name="file" accept="img/*" required> -->
+
+            <label for="img">Image :</label>
+            <input type="file" id="img" name="img" accept="img/*" required>
 
             <!-- Bouton de soumission -->
             <button type="submit" name="submit">Ajouter</button>
