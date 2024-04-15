@@ -8,8 +8,7 @@ class Depense {
     private $Montant;
     private $Nom;
 
-    public function __construct($IDdep, $Categorie, $Currency, $Lieu, $Date, $Montant, $Nom) {
-        $this->setIDdep($IDdep);
+    public function __construct($IDdep,$Montant,$Categorie,$Date,$Currency,$Lieu,$Nom ){        $this->setIDdep($IDdep);
         $this->setCategorie($Categorie);
         $this->setCurrency($Currency);
         $this->setLieu($Lieu);
