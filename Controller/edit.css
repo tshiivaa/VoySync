@@ -103,3 +103,11 @@ input[type="password"] {
     width: 50px; /* Ajuster la largeur de l'image */
     height: auto; /* Permettre à la hauteur de l'image de s'ajuster automatiquement */
 }
+
+.error {
+    color: red;
+    font-size: 14px;
+    background-color: #ffcccc;
+    border-radius: 4px;
+    margin-left: 5px;
+}

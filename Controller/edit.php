@@ -2,16 +2,63 @@
 include '../Controller/inscriptioncontroller.php';
 $utilisateurC = new utilisateurc();
 $list = $utilisateurC->listUtilisateurs();
-
+$toemaildErr = "";
+$ancienEmailErr = "";
+$nouveauEmailErr = "";
+$validForm = true;
 if (isset($_POST['delete'])) {
-    $toemaild = $_POST['toemaild'];
-    $utilisateurC->deleteUtilisateurs($toemaild);
+
+    $GLOBALS['validForm'] = true;
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+        if (empty($_POST["toemaild"])) {
+            $GLOBALS['toemaildErr'] = "Email is required";
+            $GLOBALS['validForm'] = false;
+        } else {
+            $toemaild = htmlspecialchars($_POST["toemaild"]);
+            if (!filter_var($toemaild, FILTER_VALIDATE_EMAIL)) {
+                $GLOBALS['toemaildErr'] = "Invalid email format";
+                $GLOBALS['validForm'] = false;
+            }
+        }
+
+        if ($GLOBALS['validForm']) {
+            $toemaild = $_POST['toemaild'];
+            $utilisateurC->deleteUtilisateurs($toemaild);
+        }
+    }
 }
 
 if (isset($_POST['update'])) {
-    $ancienEmail = $_POST['ancienEmail'];
-    $nouveauEmail = $_POST['nouveauEmail'];
-    $utilisateurC->updateUtilisateurs($nouveauEmail, $ancienEmail);
+
+    if (empty($_POST["ancienEmail"])) {
+        $GLOBALS['ancienEmailErr'] = "Ancien email is required";
+        $GLOBALS['validForm'] = false;
+    } else {
+        $ancienEmail = htmlspecialchars($_POST["ancienEmail"]);
+        if (!filter_var($ancienEmail, FILTER_VALIDATE_EMAIL)) {
+            $GLOBALS['ancienEmailErr'] = "Invalid email format";
+            $GLOBALS['validForm'] = false;
+        }
+    }
+
+    if (empty($_POST["nouveauEmail"])) {
+        $GLOBALS['nouveauEmailErr'] = "Nouveau email is required";
+        $GLOBALS['validForm'] = false;
+    } else {
+        $nouveauEmail = htmlspecialchars($_POST["nouveauEmail"]);
+        if (!filter_var($nouveauEmail, FILTER_VALIDATE_EMAIL)) {
+            $GLOBALS['nouveauEmailErr'] = "Invalid email format";
+            $GLOBALS['validForm'] = false;
+        }
+    }
+
+    if ($GLOBALS['validForm']) {
+        $ancienEmail = $_POST['ancienEmail'];
+        $nouveauEmail = $_POST['nouveauEmail'];
+        $utilisateurC->updateUtilisateurs($nouveauEmail, $ancienEmail);
+    }
+
 }
 
 ?>
@@ -45,6 +92,8 @@ if (isset($_POST['update'])) {
                            name="ancienEmail"
                            id="email" class="form-control">
                 </div>
+                
+                <div class="error"><?php if (!empty($ancienEmailErr)) echo $ancienEmailErr; ?></div>
 
                 <div>
                     <label for="email">New</label>
@@ -52,6 +101,9 @@ if (isset($_POST['update'])) {
                            name="nouveauEmail"
                            id="email" class="form-control">
                 </div>
+
+                <div class="error"><?php if (!empty($nouveauEmailErr)) echo $nouveauEmailErr; ?></div>
+
                 <div class="form-group">
                     <button type="submit" name="update" class="btn btn-info">Update utilisateur</button>
                 </div>
@@ -76,6 +128,9 @@ if (isset($_POST['update'])) {
                     <input type="email" value="<?= isset($utilisateurs) ? $utilisateurs->email : ''; ?>" name="toemaild"
                            id="email" class="form-control">
                 </div>
+
+                <div class="error"><?php if (!empty($toemaildErr)) echo $toemaildErr; ?></div>
+
                 <div class="form-group">
                     <button type="submit" name="delete" class="btn btn-info">Delete utilisateur</button>
                 </div>

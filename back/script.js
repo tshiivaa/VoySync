@@ -137,24 +137,4 @@ function updateTotal() {
     expense.textContent = formatter.format(expenseTotal * -1);
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    var compteBtn = document.getElementById('compteBtn');
-    var compteContent = document.getElementById('compteContent');
-
-    compteBtn.addEventListener('click', function () {
-        // Charger le contenu de edit.php dans compteContent
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                if (xhr.status === 200) {
-                    compteContent.innerHTML = xhr.responseText;
-                } else {
-                    console.error('Erreur de chargement de edit.php');
-                }
-            }
-        };
-        xhr.open('GET', '../Controller/edit.php', true);
-        xhr.send();
-    });
-});
 
