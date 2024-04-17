@@ -17,7 +17,15 @@ if (isset($_POST['update'])) {
 ?>
 <head>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="edit.css"/>
 </head>
+<body>
+<nav class="navbar">
+    <div class="logo_item">
+        <img src="../back/images/logo.png" alt="">Voysync
+    </div>
+</nav>
+</body>
 <div class="container">
     <div class="card mt-5">
         <div class="card-header">
