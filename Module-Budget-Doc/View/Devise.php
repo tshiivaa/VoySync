@@ -116,6 +116,9 @@
       </div>
     </div>
   </nav>
+  <div class="main_body">
+    
+  </div>
   <script src="../js/script.js"></script>
 </body>
 

@@ -58,7 +58,6 @@ class DepenseC
             $db = config::getConnexion();
             $query = $db->prepare(
                 'UPDATE `depense` SET 
-                    IDdep = :IDdep,
                     Categorie = :Categorie, 
                     Currency = :Currency, 
                     Lieu = :Lieu, 
@@ -68,14 +67,13 @@ class DepenseC
                 WHERE IDdep = :Id'
             );
             $query->execute([
-                'IDdep' => $depense->getIDdep(),
-                'Id' => $id,
                 'Categorie' => $depense->getCategorie(),
                 'Currency' => $depense->getCurrency(),
                 'Lieu' => $depense->getLieu(),
                 'Date' => $depense->getDate(),
                 'Montant' => $depense->getMontant(),
-                'Nom' => $depense->getNom()
+                'Nom' => $depense->getNom(),
+                'Id' => $id // Add this line to bind the IDdep parameter
             ]);
             $rowCount = $query->rowCount();
             echo $rowCount . " records UPDATED successfully <br>";
@@ -85,6 +83,7 @@ class DepenseC
             return -1;
         }
     }
+    
 
     function showDepense($id)
     {
@@ -100,5 +99,33 @@ class DepenseC
             die('Error: ' . $e->getMessage());
         }
     }
+
+
+  // Function to retrieve a list of all unique locations
+  public function listUniqueLocations()
+  {
+      $sql = "SELECT DISTINCT Lieu FROM depense";
+      $db = config::getConnexion();
+      try {
+          $liste = $db->query($sql);
+          return $liste->fetchAll(PDO::FETCH_COLUMN);
+      } catch (Exception $e) {
+          return null;
+      }
+  }
+
+  // Function to retrieve a list of expenses where lieu = given location
+  public function listExpensesByLocation($location)
+  {
+      $sql = "SELECT * FROM depense WHERE Lieu = :location";
+      $db = config::getConnexion();
+      try {
+          $query = $db->prepare($sql);
+          $query->execute([':location' => $location]);
+          return $query->fetchAll(PDO::FETCH_ASSOC);
+      } catch (Exception $e) {
+          return null;
+      }
+  }
 }
 ?>

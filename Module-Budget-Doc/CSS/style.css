@@ -94,7 +94,7 @@ body.dark {
 /* Sidebar */
 .sidebar {
   background-color: var(--yellow-color);
-  width: 260px;
+  width: 280px;
   position: fixed;
   top: 0;
   left: 0;
@@ -291,6 +291,6 @@ body.dark {
 .main_body {
   padding: 20px;
   transition: margin-left 0.5s ease;
-  margin-left: 260px;
+  margin-left: 300px;
   margin-top: 60px;
 }

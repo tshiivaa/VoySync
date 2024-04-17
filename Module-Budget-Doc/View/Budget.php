@@ -1,39 +1,66 @@
+
 <?php
 include '../Controller/DepenseC.php';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id'])) {
-  $id = $_POST['id'];
-
-  $depenseC = new DepenseC();
-  $depDel = $depenseC->deleteDepense($id);
-  if ($depDel) {
-    header("Location: " . $_SERVER['PHP_SELF']);
-    exit();
-  } else {
-    echo "Failed to delete expense item.";
-  }
-}
-
-
 $depenseC = new DepenseC();
-$listeDepense = $depenseC->listDepenses();
-?>
-<?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $type = isset($_POST['type']) && $_POST['type'] == 'on' ? 'income' : 'expense';
-  $amount = $_POST['Montant'] * ($type === 'expense' ? -1 : 1);
 
-  $depense = new Depense(
-    NULL,
-    $amount,
-    $_POST['Categorie'],
-    $_POST['Date'],
-    $_POST['Currency'],
-    $_POST['Lieu'],
-    $_POST['Nom']
-  );
-  $depenseC->addDepense($depense);
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  // Check if "Ajouter" radio button is checked
+  if (isset($_POST['action']) && $_POST['action'] == 'add') {
+      // Addition
+      $type = isset($_POST['type']) && $_POST['type'] == 'on' ? 'income' : 'expense';
+      $amount = $_POST['Montant'] * ($type === 'expense' ? -1 : 1);
+
+      $depense = new Depense(
+          NULL,
+          $amount,
+          $_POST['Categorie'],
+          $_POST['Date'],
+          $_POST['Currency'],
+          $_POST['Lieu'],
+          $_POST['Nom']
+      );
+      $depenseC->addDepense($depense);
+
+      // Redirect after addition
+      header("Location: " . $_SERVER['PHP_SELF']);
+      exit();
+  } 
+  // Check if "Modifier" radio button is checked
+  elseif (isset($_POST['action']) && $_POST['action'] == 'modify') {
+      // Modification
+      if (isset($_POST['id'])) {
+          $id = $_POST['id'];
+          $depense = new Depense(
+              $id,
+              $_POST['Montant'],
+              $_POST['Categorie'],
+              $_POST['Date'],
+              $_POST['Currency'],
+              $_POST['Lieu'],
+              $_POST['Nom']
+          );
+          $rowCount = $depenseC->updateDepense($depense, $id);
+          if ($rowCount > 0) {
+              // Redirect after modification
+              header("Location: " . $_SERVER['PHP_SELF']);
+              exit();
+          } else {
+              echo "Failed to update expense item.";
+          }
+      } else {
+          // Handle the case when no ID is provided for modification
+          echo "Failed to update expense item: No ID provided.";
+      }
+  } else {
+      // Handle the case when neither "Ajouter" nor "Modifier" is selected
+      echo "Invalid action selected.";
+  }
+    exit();
 }
+
+$listeDepense = $depenseC->listDepenses();
+
 ?>
 
 <!DOCTYPE html>
@@ -191,106 +218,106 @@ BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
   </div>
 
   <section id="transactionList">
-    <h2 style="padding: 10px">List of Expenses</h2>
-    <?php foreach ($listeDepense as $dep): ?>
-      <div class="expense-item">
-        <div class="name">
-          <h4><?= $dep['Nom'] ?></h4>
-          <p><?= date('M d, Y', strtotime($dep['Date'])) ?></p>
-        </div>
-        <div class="details">
-          <p>Montant: <span class="amount"><?= $dep['Montant'] ?></span> <span
-              class="currency"><?= $dep['Currency'] ?></span></p>
-          <p>Catégorie: <span class="category"><?= $dep['Categorie'] ?></span></p>
-          <p>Lieu: <span class="location"><?= $dep['Lieu'] ?></span></p>
-        </div>
-        <div class="actions">
-           <!-- Modify button -->
-          <form action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
+    <div class="addandtitle">
+      <h2 style="padding: 10px;">Liste des dépenses</h2>
+      <button id="addExpenseBtn" class="add-btn">Ajouter</button>
+    </div>
+    <div class="expense-list">
+      <?php foreach ($listeDepense as $dep): ?>
+        <div class="expense-item">
+          <div class="name">
+            <h4><?= $dep['Nom'] ?></h4>
+            <p><?= date('M d, Y', strtotime($dep['Date'])) ?></p>
+          </div>
+          <div class="details">
+            <p>Montant: <span class="amount"><?= $dep['Montant'] ?></span> <span
+                class="currency"><?= $dep['Currency'] ?></span></p>
+            <p>Catégorie: <span class="category"><?= $dep['Categorie'] ?></span></p>
+            <p>Lieu: <span class="location"><?= $dep['Lieu'] ?></span></p>
+            <p>ID: <span><?= $dep['IDdep'] ?></span></p>
+          </div>
+          <div class="actions">
+            <!-- Modify button -->
+            <button type="submit" class="modifier-btn">Modifier</button>
             <input type="hidden" name="id" value="<?= $dep['IDdep'] ?>">
-            <button class="modifier-btn" onclick="showModifySection(event, <?= htmlspecialchars(json_encode($dep), ENT_QUOTES, 'UTF-8') ?>)">Modifier</button>
-          </form>
-          <!-- Delete button -->
-          <form action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
-            <input type="hidden" name="id" value="<?= $dep['IDdep'] ?>">
-            <button type="submit" class="delete-btn">Supprimer</button>
-          </form>
+            <!-- Delete button -->
+              <a class="delete-btn" href="deleteD.php?id=<?= $dep['IDdep'] ?>">Supprimer</a>
+          </div>
         </div>
-      </div>
-    <?php endforeach; ?>
+      <?php endforeach; ?>
   </section>
-  <section>
-    <h3 style="margin: 20px;">Ajout Transaction</h3>
-    <form id="transactionForm" method="POST">
-      <input type="hidden" name="action" value="add">
-      <label for="type">
-        <input type="checkbox" name="type" id="type" />
-        <div class="option">
-          <span>Dépense</span>
-          <span>Revenu</span>
-        </div>
-      </label>
-      <div>
-        <label for="Nom">Nom</label>
-        <input type="text" name="Nom" id="Nom" required />
-      </div>
-      <div>
-        <label for="Montant">Montant</label>
-        <input type="number" name="Montant" id="Montant" value="0" min="0.01" step="0.01" required />
-      </div>
-      <div>
-        <label for="Date">Date</label>
-        <input type="date" name="Date" id="Date" required />
-      </div>
-      <div>
-        <label for="Categorie">Catégorie</label>
-        <select name="Categorie" id="Categorie" required>
-          <option value="food">Alimentation</option>
-          <option value="transportation">Transport</option>
-          <option value="entertainment">Divertissement</option>
-          <option value="flight">Documents de vol</option>
-          <option value="accommodation">Logement</option>
-        </select>
-      </div>
-      <div>
-        <label for="Currency">Devise</label>
-        <select name="Currency" id="Currency" required>
-          <option value="USD">USD</option>
-          <option value="EUR">EUR</option>
-          <option value="GBP">GBP</option>
-          <option value="CAD">CAD</option>
-          <option value="JPY">JPY</option>
-          <option value="CHF">CHF</option>
-        </select>
-      </div>
-      <div>
-        <label for="Lieu">Lieu</label>
-        <input type="text" name="Lieu" id="Lieu" list="countries" required />
 
-        <datalist id="countries">
-          <option value="USA">
-          <option value="Canada">
-          <option value="United Kingdom">
-          <option value="Germany">
-          <option value="France">
-          <option value="Spain">
-          <option value="Italy">
-          <option value="Portugal">
-          <option value="Austria">
-          <option value="Switzerland">
-          <option value="Netherlands">
-          <option value="Belgium">
-          <option value="Poland">
-          <option value="Russia">
-          <option value="Tunisia">
-          <option value="Morocco">
-          <option value="Algerie">
-          <option value="Mali">
-        </datalist>
+  <section id="transactionFormSection">
+  <h2 style="margin: 20px;">Ajout dépense</h2> <!-- Initial header -->
+  <form id="transactionForm" method="POST">
+    <div class="radioun">
+      <label for="add">
+        <input type="radio" name="action" value="add" id="add" checked>
+        <span>Ajouter</span>
+      </label>
+      <label for="modify">
+        <input type="radio" name="action" value="modify" id="modify">
+        <span>Modifier</span>
+      </label>
+    </div>
+    <label for="type">
+      <input type="checkbox" name="type" id="type" />
+      <div class="option">
+        <span>Dépense</span>
+        <span>Revenu</span>
       </div>
-      <button type="submit">Soumettre</button>
-    </form>
-  </section>
+    </label>
+    <div>
+      <label for="IDdep">Id</label>
+      <input type="number" name="IDdep" id="IDdep" />
+      <input type="hidden" name="id" id="id" value="">
+    </div>
+    <div>
+      <label for="Nom">Nom</label>
+      <input type="text" name="Nom" id="Nom" required />
+    </div>
+    <div>
+      <label for="Montant">Montant</label>
+      <input type="number" name="Montant" id="Montant" value="0" min="-10000000000" step="0.25" required />
+    </div>
+    <div>
+      <label for="Date">Date</label>
+      <input type="date" name="Date" id="Date" required />
+    </div>
+    <div>
+      <label for="Categorie">Catégorie</label>
+      <select name="Categorie" id="Categorie" required>
+        <option value="food">Alimentation</option>
+        <option value="transportation">Transport</option>
+        <option value="entertainment">Divertissement</option>
+        <option value="flight">Documents de vol</option>
+        <option value="accommodation">Logement</option>
+      </select>
+    </div>
+    <div>
+      <label for="Currency">Devise</label>
+      <select name="Currency" id="Currency" required>
+        <option value="USD">USD</option>
+        <option value="EUR">EUR</option>
+        <option value="GBP">GBP</option>
+        <option value="CAD">CAD</option>
+        <option value="JPY">JPY</option>
+        <option value="CHF">CHF</option>
+      </select>
+    </div>
+    <div>
+      <label for="Lieu">Lieu</label>
+      <input type="text" name="Lieu" id="Lieu" list="countries" required />
+      <datalist id="countries">
+        <option value="USA">
+        <option value="Canada">
+        <!-- Other country options -->
+      </datalist>
+    </div>
+    <button type="submit">Soumettre</button>
+  </form>
+</section>
+
 </div>
 
 </html>
