@@ -167,7 +167,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const header = document.querySelector('#transactionFormSection h3');
   
     // Add click event listener to the button
-    addExpenseBtn.addEventListener('click', function() {
+    /*addExpenseBtn.addEventListener('click', function() {
       document.getElementById('add').checked = true;
       // Change the header text back to "Ajouter budget"
       header.textContent = 'Ajouter budget';
@@ -184,5 +184,5 @@ document.addEventListener('DOMContentLoaded', function() {
       form.Categorie.value = null;
       form.Currency.value = null;
       form.Lieu.value = null;
-    });
-  }); 
+    });*/
+  });

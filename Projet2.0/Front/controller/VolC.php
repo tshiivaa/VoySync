@@ -1,61 +1,39 @@
 <?php
-include_once '../configPW.php';
+require_once '../configPW.php';
 
 class VolC
 {
     public function listVols()
     {
         $sql = "SELECT * FROM vol";
-        $db = configPW::getConnexion();
-        try
-        {
+        $db = config::getConnexion();
+        try {
             $liste = $db->query($sql);
             return $liste;
-        }
-        catch (Exception $e)
-        {
-            die('Erreur: ' . $e->getMessage());
+        } catch (Exception $e) {
+            throw new Exception('Error fetching vols: ' . $e->getMessage());
         }                   
     }
 
     public function deleteVol($IDvol)
     {
         $sql = "DELETE FROM vol WHERE IDvol=:IDvol";
-        $db = configPW::getConnexion();
+        $db = config::getConnexion();
         $query = $db->prepare($sql);
         $query->bindValue(':IDvol', $IDvol);  
-        try 
-        {
+        try {
             $query->execute();
+        } catch (Exception $e) {
+            throw new Exception('Error deleting vol: ' . $e->getMessage());
         }
-        catch (Exception $e)
-        {
-            die('Error:'. $e->getMessage());
-        }
-    }
-
-    public function listVol()
-    {
-        $sql = "SELECT * FROM vol";
-        $db = configPW::getConnexion();
-        try
-        {
-            $liste = $db->query($sql);
-            return $liste;
-        }
-        catch (Exception $e)
-        {
-            die('Erreur: ' . $e->getMessage());
-        }                   
     }
 
     public function addVol($vol)
     {
         $sql = "INSERT INTO vol (IDvol, Compagnie, Num_vol, Depart, Arrive, DateDepart, DateArrive, DureeOffre, Prix, Classe, Evaluation)  
                 VALUES (:IDvol, :Compagnie, :Num_vol, :Depart, :Arrive, :DateDepart, :DateArrive, :DureeOffre, :Prix, :Classe, :Evaluation)";
-        $db = configPW::getConnexion();
-        try
-        {
+        $db = config::getConnexion();
+        try {
             $query = $db->prepare($sql);
             $query->execute([
                 'IDvol' => $vol->getIDvol(),
@@ -70,10 +48,8 @@ class VolC
                 'Classe' => $vol->getClasse(),
                 'Evaluation' => $vol->getEvaluation()
             ]);
-        }
-        catch (Exception $e)
-        {
-            echo 'Error: ' . $e->getMessage();
+        } catch (Exception $e) {
+            throw new Exception('Error adding vol: ' . $e->getMessage());
         }
     }
 
@@ -82,9 +58,8 @@ class VolC
         $sql = "UPDATE vol SET Compagnie = :Compagnie, Num_vol = :Num_vol, Depart = :Depart, Arrive = :Arrive, 
                 DateDepart = :DateDepart, DateArrive = :DateArrive, DureeOffre = :DureeOffre, Prix = :Prix, 
                 Classe = :Classe, Evaluation = :Evaluation WHERE IDvol = :IDvol";
-        $db = configPW::getConnexion();
-        try
-        {
+        $db = config::getConnexion();
+        try {
             $query = $db->prepare($sql);
             $query->execute([
                 'IDvol' => $IDvol,
@@ -99,28 +74,23 @@ class VolC
                 'Classe' => $vol->getClasse(),
                 'Evaluation' => $vol->getEvaluation()
             ]);
-        }
-        catch (Exception $e)
-        {
-            echo 'Error: ' . $e->getMessage();
+        } catch (Exception $e) {
+            throw new Exception('Error updating vol: ' . $e->getMessage());
         }
     }
 
     public function showVol($IDvol)
     {
         $sql = "SELECT * FROM vol WHERE IDvol = :IDvol";
-        $db = configPW::getConnexion();
-        try
-        {
+        $db = config::getConnexion();
+        try {
             $query = $db->prepare($sql);
             $query->bindValue(':IDvol', $IDvol);
             $query->execute();
             $vol = $query->fetch();
             return $vol;
-        }
-        catch (Exception $e)
-        {
-            echo 'Error: ' . $e->getMessage();
+        } catch (Exception $e) {
+            throw new Exception('Error fetching vol details: ' . $e->getMessage());
         }
     }
 }
