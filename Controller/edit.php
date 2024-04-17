@@ -92,7 +92,7 @@ if (isset($_POST['update'])) {
                            name="ancienEmail"
                            id="email" class="form-control">
                 </div>
-                
+
                 <div class="error"><?php if (!empty($ancienEmailErr)) echo $ancienEmailErr; ?></div>
 
                 <div>
