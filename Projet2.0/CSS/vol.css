@@ -1,0 +1,76 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: flex-start;
+    margin-top: 20px;
+}
+
+.vol {
+    width: 45%;
+    background-color: #f9f9f9;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.vol h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.vol p {
+    margin-bottom: 5px;
+}
+
+/* Button container */
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Align buttons vertically in the middle */
+}
+
+.vol .btn {
+    padding: 8px 16px;
+    background-color: #1c4771;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-decoration: none; /* Remove underline */
+    font-weight: bold; /* Make text bold */
+}
+
+.vol .btn:hover {
+    background-color: #1c4771;
+    text-decoration: none;
+}
+
+.vol .btn.btn-danger {
+    background-color: #1c4771;
+}
+
+.vol .btn.btn-danger:hover {
+    background-color: #1c4771;
+}
+
+
+.Ajouter .btn.btn-ajouter {
+    padding: 8px 16px;
+    background-color: #1c4771; /* Background color */
+    color: white; /* Text color */
+    border: none; /* Remove border */
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-decoration: none; /* Remove underline */
+    font-weight: bold; /* Make text bold */
+}
+
+.Ajouter .btn.btn-ajouter:hover {
+    background-color: #1c4771; /* Hover background color */
+    text-decoration: none;
+}
+
