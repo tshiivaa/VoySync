@@ -215,4 +215,28 @@ document.addEventListener('DOMContentLoaded', function() {
   prevButton.addEventListener('click', moveLeft);
   nextButton.addEventListener('click', moveRight);
 
+
 }); 
+ // Function to handle click on location card
+ function handleLocationCardClick(location) {
+  console.log('Clicked on location: ' + location);
+  
+  var xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === XMLHttpRequest.DONE) {
+      if (xhr.status === 200) {
+          // Update the expense list with the fetched data
+        document.getElementById("transactionList").innerHTML = xhr.responseText;
+      } else {
+        console.error('Failed to fetch expenses for location: ' + location);
+      }
+    }
+  };
+  xhr.open("GET", "fetchExpenses.php?location=" + encodeURIComponent(location), true);
+  xhr.send();
+}
+
+function handleTotalBudgetCardClick() {
+  // Reload the page
+  location.reload();
+}

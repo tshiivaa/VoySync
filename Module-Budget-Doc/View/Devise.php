@@ -5,9 +5,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
   <title>Voysync</title>
   <link rel="stylesheet" href="../CSS/style.css" type="text/css">
-  <link rel="stylesheet" href="../CSS/budget.css" type="text/css">
+  <link rel="stylesheet" href="../CSS/devise.css" type="text/css">
   <link rel="stylesheet" href="../CSS/expanding.css" type="text/css">
 </head>
 
@@ -117,7 +118,39 @@
     </div>
   </nav>
   <div class="main_body">
-    
+    <div class="wrapper">
+      <header>Convertisseur Devise</header>
+      <form action="#">
+        <div class="amount">
+          <p>Saisissez votre somme</p>
+          <input type="text" value="1">
+        </div>
+        <div class="drop-list">
+          <div class="from">
+            <p>De</p>
+            <div class="select-box">
+              <img src="https://flagcdn.com/48x36/us.png" alt="flag">
+              <select> <!-- Options tag are inserted from JavaScript --> </select>
+            </div>
+          </div>
+          <div class="icon"><i class="fas fa-exchange-alt"></i></div>
+          <div class="to">
+            <p>à</p>
+            <div class="select-box">
+              <img src="https://flagcdn.com/48x36/np.png" alt="flag">
+              <select> <!-- Options tag are inserted from JavaScript --> </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="exchange-rate">Obtenir le taux de change...</div>
+        <button>Obtenir le taux de change</button>
+      </form>
+    </div>
+
+    <script src="../js/country-list.js"></script>
+    <script src="../js/script1.js"></script>
+
   </div>
   <script src="../js/script.js"></script>
 </body>

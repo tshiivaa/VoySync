@@ -1,70 +1,11 @@
-
 <?php
-include '../Controller/DepenseC.php';
-
+include '../Controller/DepenseC.php'; 
 $depenseC = new DepenseC();
-
-
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  // Check if "Ajouter" radio button is checked
-  if (isset($_POST['action']) && $_POST['action'] == 'add') {
-      // Addition
-      $type = isset($_POST['type']) && $_POST['type'] == 'on' ? 'income' : 'expense';
-      $amount = $_POST['Montant'] * ($type === 'expense' ? -1 : 1);
-
-      $depense = new Depense(
-          NULL,
-          $amount,
-          $_POST['Categorie'],
-          $_POST['Date'],
-          $_POST['Currency'],
-          $_POST['Lieu'],
-          $_POST['Nom']
-      );
-      $depenseC->addDepense($depense);
-
-      // Redirect after addition
-      header("Location: " . $_SERVER['PHP_SELF']);
-      exit();
-  } 
-  // Check if "Modifier" radio button is checked
-  elseif (isset($_POST['action']) && $_POST['action'] == 'modify') {
-      // Modification
-      if (isset($_POST['id'])) {
-          $id = $_POST['id'];
-          $depense = new Depense(
-              $id,
-              $_POST['Montant'],
-              $_POST['Categorie'],
-              $_POST['Date'],
-              $_POST['Currency'],
-              $_POST['Lieu'],
-              $_POST['Nom']
-          );
-          $rowCount = $depenseC->updateDepense($depense, $id);
-          if ($rowCount > 0) {
-              // Redirect after modification
-              header("Location: " . $_SERVER['PHP_SELF']);
-              exit();
-          } else {
-              echo "Failed to update expense item.";
-          }
-      } else {
-          // Handle the case when no ID is provided for modification
-          echo "Failed to update expense item: No ID provided.";
-      }
-  } else {
-      // Handle the case when neither "Ajouter" nor "Modifier" is selected
-      echo "Invalid action selected.";
-  }
-    exit();
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['userId'])) {
+    $userId = $_POST['userId'];
+    $listeDepense = $depenseC->listDepensesByUserId($userId);
 }
-
-$listeDepense = $depenseC->listDepenses();
-
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -77,7 +18,54 @@ $listeDepense = $depenseC->listDepenses();
   <link rel="stylesheet" href="../CSS/budget.css" type="text/css">
   <link rel="stylesheet" href="../CSS/expanding.css" type="text/css">
 </head>
+<style>
+  /* Form */
+#IDuser form {
+  margin-top: 20px;
+  margin-left: 20px;
+}
 
+/* Label */
+#IDuser label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+/* Input field */
+#IDuser input[type="text"] {
+  width: 30%;
+  padding: 10px;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  height: 42px;
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Input field focus */
+#IDuser input[type="text"]:focus {
+  border-color: var(--blue-color);
+}
+
+/* Submit button */
+#IDuser button[type="submit"] {
+  background-color: var(--blue-color);
+  color: var(--white-color);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Submit button hover */
+#IDuser button[type="submit"]:hover {
+  background-color: #0d3c5f;
+}
+  </style>
 <body>
   <nav class="navbar">
     <div class="logo_item">
@@ -183,90 +171,55 @@ $listeDepense = $depenseC->listDepenses();
       </div>
     </div>
   </nav>
-  <script src="../js/script.js"></script>
-</body>
-<!--
-BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
--->
-<div class="main_body">
-  <h1 style="text-align: center; margin-bottom: 20px; margin-top: 20px;">Vos Budgets</h1>
-    <section class="sliding-cards">
-        <div class="card-container">
-        <div class="card" onclick="handleTotalBudgetCardClick()">Budget Total</div>
-        <?php
-// Get the unique locations from the database
-$uniqueLocations = $depenseC->listUniqueLocations();
-// Loop through each unique location and create a card for it
-foreach ($uniqueLocations as $location) {
-    // Output the card with onclick attribute calling the handleLocationCardClick function
-    echo '<div class="card" onclick="handleLocationCardClick(\'' . $location . '\')">' . $location . '</div>';
-}
-?>
-
-
-        </div>
-        <button class="prev-btn">Prev</button>
-        <button class="next-btn">Next</button>
-    </section>
-  <h1 style="text-align:left; margin-bottom: 20px;">Budget de __</h1>
-  <div class="budget">
-    <div>
-      <h5>Total Balance</h5>
-      <span id="balance">$0.00</span>
-    </div>
-    <div>
-      <h5>Total Income</h5>
-      <span id="income">$0.00</span>
-    </div>
-    <div>
-      <h5>Total Expenses</h5>
-      <span id="expense">$0.00</span>
-    </div>
-  </div>
-
-  <section id="transactionList">
-    <div class="addandtitle">
-      <h2 style="padding: 10px;">Liste des dépenses</h2>
-      <button id="addExpenseBtn" class="add-btn">Ajouter</button>
-    </div>
-    <div class="expense-list">
-      <?php foreach ($listeDepense as $dep): ?>
-        <div class="expense-item">
-          <div class="name">
-            <h4><?= $dep['Nom'] ?></h4>
-            <p><?= date('M d, Y', strtotime($dep['Date'])) ?></p>
-          </div>
-          <div class="details">
-            <p>Montant: <span class="amount"><?= $dep['Montant'] ?></span> <span
-                class="currency"><?= $dep['Currency'] ?></span></p>
-            <p>Catégorie: <span class="category"><?= $dep['Categorie'] ?></span></p>
-            <p>Lieu: <span class="location"><?= $dep['Lieu'] ?></span></p>
-            <p>ID: <span><?= $dep['IDdep'] ?></span></p>
-          </div>
-          <div class="actions">
-            <!-- Modify button -->
-            <button type="submit" class="modifier-btn">Modifier</button>
-            <input type="hidden" name="id" value="<?= $dep['IDdep'] ?>">
-            <!-- Delete button -->
-              <a class="delete-btn" href="deleteD.php?id=<?= $dep['IDdep'] ?>">Supprimer</a>
-          </div>
-        </div>
-      <?php endforeach; ?>
+ 
+  <div class="main_body">
+  <section id="IDuser">
+    <form method="POST">
+      <label for="userId">User ID:</label>
+      <input type="text" id="userId" name="userId">
+      <button type="submit">Submit</button>
+    </form>
   </section>
-
-  <section id="transactionFormSection">
+    <section id="transactionList">
+      <div class="addandtitle">
+        <h2 style="padding: 10px;">Liste des dépenses</h2>
+        <button id="addExpenseBtn" class="add-btn">Ajouter</button>
+      </div>
+      <div class="expense-list">
+        <?php if (isset($listeDepense) && !empty($listeDepense)) : ?>
+          <?php foreach ($listeDepense as $dep): ?>
+            <div class="expense-item">
+              <div class="name">
+                <h4><?= $dep['Nom'] ?></h4>
+                <p><?= date('M d, Y', strtotime($dep['Date'])) ?></p>
+              </div>
+              <div class="details">
+                <p>Montant: <span class="amount"><?= $dep['Montant'] ?></span> <span class="currency"><?= $dep['Currency'] ?></span></p>
+                <p>Catégorie: <span class="category"><?= $dep['Categorie'] ?></span></p>
+                <p>Lieu: <span class="location"><?= $dep['Lieu'] ?></span></p>
+                <p>ID: <span><?= $dep['IDdep'] ?></span></p>
+              </div>
+              <div class="actions">
+                <button type="submit" class="modifier-btn">Modifier</button>
+                <input type="hidden" name="id" value="<?= $dep['IDdep'] ?>">
+                <a class="delete-btn" href="deleteD.php?id=<?= $dep['IDdep'] ?>">Supprimer</a>
+              </div>
+            </div>
+          <?php endforeach; ?>
+        <?php else : ?>
+          <p>Aucune dépense trouvée pour cet utilisateur.</p>
+        <?php endif; ?>
+      </div>
+    </section>
+    <section id="transactionFormSection">
   <h2 style="margin: 20px;">Ajout dépense</h2> <!-- Initial header -->
   <form id="transactionForm" method="POST">
-    <div class="radioun">
+    <div>
       <label for="add">
-        <input type="radio" name="action" value="add" id="add" checked>
-        <span>Ajouter</span>
+        <input type="hidden" name="action" value="add" id="add" checked>
       </label>
       <label for="modify">
-        <input type="radio" name="action" value="modify" id="modify">
-        <span>Modifier</span>
+        <input type="hidden" name="action" value="modify" id="modify">
       </label>
     </div>
     <label for="type">
@@ -326,7 +279,9 @@ foreach ($uniqueLocations as $location) {
     <button type="submit">Soumettre</button>
   </form>
 </section>
-
-</div>
+  </div>
+  <!-- JavaScript -->
+  <script src="../js/script.js"></script>
+</body>
 
 </html>

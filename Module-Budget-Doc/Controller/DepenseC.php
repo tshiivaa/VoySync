@@ -115,17 +115,32 @@ class DepenseC
   }
 
   // Function to retrieve a list of expenses where lieu = given location
-  public function listExpensesByLocation($location)
+  public function listExpensesByLocationLike($location)
   {
-      $sql = "SELECT * FROM depense WHERE Lieu = :location";
+      $sql = "SELECT * FROM `depense` WHERE `Lieu` LIKE :location";
       $db = config::getConnexion();
       try {
           $query = $db->prepare($sql);
-          $query->execute([':location' => $location]);
+          $query->execute([':location' => '%' . $location . '%']);
           return $query->fetchAll(PDO::FETCH_ASSOC);
       } catch (Exception $e) {
           return null;
       }
   }
+ 
+  public function listDepensesByUserId($user_id)
+{
+    $sql = "SELECT * FROM `depense` WHERE user_id = :user_id";
+    $db = config::getConnexion();
+    try {
+        $query = $db->prepare($sql);
+        $query->execute([':user_id' => $user_id]);
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    } catch (Exception $e) {
+        return null;
+    }
+}
+
+
 }
 ?>
