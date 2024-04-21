@@ -22,7 +22,11 @@ if (array_key_exists('connect', $_POST)) {
             src="https://kit.fontawesome.com/64d58efce2.js"
             crossorigin="anonymous"
     ></script>
-    <link rel="stylesheet" href="inscription.css"/>
+    <link href="../Build/css/demo.css" rel="stylesheet">
+    <link href="../Build/css/intlTelInput.css" rel="stylesheet">
+    <link href="inscription.css" rel="stylesheet"/>
+
+
     <title>Formulaire de connexion & d'inscription</title>
 </head>
 <body>
@@ -63,28 +67,40 @@ if (array_key_exists('connect', $_POST)) {
 
                 </div>
             </form>
+
             <form action="" method="POST" class="sign-up-form">
                 <h2 class="title">S'inscrire</h2>
+
+                <h6 style="color: #1C4771FF;">Mail</h6>
                 <div class="input-field">
                     <i class="fas fa-envelope"></i>
                     <input type="text" placeholder="Adresse e-mail" name="email"/>
-
-
                 </div>
                 <div class="error"><?php if (!empty($emailErr)) echo $emailErr; ?></div>
+
+                <h6 style="color: #1C4771FF;">Date De Naissance</h6>
                 <div class="input-field">
                     <i class="fas fa-user"></i>
                     <input type="date" placeholder="date nais" name="date_nais"/>
-
-
                 </div>
                 <div class="error"><?php if (!empty($dateErr)) echo $dateErr; ?></div>
+
+                <h6 style="color: #1C4771FF;">Call</h6>
+                <div class="input-field">
+                    <i class="fas fa-phone"></i>
+                    <input type="tel" placeholder="Phone number" id="phone" name="phone"/>
+                </div>
+                <div class="error"><?php if (!empty($phoneErr)) echo $phoneErr; ?></div>
+
+
+                <h6 style="color: #1C4771FF;">Clé</h6>
                 <div class="input-field">
                     <i class="fas fa-lock"></i>
                     <input type="password" placeholder="Mot de passe" name="password"/>
-
                 </div>
                 <div class="error"><?php if (!empty($passwordErr)) echo $passwordErr; ?></div>
+
+
                 <input name="save" type="submit" class="btn" value="S'inscrire"/>
 
                 <p class="social-text">Ou inscrivez-vous avec les plateformes sociales</p>
@@ -128,6 +144,12 @@ if (array_key_exists('connect', $_POST)) {
         </div>
     </div>
 </div>
+
+<script src="../Build/js/intlTelInput.js"></script>
+<script>
+    var input = document.querySelector("#phone");
+    window.intlTelInput(input, {});
+</script>
 
 <script>
     const sign_in_btn = document.querySelector("#sign-in-btn");

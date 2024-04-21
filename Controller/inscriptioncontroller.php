@@ -13,6 +13,7 @@ include '../Model/utilisateurs.php';
 $emailErr = "";
 $dateErr = "";
 $passwordErr = "";
+$phoneErr = "";
 $validForm = true;
 
 class utilisateurc
@@ -45,6 +46,14 @@ class utilisateurc
                 }
             }
 
+            if (empty($_POST["phone"])) {
+                $GLOBALS['phoneErr'] = "Phone number is required";
+                $GLOBALS['validForm'] = false;
+            } else {
+                $phone = htmlspecialchars($_POST["phone"]);
+            }
+
+
             if (empty($_POST["password"])) {
                 $GLOBALS['passwordErr'] = "password is required";
                 $GLOBALS['validForm'] = false;
@@ -56,14 +65,21 @@ class utilisateurc
                 }
             }
 
-            if (isset($_POST['email']) && $GLOBALS['validForm']) {
-
-                $sql = "INSERT INTO utilisateurs (email,date_nais,password) VALUES (:email, :date_nais, :password)";
+            /*if (isset($_POST['email']) && $GLOBALS['validForm']) {
+                $sql = "INSERT INTO utilisateurs (email, date_nais, password, phone) VALUES (:email, :date_nais, :password, :phone)";
                 $stmt = config::connexion()->prepare($sql);
-                $utilisateur = new utilisateurs($_POST["email"], $_POST["date_nais"], $_POST["password"]);
-                $stmt->execute([':email' => $utilisateur->getEmail(), ':date_nais' => $utilisateur->getdate_nais(), ':password' => $utilisateur->getpassword()]);
+                $utilisateur = new utilisateurs($_POST["email"], $_POST["date_nais"], $_POST["password"], $_POST["phone"]);
+                $stmt->execute([':email' => $utilisateur->getEmail(), ':date_nais' => $utilisateur->getDateNaissance(), ':password' => $utilisateur->getPassword(), ':phone' => $utilisateur->getPhone()]);
+                $stmt = null;
+            }*/
+            if (isset($_POST['email']) && $GLOBALS['validForm']) {
+                $sql = "INSERT INTO utilisateurs (email, date_nais, password, phone) VALUES (:email, :date_nais, :password, :phone) ON DUPLICATE KEY UPDATE date_nais = VALUES(date_nais), password = VALUES(password), phone = VALUES(phone)";
+                $stmt = config::connexion()->prepare($sql);
+                $utilisateur = new utilisateurs($_POST["email"], $_POST["date_nais"], $_POST["password"], $_POST["phone"]);
+                $stmt->execute([':email' => $utilisateur->getEmail(), ':date_nais' => $utilisateur->getDateNaissance(), ':password' => $utilisateur->getPassword(), ':phone' => $utilisateur->getPhone()]);
                 $stmt = null;
             }
+
 
         }
     }
@@ -110,41 +126,6 @@ class utilisateurc
 
         }
     }
-
-    public function listUtilisateurs()
-    {
-        $sql = "SELECT * FROM utilisateurs";
-        $db = config::connexion();
-        try {
-            return $db->query($sql);
-        } catch (Exception $e) {
-            die('Error: ' . $e->getMessage());
-        }
-    }
-
-    public function deleteUtilisateurs($toemaild)
-    {
-        $sql = "DELETE FROM utilisateurs WHERE email = :email";
-        $db = config::connexion()->prepare($sql);
-        $db->execute([':email' => $toemaild]);
-    }
-
-    public function insertUtilisateurs()
-    {
-        $sql = "INSERT INTO utilisateurs (email,password,date_nais) VALUES (:email,:password,:date_nais)";
-        $db = config::connexion()->prepare($sql);
-        $utilisateur = new utilisateurs($_POST["email"], $_POST["password"], $_POST["date_nais"]);
-        $db->execute([':email' => $utilisateur->getEmail(), ':password' => $utilisateur->getpassword(), ':date_nais' => $utilisateur->getdate_nais()]);
-        $db = null;
-    }
-
-    public function updateUtilisateurs($nouveauEmail, $ancienEmail)
-    {
-        $sql = "UPDATE utilisateurs SET email = :nouveauEmail WHERE email = :ancienEmail";
-        $stmt = config::connexion()->prepare($sql);
-        $stmt->execute([':nouveauEmail' => $nouveauEmail, ':ancienEmail' => $ancienEmail]);
-    }
-
 
 }
 

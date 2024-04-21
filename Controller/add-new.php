@@ -1,32 +1,31 @@
 <?php
+global $row;
 require "connexion.php";
-$conn = config::connexion();
-$id = $_GET["id"];
-
 if (isset($_POST["submit"])) {
     $email = $_POST['email'];
-    $date_nais = $_POST['date_nais'];
     $password = $_POST['password'];
+    $date_nais = $_POST['date_nais'];
     $phone = $_POST['phone'];
     $role = $_POST['role'];
 
     try {
+        $conn = config::connexion();
+
         // Prepare the SQL statement
-        $stmt = $conn->prepare("UPDATE `utilisateurs` SET `email`=:email, `date_nais`=:date_nais, `password`=:password, `phone`=:phone, `role`=:role WHERE id = :id");
+        $stmt = $conn->prepare("INSERT INTO `utilisateurs`(`id`, `email`, `password`, `date_nais`, `phone`, `role`) VALUES (NULL, :email, :password, :date_nais, :phone, :role)");
 
         // Bind parameters
         $stmt->bindParam(':email', $email);
-        $stmt->bindParam(':date_nais', $date_nais);
         $stmt->bindParam(':password', $password);
+        $stmt->bindParam(':date_nais', $date_nais);
         $stmt->bindParam(':phone', $phone);
         $stmt->bindParam(':role', $role);
-        $stmt->bindParam(':id', $id);
 
         // Execute the statement
         $stmt->execute();
 
-        // Redirect after successful update
-        header("Location: index.php?msg=Data updated successfully");
+        // Redirect after successful insertion
+        header("Location: index.php?msg=New record created successfully");
         exit();
     } catch (PDOException $e) {
         // Handle errors
@@ -34,7 +33,6 @@ if (isset($_POST["submit"])) {
     }
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -57,8 +55,7 @@ if (isset($_POST["submit"])) {
 </head>
 
 <body style="background-color: #1D548DFF;">
-<nav class="navbar navbar-light justify-content-center fs-3 mb-5"
-     style="background-color: #FBCD5AFF; color: #1D548DFF;">
+<nav class="navbar navbar-light justify-content-center fs-3 mb-5" style="background-color: #fbcd5a;color: #1D548DFF;">
     Users Dashboard
 </nav>
 
@@ -68,68 +65,50 @@ if (isset($_POST["submit"])) {
         <p class="text-muted" style="color: #FBCD5AFF;">Complete the form below to add a new user</p>
     </div>
 
-
-    <?php
-    $conn = config::connexion();
-
-    $sql = "SELECT * FROM `utilisateurs` WHERE id = :id LIMIT 1";
-    $stmt = $conn->prepare($sql);
-    $stmt->bindParam(':id', $id);
-    $stmt->execute();
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    ?>
-
-
     <div class="container d-flex justify-content-center">
         <form action="" method="post" style="width:50vw; min-width:300px;">
             <div class="mb-3">
                 <label class="form-label" style="color: #FBCD5AFF;">Email:</label>
-                <input type="email" class="form-control" name="email" placeholder="name@example.com"
-                       value="<?php echo isset($row['email']) ? $row['email'] : '' ?>">
+                <input type="email" class="form-control" name="email" placeholder="name@example.com">
             </div>
             <div class="error"><?php if (!empty($emailErr)) echo $emailErr; ?></div>
 
             <div class="mb-3">
                 <label class="form-label" style="color: #FBCD5AFF;">Date of Birth:</label>
-                <input type="date" class="form-control" name="date_nais"
-                       value="<?php echo isset($row['date_nais']) ? $row['date_nais'] : '' ?>">
+                <input type="date" class="form-control" name="date_nais">
             </div>
             <div class="error"><?php if (!empty($dateErr)) echo $dateErr; ?></div>
 
             <div class="mb-3">
                 <label class="form-label" style="color: #FBCD5AFF;">Password:</label>
-                <input type="password" class="form-control" name="password"
-                       value="<?php echo isset($row['password']) ? $row['password'] : '' ?>">
+                <input type="password" class="form-control" name="password">
             </div>
-            <div class="error"><?php if (!empty($passwordErr)) echo $passwordErr; ?></div>
 
+            <div class="error"><?php if (!empty($passwordErr)) echo $passwordErr; ?></div>
 
             <div class="mb-3">
                 <label class="form-label" style="color: #FBCD5AFF;">Phone:</label>
-                <input type="text" class="form-control" name="phone" placeholder="123456789"
-                       value="<?php echo isset($row['phone']) ? $row['phone'] : '' ?>">
+                <input type="text" class="form-control" name="phone" placeholder="123456789">
             </div>
             <div class="error"><?php if (!empty($phoneErr)) echo $phoneErr; ?></div>
 
             <div class="mb-3">
                 <label style="color: #FBCD5AFF;">Role:</label>
                 &nbsp;
-                <input type="radio" class="form-check-input" name="role" id="admin"
-                       value="Admin"<?php echo (isset($row['role']) && $row['role'] == 'Admin') ? " checked" : "" ?>>
+                <input type="radio" class="form-check-input" name="role" id="admin" value="Admin">
                 <label for="admin" class="form-input-label" style="color: #FBCD5AFF;">Admin</label>
                 &nbsp;
-                <input type="radio" class="form-check-input" name="role" id="client"
-                       value="Client"<?php echo (isset($row['role']) && $row['role'] == 'Client') ? " checked" : "" ?>>
+                <input type="radio" class="form-check-input" name="role" id="client" value="Client">
                 <label for="client" class="form-input-label" style="color: #FBCD5AFF;">Client</label>
             </div>
 
+
             <div>
-                <button type="submit" class="btn btn-success" name="submit">Update</button>
+                <button type="submit" class="btn btn-success" name="submit">Save</button>
                 <a href="index.php" class="btn btn-danger">Cancel</a>
             </div>
         </form>
     </div>
-
 </div>
 
 <!-- Bootstrap -->
