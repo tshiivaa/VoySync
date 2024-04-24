@@ -1,3 +1,33 @@
+<?php
+include_once '../Controller/DestinationC.php';
+
+$destinationController = new DestinationController();
+
+if (isset($_POST['create'])) {
+
+    $nom = $_POST['nom'];
+    $description = $_POST['description'];
+    $pays = $_POST['pays'];
+    
+    $destinationController->createDestination($nom, $description, $pays);
+} elseif (isset($_POST['update'])) {
+
+    $id_destination = $_POST['id_destination'];
+    $nom = $_POST['nom'];
+    $description = $_POST['description'];
+    $pays = $_POST['pays'];
+    
+    $destinationController->updateDestination($id_destination, $nom, $description, $pays);
+} elseif (isset($_GET['delete'])) {
+
+    $id_destination = $_GET['delete'];
+    
+    $destinationController->deleteDestination($id_destination);
+}
+
+
+$listDestinations = $destinationController->listDestinations();
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -61,7 +91,7 @@
                     <i class="bx bx-chevron-right arrow-left"></i>
                 </div>
                 <ul class="menu_items submenu">
-                    <a href="backofficeDestination.php" class="nav_link sublink">Destinations</a>
+                    <a href="backoffice.php" class="nav_link sublink">Destinations</a>
                     <a href="backofficeTransport.php" class="nav_link sublink">Transport</a>
                 </ul>
             </li>
@@ -126,5 +156,76 @@
     </div>
 </nav>
 <script src="script_back.js"></script>
+<script src="script_form.js"></script>
+    <div class="itineraire-content">
+        <div class="container">
+            <h1>Gestion des Destinations</h1>
+
+            <div class="form-container">
+                <h2>Créer une nouvelle destination</h2>
+                <form method="post" class="form" id="destinationForm">
+                    <div class="form-group">
+                        <label for="nom">Nom :</label>
+                        <input type="text" id="nom" name="nom">
+                        <span class="error" id="nomError"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description :</label>
+                        <textarea id="description" name="description"></textarea>
+                        <span class="error" id="descriptionError"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="pays">Pays :</label>
+                        <input type="text" id="pays" name="pays">
+                        <span class="error" id="paysError"></span>
+                    </div>
+                    <button type="submit" name="create" class="btn">Ajouter</button>
+                </form>
+
+            </div>
+
+            <div class="destination-list">
+                <h2>Liste des Destinations</h2>
+                <ul>
+                    <?php foreach ($listDestinations as $destination): ?>
+                        <li>
+                            <div class="destination-info">
+                                <strong><?php echo $destination->getNom(); ?></strong>
+                                <span class="description">(<?php echo $destination->getDescription(); ?>), <?php echo $destination->getPays(); ?></span>
+                            </div>
+                            <a href="?delete=<?php echo $destination->getIdDestination(); ?>" class="delete-btn" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette destination ?')">Supprimer</a>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+
+            <div class="form-container">
+                <h2>Modifier une destination</h2>
+                <form method="post" class="form">
+                    <div class="form-group">
+                        <label for="destination">Choisir une destination :</label>
+                        <select id="destination" name="id_destination">
+                            <?php foreach ($listDestinations as $destination): ?>
+                                <option value="<?php echo $destination->getIdDestination(); ?>"><?php echo $destination->getNom(); ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="nom">Nouveau nom :</label>
+                        <input type="text" id="nom" name="nom">
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Nouvelle description :</label>
+                        <textarea id="description" name="description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="pays">Nouveau pays :</label>
+                        <input type="text" id="pays" name="pays">
+                    </div>
+                    <button type="submit" name="update" class="btn">Modifier</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

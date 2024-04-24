@@ -122,17 +122,21 @@ const income = document.getElementById("income");
 const expense = document.getElementById("expense");
 
 function updateTotal() {
-    const incomeTotal = transactions
-        .filter(trx => trx.type === "income")
-        .reduce((total, trx) => total + trx.amount, 0);
+  const incomeTotal = transactions
+    .filter(trx => trx.type === "income")
+    .reduce((total, trx) => total + trx.amount, 0);
 
-    const expenseTotal = transactions
-        .filter(trx => trx.type === "expense")
-        .reduce((total, trx) => total + trx.amount, 0);
+  const expenseTotal = transactions
+    .filter(trx => trx.type === "expense")
+    .reduce((total, trx) => total + trx.amount, 0);
 
-    const balanceTotal = incomeTotal - expenseTotal;
+  const balanceTotal = incomeTotal - expenseTotal;
 
-    balance.textContent = formatter.format(balanceTotal).substring(1);
-    income.textContent = formatter.format(incomeTotal);
-    expense.textContent = formatter.format(expenseTotal * -1);
+  balance.textContent = formatter.format(balanceTotal).substring(1);
+  income.textContent = formatter.format(incomeTotal);
+  expense.textContent = formatter.format(expenseTotal * -1);
 }
+
+
+
+

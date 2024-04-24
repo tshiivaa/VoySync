@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 04, 2024 at 06:14 AM
+-- Generation Time: Apr 24, 2024 at 10:45 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -62,7 +62,34 @@ CREATE TABLE `destination` (
 INSERT INTO `destination` (`id_destination`, `nom`, `description`, `pays`) VALUES
 (1, 'Tunis', 'Le bled', 'Tunis'),
 (2, 'Paris', 'Magique', 'France'),
-(4, 'Rome', 'Harga', 'Italy');
+(4, 'Rome', 'Harga', 'Italy'),
+(10, 'Montreal', 'berda', 'Canada');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `transport`
+--
+
+CREATE TABLE `transport` (
+  `id_transport` int(100) NOT NULL,
+  `type` varchar(100) NOT NULL,
+  `pays_depart` varchar(100) NOT NULL,
+  `pays_arrivee` varchar(100) NOT NULL,
+  `lieux_depart` varchar(100) NOT NULL,
+  `lieux_arrivee` varchar(100) NOT NULL,
+  `temps_depart` time(6) NOT NULL,
+  `temps_arrivee` time(6) NOT NULL,
+  `prix` int(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `transport`
+--
+
+INSERT INTO `transport` (`id_transport`, `type`, `pays_depart`, `pays_arrivee`, `lieux_depart`, `lieux_arrivee`, `temps_depart`, `temps_arrivee`, `prix`) VALUES
+(1, 'Trains', 'Paris', 'Rome', 'Gare de Lyon', 'Termini', '18:17:00.000000', '09:25:00.000000', 301),
+(2, 'Bus', 'Paris', 'Rome', 'Quai de Bercy', 'Autostazione Tiburtina', '11:55:00.000000', '07:34:00.000000', 80);
 
 --
 -- Indexes for dumped tables
@@ -81,6 +108,12 @@ ALTER TABLE `destination`
   ADD PRIMARY KEY (`id_destination`);
 
 --
+-- Indexes for table `transport`
+--
+ALTER TABLE `transport`
+  ADD PRIMARY KEY (`id_transport`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -94,7 +127,13 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `destination`
 --
 ALTER TABLE `destination`
-  MODIFY `id_destination` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_destination` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `transport`
+--
+ALTER TABLE `transport`
+  MODIFY `id_transport` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
