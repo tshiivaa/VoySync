@@ -1,16 +1,16 @@
 <?php
     class Mission
     {
-        private $id_m;
+        private ?int $id_m =null ;
         private $title;
         private $description;
         private $image;
         private $place;
         private $gift_point;
     
-        public function __construct( $id_m,$title ,$description ,$image,$place , $gift_point)
+        public function __construct( $title ,$description ,$image,$place , $gift_point)
         {
-            $this->id_m=$id_m;
+            $this->id_m=null;
             $this->title=$title;
             $this->description=$description;
             $this->image=$image; 

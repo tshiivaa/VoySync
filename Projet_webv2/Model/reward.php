@@ -1,5 +1,5 @@
 <?php
-    class Reward
+    class reward
     {
         private $id_r;
         private $type;

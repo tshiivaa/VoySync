@@ -1,22 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-  <title>Voysync</title>
-  <link rel="stylesheet" href="../View/CSS/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <title>Voysync</title>
+    <link rel="stylesheet" href="CSS/style.css" type="text/css">
 </head>
-
 <body>
-  <nav class="navbar">
+    <nav class="navbar">
     <div class="logo_item">
       <i class="bx bx-menu" id="sidebarOpen"></i>
       <img src="images/logo.png" alt="">Voysync
     </div>
     <div class="search_bar">
-      <input type="text" placeholder="Search">
+        <input type="text" placeholder="Search">
     </div>
     <div class="navbar_content">
       <i class="bi bi-grid"></i>
@@ -113,8 +111,45 @@
         </div>
       </div>
     </div>
-  </nav>
-  <script src="script.js"></script>
-</body>
+    </nav>
+  <div class="main_body">
+    <div class="tab">
+      <a href="javascript:void(0)" class="tablinks" onclick="openTab(event, 'Home')">Home</a>
+      <!-- Onglet pour la création de missions -->
+      <a href="javascript:void(0)" class="tablinks active" onclick="openTab(event, 'Missions')">Missions</a>
+      <!-- Onglet pour les awards -->
+      <a href="javascript:void(0)" class="tablinks" onclick="openTab(event, 'Awards')">Awards</a>
+    </div> 
 
+    <div id="Home" class="tabcontent">
+      <h2>aa</h2>
+    </div>
+
+    <div id="Missions" class="tabcontent">
+      
+    </div>
+    <div id="Rewards" class="tabcontent">
+
+    </div>
+ 
+        
+    </div>
+        <script>
+            function openTab(evt, tabName) {
+                var i, tabcontent, tablinks;
+                tabcontent = document.getElementsByClassName("tabcontent");
+                for (i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].style.display = "none";
+                }
+                tablinks = document.getElementsByClassName("tablinks");
+                for (i = 0; i < tablinks.length; i++) {
+                    tablinks[i].className = tablinks[i].className.replace(" active", "");
+                }
+                document.getElementById(tabName).style.display = "block";
+                evt.currentTarget.className += " active";
+            }
+        </script>
+        <script src="script.js"></script>
+
+</body>
 </html>

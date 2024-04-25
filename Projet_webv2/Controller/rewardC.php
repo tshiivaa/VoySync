@@ -1,19 +1,9 @@
 <?php
-require_once '../config.php';
+include '../config.php';
+include '../Model/reward.php';
 
 class RewardC
 {
-    public function listReward()
-    {
-        $sql = "SELECT * FROM reward;";
-        $db = config::getConnexion();
-        try {
-            $liste = $db->query($sql);
-            return $liste;
-        } catch (Exception $e) {
-            die('Error:' . $e->getMessage());
-        }
-    }
     function deleteReward($id_r)
     {
         $sql = "DELETE FROM `reward` id_r WHERE = :id_r";
@@ -49,17 +39,26 @@ class RewardC
 
     function updateReward($reward, $id_r)
     {
-        $sql = "UPDATE reward SET type = :type , description = :description , prix_coins = :prix_coins WHERE id_r = :id_r";
-        $db = config::getConnexion();
         try {
-            $query = $db->prepare($sql);
+            $db = config::getConnexion();
+            $query = $db->prepare(
+                'UPDATE `reward` SET 
+                    type = :type, 
+                    description = :description, 
+                    prix_coins = :prix_coins, 
+                WHERE id_r = :id_r'
+            );
             $query->execute([
                 'type' => $reward->getType(),
                 'description' => $reward->getDescription(),
                 'prix_coins' => $reward->getPrixCoins(),
             ]);
+            $rowCount = $query->rowCount();
+            echo $rowCount . " records UPDATED successfully <br>";
+            return $rowCount;
         } catch (PDOException $e) {
-            throw new Exception('Error updating reward: ' . $e->getMessage());
+            echo 'Error: ' . $e->getMessage();
+            return -1;
         }
     }
 
