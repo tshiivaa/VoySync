@@ -160,12 +160,31 @@ $logements = $logementC->listLogement();
                 <!-- Add image display if needed -->
                 <div class="button-container">
                     
-                    <a href="UpdateLogement.php?idlogement=<?= $logement['IDlogement']; ?>" class="btn">Modifier</a>
-                    <form method="post" action="DeleteLogement.php">
-                        <!-- Add a hidden input field to pass the IDlogement -->
+                    <a href="#" class="btn" onclick="return confirmModification('<?= $logement['IDlogement']; ?>')">Modifier</a>                    <!-- formulaire de suppression avec alerte de confirmation -->
+                    <form method="post" action="DeleteLogement.php" onsubmit="return confirmSuppression()">
+                        <!-- Champ caché pour passer l'ID du logement -->
                         <input type="hidden" name="IDlogement" value="<?= $logement['IDlogement']; ?>">
+                        <!-- Bouton de suppression avec alerte -->
                         <button type="submit" class="btn btn-danger">Supprimer</button>
                     </form>
+
+                    <!-- script JavaScript pour l'alerte de confirmation -->
+                    <script>
+                    function confirmSuppression() {
+                        // Demander à l'utilisateur s'il veut vraiment supprimer l'élément
+                        return confirm("Voulez-vous vraiment supprimer cette offre ?");
+                    }
+                    function confirmModification(idlogement) {
+                    // Demander confirmation avant de modifier
+                    if (confirm("Voulez-vous vraiment modifier cette offre ?")) {
+                        // Si l'utilisateur confirme, rediriger vers la page de modification
+                        window.location.href = 'UpdateLogement.php?idlogement=' + idlogement;
+                    }
+                    // Sinon, rester sur la page actuelle
+                    return false;
+                    }
+                    </script>
+
                 </div>
             </div>
         <?php endforeach; ?>

@@ -33,7 +33,7 @@
 
 .vol .btn {
     padding: 8px 16px;
-    background-color: #1c4771;
+    background-color: #1e558d;
     color: white;
     border: none;
     border-radius: 4px;
@@ -44,22 +44,22 @@
 }
 
 .vol .btn:hover {
-    background-color: #1c4771;
+    background-color: #1e558d;
     text-decoration: none;
 }
 
 .vol .btn.btn-danger {
-    background-color: #1c4771;
+    background-color: #1e558d;
 }
 
 .vol .btn.btn-danger:hover {
-    background-color: #1c4771;
+    background-color: #1e558d;
 }
 
 
 .Ajouter .btn.btn-ajouter {
     padding: 8px 16px;
-    background-color: #1c4771; /* Background color */
+    background-color: #1e558d; /* Background color */
     color: white; /* Text color */
     border: none; /* Remove border */
     border-radius: 4px; /* Rounded corners */
@@ -70,7 +70,7 @@
 }
 
 .Ajouter .btn.btn-ajouter:hover {
-    background-color: #1c4771; /* Hover background color */
+    background-color: #1e558d; /* Hover background color */
     text-decoration: none;
 }
 

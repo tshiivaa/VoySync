@@ -162,12 +162,33 @@ $vols = $volC->listVols();
                 <!-- Add buttons for actions -->
                 <div class="button-container">
                     
-                    <a href="UpdateVol.php?IDvol=<?= $vol['IDvol']; ?>" class="btn">Modifier</a>
-                    <form method="post" action="DeleteVol.php">
-                        <!-- Add a hidden input field to pass the IDvol -->
+                    <!-- Bouton avec confirmation avant modification -->
+                    <a href="#" class="btn" onclick="return confirmModificationVol('<?= $vol['IDvol']; ?>')">Modifier</a>
+                    <!-- formulaire de suppression avec alerte de confirmation -->
+                    <form method="post" action="DeleteVol.php" onsubmit="return confirmSuppressionVol()">
+                        <!-- Champ caché pour passer l'ID du vol -->
                         <input type="hidden" name="IDvol" value="<?= $vol['IDvol']; ?>">
+                        <!-- Bouton de suppression avec alerte -->
                         <button type="submit" class="btn btn-danger">Supprimer</button>
                     </form>
+
+                    <!-- script JavaScript pour l'alerte de confirmation -->
+                    <script>
+                    function confirmSuppressionVol() {
+                        // Demander à l'utilisateur s'il veut vraiment supprimer le vol
+                        return confirm("Voulez-vous vraiment supprimer ce vol ?");
+                    }
+                    function confirmModificationVol(IDvol) {
+                    // Demander confirmation avant de modifier le vol
+                    if (confirm("Voulez-vous vraiment modifier ce vol ?")) {
+                        // Si l'utilisateur confirme, rediriger vers la page de modification avec l'ID du vol
+                        window.location.href = 'UpdateVol.php?IDvol=' + IDvol;
+                    }
+                    // Si l'utilisateur annule, rester sur la page actuelle
+                    return false;
+                    }
+                    </script>
+
                 </div>
             </div>
                 
