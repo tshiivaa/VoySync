@@ -53,7 +53,7 @@ if (array_key_exists('connect', $_POST)) {
                 <input type="submit" name="connect" value="Connexion" class="btn solid"/>
 
                 <div class="col-md-6">
-                    <a href="">I forgot my password</a>
+                    <a href="forgot-password.php">I forgot my password</a>
                 </div>
 
                 <p class="social-text">Ou connectez-vous avec les plateformes sociales</p>
