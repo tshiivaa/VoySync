@@ -1,6 +1,7 @@
 <?php
 include_once '../configPW.php';
-
+include_once 'VolC.php';
+include_once '../model/Vol.php';
 class LogementC
 {
     public function listLogement()
@@ -28,15 +29,24 @@ class LogementC
         }
     }
 
-    public function addLogement($logement)
-{
-    $sql = "INSERT INTO logement (IDLogement, Nom, Type, Adresse, Prix, Description, Capacite, Evaluation, Disponibilite)  
-            VALUES (:IDLogement, :Nom, :Type, :Adresse, :Prix, :Description, :Capacite, :Evaluation, :Disponibilite)";
+    
+    public function addLogement($logement) {
+        $sqlCheck = "SELECT COUNT(*) FROM vol WHERE IDvol = :IDvol";
     $db = config::getConnexion();
     try {
+        // Vérifier si l'IDvol existe dans la table vol
+        $queryCheck = $db->prepare($sqlCheck);
+        $queryCheck->execute(['IDvol' => $logement->getIDvol()]);
+        $count = $queryCheck->fetchColumn();
+        if ($count == 0) {
+            throw new Exception("L'IDvol n'existe pas dans la table vol");
+        }
+        // Si l'IDvol est valide, procéder à l'ajout du logement
+        $sql = "INSERT INTO logement (IDLogement, Nom, Type, Adresse, Prix, Description, Capacite, Evaluation, Disponibilite, IDvol)  
+                VALUES (:IDLogement, :Nom, :Type, :Adresse, :Prix, :Description, :Capacite, :Evaluation, :Disponibilite, :IDvol)";
         $query = $db->prepare($sql);
         $query->execute([
-            'IDLogement' => $logement->getIdLogement(), 
+            'IDLogement' => $logement->getIDlogement(),
             'Nom' => $logement->getNom(),
             'Type' => $logement->getType(),
             'Adresse' => $logement->getAdresse(),
@@ -44,12 +54,14 @@ class LogementC
             'Description' => $logement->getDescription(),
             'Capacite' => $logement->getCapacite(),
             'Evaluation' => $logement->getEvaluation(),
-            'Disponibilite' => $logement->getDisponibilite()
+            'Disponibilite' => $logement->getDisponibilite(),
+            'IDvol' => $logement->getIDvol()
         ]);
-    } catch (Exception $e) {
-        throw new Exception('Error adding logement: ' . $e->getMessage());
     }
-}
+    catch (Exception $e) {
+        throw new Exception('Erreur lors de l ajout du logement : ' . $e->getMessage());
+    }
+    }
 
 
     public function updateLogement($logement, $IDlogement)
@@ -70,7 +82,9 @@ class LogementC
                 'Evaluation' => $logement->getEvaluation(),
                 'Disponibilite' => $logement->getDisponibilite()
             ]);
-        } catch (Exception $e) {
+        } 
+        catch (Exception $e) 
+        {
             throw new Exception('Error updating logement: ' . $e->getMessage());
         }
     }

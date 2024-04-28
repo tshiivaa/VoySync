@@ -10,6 +10,7 @@ class Logement
     private $Capacite;
     private $Evaluation;
     private $Disponibilite;
+    private $IDvol;
 
     function getIDlogement()
     {
@@ -100,9 +101,14 @@ class Logement
     {
         $this->Disponibilite = $Disponibilite;
     }
+    function getIDvol() { // Ajout de la méthode getIDvol
+        return $this->IDvol;
+    }
 
-    function __construct($IDlogement, $Nom, $Type, $Adresse, $Prix, $Description, $Capacite, $Evaluation, $Disponibilite)
-    {
+    function setIDvol($IDvol) { // Ajout de la méthode setIDvol
+        $this->IDvol = $IDvol;
+    }
+    function __construct($IDlogement, $Nom, $Type, $Adresse, $Prix, $Description, $Capacite, $Evaluation, $Disponibilite, $IDvol = null) {
         $this->IDlogement = $IDlogement;
         $this->Nom = $Nom;
         $this->Type = $Type;
@@ -112,6 +118,7 @@ class Logement
         $this->Capacite = $Capacite;
         $this->Evaluation = $Evaluation;
         $this->Disponibilite = $Disponibilite;
+        $this->IDvol = $IDvol; // Initialiser IDvol
     }
 }
 ?>

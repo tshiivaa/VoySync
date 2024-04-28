@@ -147,52 +147,61 @@ $logements = $logementC->listLogement();
 
   <div class="amazing-deals">
     <div class="container">
-      <div class="row">
-        <div class="col-lg-6 offset-lg-3">
-          <div class="section-heading text-center">
-            <h2>Voici les offres de logement disponible</h2>
-            <p>Faite un tour pour voir nos offres et reserver un logement dans un endroit magique</p>
-          </div>
-        </div>
-        <!-- first deal container -->
-        <div class="col-lg-6 col-sm-6">
-          <div class="item">
-            <div class="row">
-              <!-- New code for displaying logements -->
-              <?php foreach ($logements as $logement): ?>
-              <div class="col-lg-6">
-                <div class="image">
-                  <img src="http://localhost/Projet2.0/Front/view/images/deals-01.jpg" alt="">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3">
+                <div class="section-heading text-center">
+                    <h2>Voici les offres de logement disponibles</h2>
+                    <p>Faites un tour pour voir nos offres et réserver un logement dans un endroit magique.</p>
                 </div>
-              </div>
-              <div class="col-lg-6 align-self-center">
-                <div class="content">
-                  
-                  <!-- Logement details -->
-                  <h4><?= $logement['Nom']; ?> - <?= $logement['Adresse']; ?></h4>
-                                <p><?= $logement['Description']; ?></p>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <i class="fa fa-tag"></i>
-                                        <span class="list"><?= $logement['Type']; ?></span>
+            </div>
+        </div>
+
+        <div class="row">
+            <?php $i = 0; ?>
+            <?php foreach ($logements as $logement): ?>
+                <!-- Start a new row every two items -->
+                <?php if ($i % 2 == 0 && $i != 0): ?>
+                    </div>
+                    <div class="row">
+                <?php endif; ?>
+                
+                <div class="col-lg-6 col-sm-6">
+                    <div class="item">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="image">
+                                    <img src="http://localhost/Projet2.0/Front/view/images/deals-01.jpg" alt="">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 align-self-center">
+                                <div class="content">
+                                    <h4><?= $logement['Nom']; ?> - <?= $logement['Adresse']; ?></h4>
+                                    <p><?= $logement['Description']; ?></p>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <i class="fa fa-tag"></i>
+                                            <span class="list"><?= $logement['Type']; ?></span>
+                                        </div>
+                                        <div class="col-6">
+                                            <i class="fa fa-dollar-sign"></i>
+                                            <span class="list"><?= $logement['Prix']; ?>€</span>
+                                        </div>
                                     </div>
-                                    <div class="col-6">
-                                        <i class="fa fa-dollar-sign"></i>
-                                        <span class="list"><?= $logement['Prix']; ?>€</span>
+                                    <div class="main-button">
+                                        <a href="reservation.html">Réserver</a>
                                     </div>
                                 </div>
-                  <div class="main-button">
-                    <a href="reservation.html">Reserver</a>
-                  </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <?php endforeach; ?>
+
+                <?php $i++; ?>
+            <?php endforeach; ?>
         </div>
     </div>
 </div>
+
         <!-- <div class="col-lg-6 col-sm-6"> 
           <div class="item">
             <div class="row">
