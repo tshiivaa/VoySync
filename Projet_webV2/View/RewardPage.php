@@ -1,50 +1,21 @@
 <?php
-include '../Controller/MissionC.php';
-include '../Model/Mission.php';
+include '../Controller/RewardC.php';
+include '../Model/Reward.php';
 
-$MissionC = new MissionC();
-
-if (isset($_POST['submit'])) {
-  // Récupérer les données du formulaire
-  $title = $_POST['title'];
-  $description = $_POST['description'];
-  $place = $_POST['place'];
-  $gift_point = $_POST['gift_point'];
-
-  // Récupérer les données de l'image uploadée
-  $imageM = $_FILES['imageM'];
-  $imageName = $imageM['name'];
-  $imageTmpName = $imageM['tmp_name'];
-  $imageError = $imageM['error'];
-
-  if ($imageError === 0) {
-      $upload_image = 'images/' . $imageName;
-      move_uploaded_file($imageTmpName, $upload_image);
-
-      $mission = new Mission( 
-          $title,
-          $description,
-          $upload_image,
-          $place,
-          $gift_point,
-          null,
-          null
-      );
-
-      // Ajouter la mission à la base de données
-      $missionController = new MissionC();
-      $missionController->addMission($mission);
-
-      // Rediriger vers une autre page en cas de succès
-      header('Location: MissionPage.php');
-      exit(); // Arrêter l'exécution ultérieure
-  } else {
-      // Gérer les erreurs d'upload d'image
-      die('Error uploading image.');
-  }
+$RewardC = new RewardC();
+if (isset($_POST['id_r'])) {
+  // Vérifier si le champ 'delete_id' est défini pour une suppression
+  $id_r = $_POST['id_r'];
+  
+  // Appeler la méthode de suppression dans le contrôleur
+  $RewardC->deleteReward($id_r);
+  
+  // Rediriger vers une autre page ou afficher un message de confirmation
+  header("Location: RewardPage.php");
+  exit();
 }
+$rewards = $RewardC->listReward();
 ?>
-
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -163,48 +134,60 @@ if (isset($_POST['submit'])) {
     </div>
     </nav>
   <div class="main_body">
-  <div class="tabs">
-			 <input type="radio" name="tabs" id="tab1" >
+    <div class="tabs">
+			 <input type="radio" name="tabs" id="tab1"  >
 			 <label for="tab1">
-				  <a  href="MissionPage.php" class="icon home"></a><span>Home</span>
+				  <a  href="HomePage.php" class="icon home"></a><span>Home</span>
 			 </label>
-			 <input type="radio" name="tabs" id="tab2"  checked>
+			 <input type="radio" name="tabs" id="tab2" >
 			 <label for="tab2">
 				  <a href="MissionPage.php" class="icon missionimg"></a><span>Mission</span>
 			 </label>
-			 <input type="radio" name="tabs" id="tab3">
+			 <input type="radio" name="tabs" id="tab3"checked>
 			 <label for="tab3">
 				  <a href="RewardPage.php" class="icon reward"></a><span>Reward</span>
 			 </label>
     </div>
      <br> <br>
-    <div id="Missions" class="tabcontent">
-    <div class="container">
-      <h2>Ajouter mission</h2>
-      <form id="missionForm" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
-            
-            <label for="title">Titre:</label><br>
-            <input type="text" id="title" name="title"  ><br>
-
-            <label for="description">Description:</label><br>
-            <textarea id="description" name="description" ></textarea><br>
-
-            <label for="imageM">Image :</label>
-            <input type="file" id="imageM" name="imageM" accept="image/*" ><br>
-            
-            <label for="place">Lieu:</label><br>
-            <input type="text" id="place" name="place"  ><br>
-            
-            <label for="gift_posint">Gift Point:</label><br>
-            <input type="number" id="gift_point" name="gift_point"  ><br>
-            <!-- Bouton de soumission -->
-            <button type="submit" name="submit">Ajouter</button>
-        </form>
+    <div id="Rewards" class="tabcontent">
+      <div>
+				  <a href="CreateReward.php" class="btn">Ajouter Reward</a>
+      </div>
+      <br>
+      <div>
+        <h2>Liste des rewards</h2>
+          <?php 
+          $nbr=0;
+          foreach ($rewards as $reward) {
+            if ($nbr % 3 ==0) {
+              echo '</div><div class="reward">';}
+          ?>
+          <div class="article">
+            <center>
+            <img class="card-img-top" src="<?php echo $reward['image']; ?>" alt="Image de l'article">
+            <h4><?php echo $reward['title']; ?></h4>
+            <p><strong>Type :</strong> <?php echo $reward['type']; ?></p>
+            <p><strong>Description :</strong> <?php echo $reward['description']; ?></p>
+            <p><strong>Place:</strong> <?php echo $reward['place']; ?></p>
+            <p><strong>Prix:</strong> <?php echo $reward['prix_coins']; ?></p>
+            <div class="button-container">     
+              <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>" onsubmit="return confirm('Do you want to delete this reward ?');">
+                <input type="hidden" name="id_r" value="<?php echo $reward['id_r']; ?>">
+                <button class="btn btn-danger" type="submit" name="delete" >Delete</button>
+              </form>
+              <a class="btn" href="UpdateReward.php?id_r=<?= $reward['id_r']; ?>" role="button">Update</a>          
+            </div>
+            </center>
+          </div>   
+          <?php
+            $nbr++;
+            }
+          ?>
+      </div> 
     </div>
-    </div>
-        
-    </div>
+  </div>
         <script>
+        
             function openTab(evt, tabName) {
                 var i, tabcontent, tablinks;
                 tabcontent = document.getElementsByClassName("tabcontent");
@@ -217,9 +200,14 @@ if (isset($_POST['submit'])) {
                 }
                 document.getElementById(tabName).style.display = "block";
                 evt.currentTarget.className += " active";
+                document.getElementById('btnAjouter').addEventListener('click', function() 
+                {
+                  window.location.href = 'CreateReward.php';
+                });
             }
         </script>
-        <script src="js/script.js"></script>
+        <script src="js/script.js"></script>        
 
+        
 </body>
 </html>

@@ -137,7 +137,7 @@ $missions = $MissionC->listMission();
     <div class="tabs">
 			 <input type="radio" name="tabs" id="tab1"  >
 			 <label for="tab1">
-				  <a  href="MissionPage.php" class="icon home"></a><span>Home</span>
+				  <a  href="HomePage.php" class="icon home"></a><span>Home</span>
 			 </label>
 			 <input type="radio" name="tabs" id="tab2" checked>
 			 <label for="tab2">
@@ -151,7 +151,7 @@ $missions = $MissionC->listMission();
      <br> <br>
     <div id="Missions" class="tabcontent">
       <div>
-				  <a href="CreateMission.php" class="btn">Create Mission</a>
+				  <a href="CreateMission.php" class="btn">Ajouter Mission</a>
       </div>
       <br>
       <div>
@@ -163,7 +163,7 @@ $missions = $MissionC->listMission();
               echo '</div><div class="mission">';}
           ?>
           <div class="article">
-            <img class="card-img-top" src="<?php echo $mission['image']; ?>" alt="Image de l'article">
+            <center><img class="card-img-top" src="<?php echo $mission['imageM']; ?>" alt="Image de l'article" maxlength="200" width="200">
             <h4><?php echo $mission['title']; ?></h4>
             <p><strong>Description :</strong> <?php echo $mission['description']; ?></p>
             <p><strong>Place:</strong> <?php echo $mission['place']; ?></p>
@@ -174,7 +174,7 @@ $missions = $MissionC->listMission();
                 <button class="btn btn-danger" type="submit" name="delete" >Delete</button>
               </form>
               <a class="btn" href="UpdateMission.php?id_m=<?= $mission['id_m']; ?>" role="button">Update</a>          
-            </div>
+            </div></center>
           </div>   
           <?php
             $nbr++;
@@ -199,12 +199,11 @@ $missions = $MissionC->listMission();
                 evt.currentTarget.className += " active";
                 document.getElementById('btnAjouter').addEventListener('click', function() 
                 {
-                  window.location.href = 'AjoutMission.php';
+                  window.location.href = 'CreateMission.php';
                 });
             }
         </script>
         <script src="js/script.js"></script>        
-        <script src="js/deleteJS.js"></script>
 
         
 </body>

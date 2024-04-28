@@ -1,12 +1,22 @@
 <?php
-include '../config.php';
-include '../Model/reward.php';
+require_once '../config.php';
 
 class RewardC
 {
+    public function listReward()
+    {
+        $sql = "SELECT * FROM reward;";
+        $db = config::getConnexion();
+        try {
+            $liste = $db->query($sql);
+            return $liste;
+        } catch (Exception $e) {
+            die('Error:' . $e->getMessage());
+        }
+    }
     function deleteReward($id_r)
     {
-        $sql = "DELETE FROM `reward` id_r WHERE = :id_r";
+        $sql = "DELETE FROM reward  WHERE id_r = :id_r";
         $db = config::getConnexion();
         $req = $db->prepare($sql);
         $req->bindValue(':id_r', $id_r);
@@ -22,20 +32,26 @@ class RewardC
 
     function addReward($reward)
     {
-        $sql = "INSERT INTO `reward` (type, description, prix_coins)
-                VALUES (:type, :description, :prix_coins)";
+        $sql = "INSERT INTO reward (id_r, title, type, image, description, place, prix_coins)
+                VALUES (:id_r, :title, :type, :image, :description, :place, :prix_coins)";
         $db = config::getConnexion();
         try {
             $query = $db->prepare($sql);
             $query->execute([
-                'type' => $reward->getType(),
-                'description' => $reward->getDescription(),
-                'prix_coins' => $reward->getPrixCoins(),
+                "id_r" => $reward->getIdR(),
+                "title" => $reward->getTitle(),
+                "type" => $reward->getType(),
+                "image" => $reward->getImage(),
+                "description" => $reward->getDescription(),
+                "place" => $reward->getPlace(),
+                "prix_coins" => $reward->getPrixCoins(),
             ]);
+            echo "Reward added successfully.";
         } catch (Exception $e) {
             echo 'Error: ' . $e->getMessage();
         }
     }
+
 
     function updateReward($reward, $id_r)
     {
@@ -43,14 +59,21 @@ class RewardC
             $db = config::getConnexion();
             $query = $db->prepare(
                 'UPDATE `reward` SET 
-                    type = :type, 
-                    description = :description, 
-                    prix_coins = :prix_coins, 
+                    title = :title,
+                    type = :type,
+                    image = :image, 
+                    description = :description,
+                    place = :place, 
+                    prix_coins = :prix_coins
                 WHERE id_r = :id_r'
             );
             $query->execute([
+                'id_r'=> $reward->getIdR(),
+                'title'=> $reward->getTitle(),
                 'type' => $reward->getType(),
+                'image'=> $reward->getImage(),
                 'description' => $reward->getDescription(),
+                'place'=> $reward->getPlace(),
                 'prix_coins' => $reward->getPrixCoins(),
             ]);
             $rowCount = $query->rowCount();

@@ -9,6 +9,7 @@ if( isset($_GET['id_m'])) {
     $mission= $MissionC->showMission($id_m);
     if(!$mission  || !isset($mission['title']) || !isset($mission['description']) || !isset($mission['place']) || !isset($mission['gift_point'])){
       echo "mission post not found.";
+    
         exit;
     }
   } else {
@@ -26,7 +27,7 @@ if(isset($_POST['title']) &&
         !empty($_POST['place'])&&
         !empty($_POST['gift_point'])) 
       {
-        $img = $_FILES['image'];
+        $img = $_FILES['imageM'];
 
         $imagefilename = $img['name'];
         $imagefileerror = $img['error'];
@@ -50,10 +51,12 @@ if(isset($_POST['title']) &&
       $_POST["description"],
       $upload_image,
       $_POST["place"],
-      $_POST["gift_point"]
+      $_POST["gift_point"],
+      null,
+      null
        // Utiliser le chemin de l'image comme valeur
   );
-  $missionC->updateMission($mission,$id_m);
+  $MissionC->updateMission($mission,$id_m);
 
 header('Location: MissionPage.php');
     exit;
@@ -202,7 +205,7 @@ header('Location: MissionPage.php');
             <input type="text" id="title" name="title" value=<?php echo $mission['title'];?> ><br>
 
             <label for="description">Description:</label><br>
-            <textarea id="description" name="description" ><?php echo $mission['description']; ?></textarea><br>
+            <textarea id="description" name="description" cols="30" rows="3"><?php echo $mission['description']; ?></textarea><br>
 
             <label for="imageM">Image :</label>
             <input type="file" id="imageM" name="imageM" accept="image/*" ><br>
@@ -241,7 +244,6 @@ header('Location: MissionPage.php');
             }
         </script>
         <script src="js/script.js"></script>        
-        <script src="js/deleteJS.js"></script>
 
         
 </body>

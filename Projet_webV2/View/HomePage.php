@@ -1,50 +1,3 @@
-<?php
-include '../Controller/MissionC.php';
-include '../Model/Mission.php';
-
-$MissionC = new MissionC();
-
-if (isset($_POST['submit'])) {
-  // Récupérer les données du formulaire
-  $title = $_POST['title'];
-  $description = $_POST['description'];
-  $place = $_POST['place'];
-  $gift_point = $_POST['gift_point'];
-
-  // Récupérer les données de l'image uploadée
-  $imageM = $_FILES['imageM'];
-  $imageName = $imageM['name'];
-  $imageTmpName = $imageM['tmp_name'];
-  $imageError = $imageM['error'];
-
-  if ($imageError === 0) {
-      $upload_image = 'images/' . $imageName;
-      move_uploaded_file($imageTmpName, $upload_image);
-
-      $mission = new Mission( 
-          $title,
-          $description,
-          $upload_image,
-          $place,
-          $gift_point,
-          null,
-          null
-      );
-
-      // Ajouter la mission à la base de données
-      $missionController = new MissionC();
-      $missionController->addMission($mission);
-
-      // Rediriger vers une autre page en cas de succès
-      header('Location: MissionPage.php');
-      exit(); // Arrêter l'exécution ultérieure
-  } else {
-      // Gérer les erreurs d'upload d'image
-      die('Error uploading image.');
-  }
-}
-?>
-
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -163,12 +116,12 @@ if (isset($_POST['submit'])) {
     </div>
     </nav>
   <div class="main_body">
-  <div class="tabs">
-			 <input type="radio" name="tabs" id="tab1" >
+    <div class="tabs">
+			 <input type="radio" name="tabs" id="tab1"  checked>
 			 <label for="tab1">
-				  <a  href="MissionPage.php" class="icon home"></a><span>Home</span>
+				  <a  href="HomePage.php" class="icon home"></a><span>Home</span>
 			 </label>
-			 <input type="radio" name="tabs" id="tab2"  checked>
+			 <input type="radio" name="tabs" id="tab2" >
 			 <label for="tab2">
 				  <a href="MissionPage.php" class="icon missionimg"></a><span>Mission</span>
 			 </label>
@@ -178,33 +131,11 @@ if (isset($_POST['submit'])) {
 			 </label>
     </div>
      <br> <br>
-    <div id="Missions" class="tabcontent">
-    <div class="container">
-      <h2>Ajouter mission</h2>
-      <form id="missionForm" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
-            
-            <label for="title">Titre:</label><br>
-            <input type="text" id="title" name="title"  ><br>
-
-            <label for="description">Description:</label><br>
-            <textarea id="description" name="description" ></textarea><br>
-
-            <label for="imageM">Image :</label>
-            <input type="file" id="imageM" name="imageM" accept="image/*" ><br>
-            
-            <label for="place">Lieu:</label><br>
-            <input type="text" id="place" name="place"  ><br>
-            
-            <label for="gift_posint">Gift Point:</label><br>
-            <input type="number" id="gift_point" name="gift_point"  ><br>
-            <!-- Bouton de soumission -->
-            <button type="submit" name="submit">Ajouter</button>
-        </form>
-    </div>
-    </div>
-        
-    </div>
+     <h2>Home</h2>
+    
+  </div>
         <script>
+        
             function openTab(evt, tabName) {
                 var i, tabcontent, tablinks;
                 tabcontent = document.getElementsByClassName("tabcontent");
@@ -217,9 +148,11 @@ if (isset($_POST['submit'])) {
                 }
                 document.getElementById(tabName).style.display = "block";
                 evt.currentTarget.className += " active";
+                
             }
         </script>
-        <script src="js/script.js"></script>
+        <script src="js/script.js"></script>        
 
+        
 </body>
 </html>

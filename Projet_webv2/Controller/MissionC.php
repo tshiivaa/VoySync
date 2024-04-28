@@ -34,8 +34,8 @@ class MissionC
 
     public function addMission($mission)
 {
-    $sql = "INSERT INTO mission (id_m, title, description, image, place, gift_point)
-            VALUES (:id_m, :title, :description, :image, :place, :gift_point)";
+    $sql = "INSERT INTO mission (id_m, title, description, imageM, place, gift_point)
+            VALUES (:id_m, :title, :description, :imageM, :place, :gift_point)";
     $db = config::getConnexion();
     try {
         $query = $db->prepare($sql);
@@ -43,7 +43,7 @@ class MissionC
             'id_m' => $mission->getIdM(),
             'title' => $mission->getTitle(),
             'description' => $mission->getDescription(),
-            'image' => $mission->getImage(),
+            'imageM' => $mission->getImageM(),
             'place' => $mission->getPlace(),
             'gift_point' => $mission->getGiftPoint(),
         ]);
@@ -55,22 +55,23 @@ class MissionC
 
     function updateMission($mission, $id_m)
     {
+        $db = config::getConnexion();
+
         try {
-            $db = config::getConnexion();
             $query = $db->prepare(
                 'UPDATE `mission` SET
                     title = :title, 
                     description = :description, 
-                    image = :image, 
-                    place = :place
-                    gift_point = :gift_point, 
+                    imageM = :imageM, 
+                    place = :place,
+                    gift_point = :gift_point
                 WHERE id_m = :id_m'
             );
             $query->execute([
                 'id_m' => $id_m,
                 'title' => $mission->getTitle(),
                 'description' => $mission->getDescription(),
-                'image' => $mission->getImage(),
+                'imageM' => $mission->getImageM(),
                 'place' => $mission->getPlace(),
                 'gift_point' => $mission->getGiftPoint(),
             ]);
@@ -97,5 +98,21 @@ class MissionC
             die('Error: ' . $e->getMessage());
         }
     }
+    public function MissionDone($mission)
+{
+    $sql = "INSERT INTO mission (imageUS,rate)
+            VALUES (:imageUS,:rate)";
+    $db = config::getConnexion();
+    try {
+        $query = $db->prepare($sql);
+        $query->execute([
+            'imageUS' => $mission->getImageUS(),
+            'rate'=>$mission->getRate()
+        ]);
+    } catch (Exception $e) {
+        echo 'Error: ' . $e->getMessage();
+    }
+}
+    
 }
 ?>
