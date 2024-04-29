@@ -2612,3 +2612,21 @@ body {
 .plan .button:focus {
   background-color: #1e558d;
 }
+.back-button {
+  margin-top: 10px;
+  top: 20px;
+  left: 20px;
+  color:#1e558d;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.back-button i {
+  font-size: 24px;
+  color: #333; /* Adjust color as needed */
+}
+
+.back-button:hover i {
+  color: #555; /* Adjust hover color as needed */
+}

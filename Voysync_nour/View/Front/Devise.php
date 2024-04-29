@@ -1,5 +1,4 @@
-
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 
 <head>
@@ -22,9 +21,9 @@
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
   <title>Voysync</title>
-  <link rel="stylesheet" href="../CSS/style.css" type="text/css">
-  <link rel="stylesheet" href="../CSS/devise.css" type="text/css">
-  <link rel="stylesheet" href="../CSS/expanding.css" type="text/css">
+  <link rel="stylesheet" href="../../CSS/style.css" type="text/css">
+  <link rel="stylesheet" href="../../CSS/devise.css" type="text/css">
+  <link rel="stylesheet" href="../../CSS/expanding.css" type="text/css">
   <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
   <!--
@@ -83,8 +82,14 @@
   <!-- ***** Header Area End ***** -->
 
   <!-- ***** Main Banner Area Start ***** -->
-<div class="main_body_f">
-<div class="main_body">
+  <button class="back-button" style="margin-top:90px; margin-left:20px;" onclick="goBack()">
+    <i class='bx bx-arrow-back'></i> <!-- Replace bx-arrow-back with the Boxicons class you want to use -->
+  </button>
+  <div class="headerdevise">
+      <h4>Souhaitez-vous avoir une conversion de devise instantanée?</h4>
+      <h5>Utilisez notre convertisseur de devise.</h5>
+    </div>
+  <div class="main_body_f">
     <div class="wrapper">
       <header>Convertisseur Devise</header>
       <form action="#">
@@ -96,7 +101,7 @@
           <div class="from">
             <p>De</p>
             <div class="select-box">
-              <img src="https://flagcdn.com/48x36/us.png" style="max-width: 21px;" alt="flag">
+              <img src="https://flagcdn.com/48x36/us.png" alt="flag">
               <select> <!-- Options tag are inserted from JavaScript --> </select>
             </div>
           </div>
@@ -104,7 +109,7 @@
           <div class="to">
             <p>à</p>
             <div class="select-box">
-              <img src="https://flagcdn.com/48x36/np.png" style="max-width: 21px;" alt="flag">
+              <img src="https://flagcdn.com/48x36/np.png" alt="flag">
               <select> <!-- Options tag are inserted from JavaScript --> </select>
             </div>
           </div>
@@ -115,8 +120,11 @@
       </form>
     </div>
 
+    <script src="../../js/country-list.js"></script>
+    <script src="../../js/script1.js"></script>
+
   </div>
-</div>
+  </div>
   <div class="call-to-action">
     <div class="container">
       <div class="row">
@@ -155,7 +163,6 @@
   <script src="../../js/tabs.js"></script>
   <script src="../../js/popup.js"></script>
   <script src="../../js/custom.js"></script>
-  <script src="../../js/script1.js"></script>
 
   <script>
     function bannerSwitcher() {
@@ -170,6 +177,9 @@
       clearInterval(bannerTimer);
       bannerTimer = setInterval(bannerSwitcher, 5000)
     });
+    function goBack() {
+      window.history.back();
+    }
   </script>
 
 </body>

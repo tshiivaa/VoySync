@@ -57,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
   exit();
 }
-$listeDepense= $depenseC->listDepenses();
+$listeDepense = $depenseC->listDepenses();
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -84,12 +84,6 @@ $listeDepense= $depenseC->listDepenses();
   <link rel="stylesheet" href="../../CSS/budget.css">
   <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-  <!--
-
-
-  https://templatemo.com/tm-580-woox-travel
-
-  -->
 
 </head>
 
@@ -140,25 +134,29 @@ $listeDepense= $depenseC->listDepenses();
   <!-- ***** Header Area End ***** -->
 
   <!-- ***** Main Banner Area Start ***** -->
+  <button class="back-button" onclick="goBack()">
+    <i class='bx bx-arrow-back' style="margin-top:90px; margin-left:20px;"></i>
+    <!-- Replace bx-arrow-back with the Boxicons class you want to use -->
+  </button>
   <div class="main_body_f">
-  <h1 style="text-align: center; margin-bottom: 20px; margin-top: 20px;">Vos Budgets</h1>
+    <h1 style="text-align: center; margin-bottom: 20px; margin-top: 20px;">Vos Budgets</h1>
     <section class="sliding-cards">
-        <div class="card-container">
+      <div class="card-container">
         <div class="card" onclick="handleTotalBudgetCardClick()">Budget Total</div>
         <?php
-// Get the unique locations from the database
-$uniqueLocations = $depenseC->listUniqueLocations();
-// Loop through each unique location and create a card for it
-foreach ($uniqueLocations as $location) {
-    // Output the card with onclick attribute calling the handleLocationCardClick function
-    echo '<div class="card" onclick="handleLocationCardClick(\'' . $location . '\')">' . $location . '</div>';
-}
-?>
+        // Get the unique locations from the database
+        $uniqueLocations = $depenseC->listUniqueLocations();
+        // Loop through each unique location and create a card for it
+        foreach ($uniqueLocations as $location) {
+          // Output the card with onclick attribute calling the handleLocationCardClick function
+          echo '<div class="card" onclick="handleLocationCardClick(\'' . $location . '\')">' . $location . '</div>';
+        }
+        ?>
 
 
-        </div>
-        <button class="prev-btn">Prev</button>
-        <button class="next-btn">Next</button>
+      </div>
+      <button class="prev-btn">Prev</button>
+      <button class="next-btn">Next</button>
     </section>
     <h1 style="text-align:left; margin-bottom: 20px;">Budget de __</h1>
     <div class="budget">
@@ -197,87 +195,89 @@ foreach ($uniqueLocations as $location) {
             </div>
             <div class="actions">
               <!-- Modify button -->
-              <button type="submit" class="modifier-btn">Modifier</button>
+              <button type="submit" class="modifier-btn" onclick="return confirmModify(event)">Modifier</button>
               <input type="hidden" name="id" value="<?= $dep['IDdep'] ?>">
               <!-- Delete button -->
-              <a class="delete-btn" href="deleteD.php?id=<?= $dep['IDdep'] ?>" onclick="return confirmDelete(event)">Supprimer</a>
+              <a class="delete-btn" href="deleteD.php?id=<?= $dep['IDdep'] ?>"
+                onclick="return confirmDelete(event)">Supprimer</a>
             </div>
           </div>
         <?php endforeach; ?>
     </section>
+
+
+    <section id="transactionFormSection">
+      <h2 style="margin: 20px;">Ajout dépense</h2> <!-- Initial header -->
+      <form id="transactionForm" method="POST">
+        <div class="radioun" style="display: none;">
+          <label for="add">
+            <input type="radio" name="action" value="add" id="add" checked>
+            <span>Ajouter</span>
+          </label>
+          <label for="modify">
+            <input type="radio" name="action" value="modify" id="modify">
+            <span>Modifier</span>
+          </label>
+        </div>
+
+        <label for="type">
+          <input type="checkbox" name="type" id="type" />
+          <div class="option">
+            <span>Dépense</span>
+            <span>Revenu</span>
+          </div>
+        </label>
+        <div>
+          <label for="IDdep">Id</label>
+          <input type="number" name="IDdep" id="IDdep" />
+          <input type="hidden" name="id" id="id" value="">
+        </div>
+        <div>
+          <label for="Nom">Nom</label>
+          <input type="text" name="Nom" id="Nom" required />
+        </div>
+        <div>
+          <label for="Montant">Montant</label>
+          <input type="number" name="Montant" id="Montant" value="0" min="-10000000000" step="0.25" required />
+        </div>
+        <div>
+          <label for="Date">Date</label>
+          <input type="date" name="Date" id="Date" required />
+        </div>
+        <div>
+          <label for="Categorie">Catégorie</label>
+          <select name="Categorie" id="Categorie" required>
+            <option value="food">Alimentation</option>
+            <option value="transportation">Transport</option>
+            <option value="entertainment">Divertissement</option>
+            <option value="flight">Documents de vol</option>
+            <option value="accommodation">Logement</option>
+          </select>
+        </div>
+        <div>
+          <label for="Currency">Devise</label>
+          <select name="Currency" id="Currency" required>
+            <option value="USD">USD</option>
+            <option value="EUR">EUR</option>
+            <option value="GBP">GBP</option>
+            <option value="CAD">CAD</option>
+            <option value="JPY">JPY</option>
+            <option value="CHF">CHF</option>
+          </select>
+        </div>
+        <div>
+          <label for="Lieu">Lieu</label>
+          <input type="text" name="Lieu" id="Lieu" list="countries" required />
+          <datalist id="countries">
+            <option value="USA">
+            <option value="Canada">
+              <!-- Other country options -->
+          </datalist>
+        </div>
+        <button type="submit">Soumettre</button>
+      </form>
+    </section>
   </div>
-
-  <section id="transactionFormSection">
-  <h2 style="margin: 20px;">Ajout dépense</h2> <!-- Initial header -->
-  <form id="transactionForm" method="POST">
-    <div class="radioun">
-      <label for="add">
-        <input type="radio" name="action" value="add" id="add" checked>
-        <span>Ajouter</span>
-      </label>
-      <label for="modify">
-        <input type="radio" name="action" value="modify" id="modify">
-        <span>Modifier</span>
-      </label>
-    </div>
-    <label for="type">
-      <input type="checkbox" name="type" id="type" />
-      <div class="option">
-        <span>Dépense</span>
-        <span>Revenu</span>
-      </div>
-    </label>
-    <div>
-      <label for="IDdep">Id</label>
-      <input type="number" name="IDdep" id="IDdep" />
-      <input type="hidden" name="id" id="id" value="">
-    </div>
-    <div>
-      <label for="Nom">Nom</label>
-      <input type="text" name="Nom" id="Nom" required />
-    </div>
-    <div>
-      <label for="Montant">Montant</label>
-      <input type="number" name="Montant" id="Montant" value="0" min="-10000000000" step="0.25" required />
-    </div>
-    <div>
-      <label for="Date">Date</label>
-      <input type="date" name="Date" id="Date" required />
-    </div>
-    <div>
-      <label for="Categorie">Catégorie</label>
-      <select name="Categorie" id="Categorie" required>
-        <option value="food">Alimentation</option>
-        <option value="transportation">Transport</option>
-        <option value="entertainment">Divertissement</option>
-        <option value="flight">Documents de vol</option>
-        <option value="accommodation">Logement</option>
-      </select>
-    </div>
-    <div>
-      <label for="Currency">Devise</label>
-      <select name="Currency" id="Currency" required>
-        <option value="USD">USD</option>
-        <option value="EUR">EUR</option>
-        <option value="GBP">GBP</option>
-        <option value="CAD">CAD</option>
-        <option value="JPY">JPY</option>
-        <option value="CHF">CHF</option>
-      </select>
-    </div>
-    <div>
-      <label for="Lieu">Lieu</label>
-      <input type="text" name="Lieu" id="Lieu" list="countries" required />
-      <datalist id="countries">
-        <option value="USA">
-        <option value="Canada">
-        <!-- Other country options -->
-      </datalist>
-    </div>
-    <button type="submit">Soumettre</button>
-  </form>
-</section>
-
   <div class="call-to-action">
     <div class="container">
       <div class="row">
@@ -319,142 +319,162 @@ foreach ($uniqueLocations as $location) {
   <script src="../../js/expand.js"></script>
   <script src="C:\wamp64\www\Voysync_nour\js\script.js"></script>
   <script>
-     // Get reference to the form section and the form itself
- const formSection = document.getElementById('transactionFormSection');
- const form = document.getElementById('transactionForm');
-
- // Get all "Modifier" buttons
- const modifierButtons = document.querySelectorAll('.modifier-btn');
-
- // Add click event listener to each "Modifier" button
- modifierButtons.forEach(button => {
-   button.addEventListener('click', function() {
-     // Prevent default behavior
-     event.preventDefault();
- 
-     // Change the header text to "Modifier dépense"
-     formSection.querySelector('h2').textContent = 'Modifier dépense';
- 
-     // Get reference to the form section
-     const transactionFormSection = document.getElementById('transactionFormSection');
- 
-     // Scroll to the form section when Modifier button is clicked
-     transactionFormSection.scrollIntoView({ behavior: 'smooth' });
- 
-     // Set the "Modifier" radio button as checked
-     document.getElementById('modify').checked = true;
- 
-     // Retrieve the information of the corresponding expense item
-     const expenseItem = this.closest('.expense-item');
-     const name = expenseItem.querySelector('.name h4').textContent;
-     const amount = expenseItem.querySelector('.details .amount').textContent;
-     const category = expenseItem.querySelector('.details .category').textContent;
-     const date = expenseItem.querySelector('.details p:nth-child(2)').textContent;
-     const currency = expenseItem.querySelector('.details .currency').textContent;
-     const location = expenseItem.querySelector('.details .location').textContent;
-     const id = expenseItem.querySelector('.details p:last-child span').textContent;
- 
-     // Populate the form fields with the retrieved information
-     form.IDdep.value = id;
-     form.id.value = id;
-     form.Nom.value = name;
-     form.Montant.value = amount;
-     form.Date.value = date;
-     form.Categorie.value = category;
-     form.Currency.value = currency;
-     form.Lieu.value = location;
-   });
- });
-
- // Get reference to the button and the header
- const addExpenseBtn = document.getElementById('addExpenseBtn');
- const header = document.querySelector('#transactionFormSection h2');
-
- // Add click event listener to the button
- addExpenseBtn.addEventListener('click', function() {
-   document.getElementById('add').checked = true;
-   // Change the header text back to "Ajouter budget"
-   header.textContent = 'Ajouter budget';
-
-   // Get reference to the form section
-   const transactionFormSection = document.getElementById('transactionFormSection');
-
-   // Scroll to the form section when Ajouter button is clicked
-   transactionFormSection.scrollIntoView({ behavior: 'smooth' });
-   form.IDdep.value = null;
-   form.Nom.value = null;
-   form.Montant.value = null;
-   form.Date.value = null;
-   form.Categorie.value = null;
-   form.Currency.value = null;
-   form.Lieu.value = null;
- });
-
- const prevButton = document.querySelector('.prev-btn');
- const nextButton = document.querySelector('.next-btn');
- const cardContainer = document.querySelector('.card-container');
-
- // Variables to keep track of current position
- let currentPosition = 0;
- const cardWidth = document.querySelector('.card').offsetWidth;
-
- // Function to move cards to the left
- const moveLeft = () => {
-   if (currentPosition < 0) {
-     currentPosition += cardWidth;
-     cardContainer.style.transform = `translateX(${currentPosition}px)`;
-   }
- };
-
- // Function to move cards to the right
- const moveRight = () => {
-   const maxPosition = -(cardContainer.offsetWidth - cardWidth);
-   if (currentPosition > maxPosition) {
-     currentPosition -= cardWidth;
-     cardContainer.style.transform = `translateX(${currentPosition}px)`;
-   }
- };
-
- // Event listeners for prev and next buttons
- prevButton.addEventListener('click', moveLeft);
- nextButton.addEventListener('click', moveRight);
-
-
-// Function to handle click on location card
-function handleLocationCardClick(location) {
- console.log('Clicked on location: ' + location);
- 
- var xhr = new XMLHttpRequest();
- xhr.onreadystatechange = function() {
-   if (xhr.readyState === XMLHttpRequest.DONE) {
-     if (xhr.status === 200) {
-         // Update the expense list with the fetched data
-       document.getElementById("transactionList").innerHTML = xhr.responseText;
-     } else {
-       console.error('Failed to fetch expenses for location: ' + location);
-     }
-   }
- };
- xhr.open("GET", "fetchExpenses.php?location=" + encodeURIComponent(location), true);
- xhr.send();
-}
-
-function handleTotalBudgetCardClick() {
- // Reload the page
- location.reload();
-}
-
-function confirmDelete(event) {
-    // Prompt the user for confirmation
-    if (!confirm("Voulez-vous vraiment supprimer cette dépense ?")) {
-      // If the user cancels, prevent the default link behavior
-      event.preventDefault(); // Prevent the default link behavior
-      return false; // Cancel the action
+    function formatDate(dateString) {
+      const date = new Date(dateString);
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
     }
-    // If the user confirms, continue with the default link behavior
-    return true; // Proceed with the action
-  }
-    </script>
+    // Get reference to the form section and the form itself
+    const formSection = document.getElementById('transactionFormSection');
+    const form = document.getElementById('transactionForm');
+
+    // Get all "Modifier" buttons
+    const modifierButtons = document.querySelectorAll('.modifier-btn');
+
+    // Add click event listener to each "Modifier" button
+    modifierButtons.forEach(button => {
+      button.addEventListener('click', function () {
+        // Prevent default behavior
+        event.preventDefault();
+
+        // Change the header text to "Modifier dépense"
+        formSection.querySelector('h2').textContent = 'Modifier dépense';
+
+        // Get reference to the form section
+        const transactionFormSection = document.getElementById('transactionFormSection');
+
+        // Scroll to the form section when Modifier button is clicked
+        transactionFormSection.scrollIntoView({ behavior: 'smooth' });
+
+        // Set the "Modifier" radio button as checked
+        document.getElementById('modify').checked = true;
+
+        // Retrieve the information of the corresponding expense item
+        const expenseItem = this.closest('.expense-item');
+        const name = expenseItem.querySelector('.name h4').textContent;
+        const amount = expenseItem.querySelector('.details .amount').textContent;
+        const category = expenseItem.querySelector('.details .category').textContent;
+        const date = expenseItem.querySelector('.name p').textContent;
+        const currency = expenseItem.querySelector('.details .currency').textContent;
+        const location = expenseItem.querySelector('.details .location').textContent;
+        const id = expenseItem.querySelector('.details p:last-child span').textContent;
+        const formattedDate = formatDate(date);
+        // Populate the form fields with the retrieved information
+        form.IDdep.value = id;
+        form.id.value = id;
+        form.Nom.value = name;
+        form.Montant.value = amount;
+        form.Date.value = formattedDate;
+        form.Categorie.value = category;
+        form.Currency.value = currency;
+        form.Lieu.value = location;
+      });
+    });
+
+    // Get reference to the button and the header
+    const addExpenseBtn = document.getElementById('addExpenseBtn');
+    const header = document.querySelector('#transactionFormSection h2');
+
+    // Add click event listener to the button
+    addExpenseBtn.addEventListener('click', function () {
+      document.getElementById('add').checked = true;
+      // Change the header text back to "Ajouter budget"
+      header.textContent = 'Ajouter budget';
+
+      // Get reference to the form section
+      const transactionFormSection = document.getElementById('transactionFormSection');
+
+      // Scroll to the form section when Ajouter button is clicked
+      transactionFormSection.scrollIntoView({ behavior: 'smooth' });
+      form.IDdep.value = null;
+      form.Nom.value = null;
+      form.Montant.value = null;
+      form.Date.value = null;
+      form.Categorie.value = null;
+      form.Currency.value = null;
+      form.Lieu.value = null;
+    });
+
+    const prevButton = document.querySelector('.prev-btn');
+    const nextButton = document.querySelector('.next-btn');
+    const cardContainer = document.querySelector('.card-container');
+
+    // Variables to keep track of current position
+    let currentPosition = 0;
+    const cardWidth = document.querySelector('.card').offsetWidth;
+
+    // Function to move cards to the left
+    const moveLeft = () => {
+      if (currentPosition < 0) {
+        currentPosition += cardWidth;
+        cardContainer.style.transform = `translateX(${currentPosition}px)`;
+      }
+    };
+
+    // Function to move cards to the right
+    const moveRight = () => {
+      const maxPosition = -(cardContainer.offsetWidth - cardWidth);
+      if (currentPosition > maxPosition) {
+        currentPosition -= cardWidth;
+        cardContainer.style.transform = `translateX(${currentPosition}px)`;
+      }
+    };
+
+    // Event listeners for prev and next buttons
+    prevButton.addEventListener('click', moveLeft);
+    nextButton.addEventListener('click', moveRight);
+
+
+    // Function to handle click on location card
+    function handleLocationCardClick(location) {
+      console.log('Clicked on location: ' + location);
+
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          if (xhr.status === 200) {
+            // Update the expense list with the fetched data
+            document.getElementById("transactionList").innerHTML = xhr.responseText;
+          } else {
+            console.error('Failed to fetch expenses for location: ' + location);
+          }
+        }
+      };
+      xhr.open("GET", "fetchExpenses.php?location=" + encodeURIComponent(location), true);
+      xhr.send();
+    }
+
+    function handleTotalBudgetCardClick() {
+      // Reload the page
+      location.reload();
+    }
+
+    function confirmDelete(event) {
+      // Prompt the user for confirmation
+      if (!confirm("Voulez-vous vraiment supprimer cette dépense ?")) {
+        // If the user cancels, prevent the default link behavior
+        event.preventDefault(); // Prevent the default link behavior
+        return false; // Cancel the action
+      }
+      // If the user confirms, continue with the default link behavior
+      return true; // Proceed with the action
+    }
+    function goBack() {
+      window.history.back();
+    }
+    function confirmModify(event) {
+      // Prompt the user for confirmation
+      if (!confirm("Voulez-vous vraiment modifier ce document ?")) {
+        // If the user cancels, prevent the default link behavior
+        event.preventDefault(); // Prevent the default link behavior
+        return false; // Cancel the action
+      }
+      // If the user confirms, continue with the default link behavior
+      return true; // Proceed with the action
+    }
+  </script>
 
 
 </body>

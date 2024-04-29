@@ -197,8 +197,9 @@ section {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  margin-left: 25rem;
-  /* Adjust as needed */
+  margin-right: auto; /* Adjust to move the container to the right */
+  margin-left: auto; /* Adjust to move the container to the left */
+  width: 80%; /* Adjust the width as needed */
   border: 1px solid #fff;
   border-radius: 10px;
   background-color: #fff;

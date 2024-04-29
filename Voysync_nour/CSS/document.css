@@ -1,0 +1,51 @@
+/* Form container */
+#documentForm {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    color: #333;
+  }
+  
+  #documentFormSection {
+    color: #333;
+  }
+  
+  /* Adjust form layout */
+  #documentForm div:nth-child(-n + 5) {
+    flex-basis: 50%;
+  }
+  
+  /* General input, select, textarea, and button styles */
+  #documentForm input,
+  #documentForm button,
+  #documentForm select,
+  #documentForm textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-family: "Poppins", sans-serif;
+    font-size: 1rem;
+  }
+  
+  /* Button specific styling */
+  #documentForm button {
+    background-color: var(--blue-color); /* You can define --blue-color elsewhere */
+    color: #fff;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  
+  /* Adjust select and textarea styles */
+  #documentForm select,
+  #documentForm textarea {
+    height: auto;
+  }
+  
+  /* Textarea specific styling */
+  #documentForm textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+  

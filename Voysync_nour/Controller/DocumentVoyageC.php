@@ -1,7 +1,6 @@
 <?php 
-include 'config.php';
 include "C:\wamp64\www\Voysync_nour\Model\DocumentVoyage.php";
-
+include "C:\wamp64\www\Voysync_nour\Controller\DepenseC.php";
 class DocumentVoyageC
 {
     public function listDocumentVoyages()
@@ -33,14 +32,13 @@ class DocumentVoyageC
     function addDocumentVoyage($documentvoyage)
     {
         $sql = "INSERT INTO projetweb.documentvoyage 
-        VALUES (:NumSerie, :Type, :Nom, :DateExp, :LieuSto, :Photodoc)";
+        VALUES (:NumSerie, :Type, :DateExp, :LieuSto, :Photodoc)";
         $db = config::getConnexion();
         try {
             $query = $db->prepare($sql);
             $query->execute([
                 'NumSerie' => $documentvoyage->getNumSerie(),
                 'Type' => $documentvoyage->getType(),
-                'Nom' => $documentvoyage->getNom(),
                 'DateExp' => $documentvoyage->getDateExp(),
                 'LieuSto' => $documentvoyage->getLieuSto(),
                 'Photodoc' => $documentvoyage->getPhotodoc()
@@ -57,25 +55,28 @@ class DocumentVoyageC
             $query = $db->prepare(
                 'UPDATE projetweb.documentvoyage SET 
                     Type = :Type, 
-                    Nom = :Nom, 
                     DateExp = :DateExp, 
                     LieuSto = :LieuSto, 
                     Photodoc = :Photodoc
                 WHERE NumSerie = :NumSerie'
             );
             $query->execute([
-                'NumSerie' => $NumSerie,
                 'Type' => $documentvoyage->getType(),
-                'Nom' => $documentvoyage->getNom(),
                 'DateExp' => $documentvoyage->getDateExp(),
                 'LieuSto' => $documentvoyage->getLieuSto(),
-                'Photodoc' => $documentvoyage->getPhotodoc()
+                'Photodoc' => $documentvoyage->getPhotodoc(),
+                'NumSerie' => $NumSerie // Bind NumSerie parameter
             ]);
-            echo $query->rowCount() . " records UPDATED successfully <br>";
+            $rowCount = $query->rowCount();
+            echo $rowCount . " records UPDATED successfully <br>";
+            return $rowCount;
         } catch (PDOException $e) {
             echo 'Error: ' . $e->getMessage();
+            return -1;
         }
     }
+    
+
 
     function showDocumentVoyage($NumSerie)
     {
@@ -91,5 +92,39 @@ class DocumentVoyageC
             die('Error: ' . $e->getMessage());
         }
     }
+
+    function addDocumentVoyageWithDepense($documentvoyage, $depense)
+    {
+        $db = config::getConnexion();
+        $db->beginTransaction(); // Start a transaction to ensure data integrity
+        
+        try {
+            // Add the expense
+            $depenseC = new DepenseC();
+            $depenseC->addDepense($depense);
+            
+            // Get the ID of the last inserted expense
+            $idDepense = $db->lastInsertId();
+            
+            // Associate the expense ID with the document voyage
+            $sql = "INSERT INTO projetweb.documentvoyage (NumSerie, Type, DateExp, LieuSto, Photodoc, IDdep)
+                    VALUES (:NumSerie, :Type, :DateExp, :LieuSto, :Photodoc, :IDdep)";
+            $query = $db->prepare($sql);
+            $query->execute([
+                'NumSerie' => $documentvoyage->getNumSerie(),
+                'Type' => $documentvoyage->getType(),
+                'DateExp' => $documentvoyage->getDateExp(),
+                'LieuSto' => $documentvoyage->getLieuSto(),
+                'Photodoc' => $documentvoyage->getPhotodoc(),
+                'IDdep' => $idDepense
+            ]);
+            
+            $db->commit(); // Commit the transaction
+        } catch (Exception $e) {
+            $db->rollback(); // Rollback the transaction in case of error
+            echo 'Error: ' . $e->getMessage();
+        }
+    }
+    
 }
 ?>

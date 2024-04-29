@@ -29,12 +29,6 @@ $documentList = $documentC->listDocumentVoyages();
   <link rel="stylesheet" href="../../CSS/budget.css">
   <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-  <!--
-
-
-  https://templatemo.com/tm-580-woox-travel
-
-  -->
 
 </head>
 
@@ -84,6 +78,9 @@ $documentList = $documentC->listDocumentVoyages();
   </header>
   <!-- ***** Header Area End ***** -->
   <!-- ***** Main Banner Area End ***** -->
+  <button class="back-button"style="margin-top:90px; margin-left:20px;" onclick="goBack()">
+      <i class='bx bx-arrow-back'></i> <!-- Replace bx-arrow-back with the Boxicons class you want to use -->
+    </button>
  <div class="main_body_f">
  <section id="documentList">
     <div class="addandtitle">
@@ -107,9 +104,9 @@ $documentList = $documentC->listDocumentVoyages();
                 </div>
                 <div class="actions">
                     <!-- Modify button -->
-                    <button type="submit" class="modifier-btn">Modifier</button>
+                    <button type="submit" id="ModDocumentBtn" class="modifier-btn">Modifier</button>
                     <!-- Delete button -->
-                    <a class="delete-btn" href="deleteDocument.php?id=<?= $document['NumSerie'] ?>">Supprimer</a>
+                    <a class="delete-btn" href="deleteDo.php?id=<?= $document['NumSerie'] ?>" onclick="return confirmDelete(event)">Supprimer</a>
                  <!-- Affich button -->
             <button class="view-photo-btn" onclick="viewPhoto('<?= base64_encode($document['Photodoc']) ?>')">Voir la photo</button>
           </div>
@@ -166,6 +163,7 @@ $documentList = $documentC->listDocumentVoyages();
   <script src="../../js/popup.js"></script>
   <script src="../../js/custom.js"></script>
   <script src="C:\wamp64\www\Voysync_nour\js\script.js"></script>
+  <script src="../../js/document.js"></script>
 
   <script>
     function bannerSwitcher() {
@@ -192,7 +190,19 @@ function closeModal() {
   var modal = document.getElementById('modal-overlay');
   modal.style.display = 'none';
 }
-
+function goBack() {
+  window.history.back();
+}
+function confirmDelete(event) {
+    // Prompt the user for confirmation
+    if (!confirm("Voulez-vous vraiment supprimer ce document ?")) {
+      // If the user cancels, prevent the default link behavior
+      event.preventDefault(); // Prevent the default link behavior
+      return false; // Cancel the action
+    }
+    // If the user confirms, continue with the default link behavior
+    return true; // Proceed with the action
+  }
   </script>
 
 </body>
