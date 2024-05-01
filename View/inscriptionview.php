@@ -28,6 +28,7 @@ if (array_key_exists('connect', $_POST)) {
 
 
     <title>Formulaire de connexion & d'inscription</title>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
 <div class="container">
@@ -49,6 +50,8 @@ if (array_key_exists('connect', $_POST)) {
 
                 <div class="error"><?php if (!empty($passwordErr)) echo $passwordErr; ?></div>
                 <div class="error"><?php if (!empty($loginErr)) echo $loginErr; ?></div>
+
+                <div class="g-recaptcha" data-sitekey="6LcHI80pAAAAADQR7ipJGR6WA17Kmnf3J-hbMJBN"></div>
 
                 <input type="submit" name="connect" value="Connexion" class="btn solid"/>
 
@@ -100,7 +103,7 @@ if (array_key_exists('connect', $_POST)) {
                 </div>
                 <div class="error"><?php if (!empty($passwordErr)) echo $passwordErr; ?></div>
 
-
+                <div class="g-recaptcha" data-sitekey="6LcHI80pAAAAADQR7ipJGR6WA17Kmnf3J-hbMJBN"></div>
                 <input name="save" type="submit" class="btn" value="S'inscrire"/>
 
                 <p class="social-text">Ou inscrivez-vous avec les plateformes sociales</p>
