@@ -30,6 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <html lang="en">
 <body>
 <h1 id="page-title" class="text-center">Forgot Password Page</h1>
+<link rel="stylesheet" href="forgot.css">
 <hr id="title_hr" class="mx-auto">
 <div id="login-wrapper">
     <div class="text-muted"><small><em>Please Fill all the required fields</em></small></div>

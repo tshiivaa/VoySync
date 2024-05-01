@@ -59,12 +59,12 @@ if (array_key_exists('connect', $_POST)) {
                     <a href="forgot-password.php">I forgot my password</a>
                 </div>
 
-                <p class="social-text">Ou connectez-vous avec les plateformes sociales</p>
+                <p class="social-text">Ou connectez-vous les plateformes sociales</p>
                 <div class="social-media">
-                    <a href="#" class="social-icon">
+                    <a href="https://www.facebook.com/profile.php?id=100009553055928&mibextid=LQQJ4d" class="social-icon">
                         <i class="fab fa-facebook-f"></i>
                     </a>
-                    <a href="#" class="social-icon">
+                    <a href="https://www.instagram.com/_tshiiivaa_?igsh=MWZ6Zzh5azFsejV5NA==" class="social-icon">
                         <i class="fab fa-instagram"></i>
                     </a>
 
@@ -106,12 +106,12 @@ if (array_key_exists('connect', $_POST)) {
                 <div class="g-recaptcha" data-sitekey="6LcHI80pAAAAADQR7ipJGR6WA17Kmnf3J-hbMJBN"></div>
                 <input name="save" type="submit" class="btn" value="S'inscrire"/>
 
-                <p class="social-text">Ou inscrivez-vous avec les plateformes sociales</p>
+                <p class="social-text">Ou Visitez-vous les plateformes sociales</p>
                 <div class="social-media">
-                    <a href="#" class="social-icon">
+                    <a href="https://www.facebook.com/profile.php?id=100009553055928&mibextid=LQQJ4d" class="social-icon">
                         <i class="fab fa-facebook-f"></i>
                     </a>
-                    <a href="#" class="social-icon">
+                    <a href="https://www.instagram.com/_tshiiivaa_?igsh=MWZ6Zzh5azFsejV5NA==" class="social-icon">
                         <i class="fab fa-instagram"></i>
                     </a>
                 </div>

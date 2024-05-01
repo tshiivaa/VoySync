@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt->bindParam(':user_id', $user_id);
 
         if ($stmt->execute()) {
-            $_SESSION['msg']['success'] = "New Password has been saved successfully.";
+            //$_SESSION['msg']['success'] = "New Password has been saved successfully.";
             header('location: palindrome.html');
             exit;
         } else {
@@ -39,6 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 <body>
 <h1 id="page-title" class="text-center">Reset Password</h1>
+<link rel="stylesheet" href="forgot.css">
 <hr id="title_hr" class="mx-auto">
 <div id="login-wrapper">
     <div class="text-muted"><small><em>Please Fill all the required fields</em></small></div>
