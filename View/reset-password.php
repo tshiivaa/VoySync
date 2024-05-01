@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if ($stmt->execute()) {
             $_SESSION['msg']['success'] = "New Password has been saved successfully.";
-            header('location: inscriptionview.php');
+            header('location: palindrome.html');
             exit;
         } else {
             $error = 'Password has failed to update.';
