@@ -1,5 +1,5 @@
 <?php
-require_once "../config.php";
+require_once "../../config.php";
 
 class MissionC
 {
@@ -34,8 +34,8 @@ class MissionC
 
     public function addMission($mission)
 {
-    $sql = "INSERT INTO mission (id_m, title, description, imageM, place, gift_point)
-            VALUES (:id_m, :title, :description, :imageM, :place, :gift_point)";
+    $sql = "INSERT INTO mission (id_m, title, description, imageM, place, gift_point,rate)
+            VALUES (:id_m, :title, :description, :imageM, :place, :gift_point , :rate)";
     $db = config::getConnexion();
     try {
         $query = $db->prepare($sql);
@@ -46,6 +46,7 @@ class MissionC
             'imageM' => $mission->getImageM(),
             'place' => $mission->getPlace(),
             'gift_point' => $mission->getGiftPoint(),
+            'rate' => $mission->getRate(),
         ]);
     } catch (Exception $e) {
         echo 'Error: ' . $e->getMessage();

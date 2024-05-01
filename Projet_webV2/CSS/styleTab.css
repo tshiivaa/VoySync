@@ -1,0 +1,254 @@
+.tabs {
+  list-style: none;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+}
+
+.tabs:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.tabs input[type=radio] {
+  display: none;
+}
+
+.tabs label {
+  display: inline-block;
+  min-width: 25%;
+  flex: 1 1 25%;
+  color: #707070;
+  text-align: center;
+  cursor: pointer;
+  -webkit-transition: all 0.5s;
+  /* Safari 3.1 to 6.0 */
+  transition: all 0.5s;
+}
+
+.tabs label span {
+  display: none;
+  font-size: 1rem;
+}
+
+.tabs label:hover {
+  color: #1c4771;
+}
+.tabs label:hover .icon {
+  border-color: #1c4771;
+  background-position: 50px 0;
+	background-size: 100px 50px;
+  box-shadow: 0px 0px 5px #666666;
+  background-color: #ffffff;
+  
+}
+
+.tab__content {
+  display: none;
+  text-align: center;
+  width: 80%;
+  margin: 0 auto;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  margin-top: 2rem;
+}
+
+.tab__content * {
+  -webkit-animation: scale 0.2s ease-in-out;
+  -moz-animation: scale 0.2s ease-in-out;
+  animation: scale 0.2s ease-in-out;
+}
+
+@keyframes scale {
+  0% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.01);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+.tabs [id^=tab]:checked + label {
+  background: #e7f2fd;
+  color: #1c4771;
+}
+
+.tabs [id^=tab]:checked + label .icon {
+  border-color: #1c4771;
+  background-position: 50px 0;
+  background-size: 100px 50px;
+  box-shadow: 0px 0px 7px #666666;
+  background-color: #ffffff;
+}
+
+@media (min-width: 768px) {
+  .tabs label span {
+    display: block;
+  }
+}
+.icon {
+  margin-top: 1rem;
+  display: inline-block;
+  width: 54px;
+  height: 54px;
+  border-radius: 15px;
+  border: 2px solid #707070;
+  background-size: 100px 50px;
+  box-sizing: border-box;
+}
+
+.home {
+  background: #e7f2fd url("../View/images/imageTabs/home.png");
+  background-position: 0 0;
+  background-size: 100px 50px;
+  
+}
+
+.missionimg {
+  background: #e7f2fd url("../View/images/imageTabs/mission.png");
+  background-position: 0 0;
+  background-size: 100px 50px;
+}
+
+.reward {
+  background: #e7f2fd url("../View/images/imageTabs/reward.png");
+  background-size: 100px 50px;
+  background-position: 0 0;
+}
+
+
+.article {
+  flex: 1 0 calc(33.33% - 20px);
+  border: 2px solid #7ba0c9;
+  /* Bleu pétrole */
+  border-radius: 20px;
+  /* Increased border radius */
+  padding: 30px;
+  /* Increased padding */
+  background-color: #f9f9f9;
+  /* Gris clair */
+  box-shadow: 7px 9px 21px -4px rgba(0,0,0,0.54);
+  transition: box-shadow 0.3s;
+  align-items: center;
+
+}
+.mission {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  padding: 50px;
+  height: auto;
+  /* Change height to auto to allow it to grow based on content */
+}
+.btn {
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 1px 1px 4px #666666;
+  color: #1c4771;
+  font-size: 20px;
+  padding: 10px 20px 10px 20px;
+  border: solid #1f628d 2px;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background: #1e558d;
+  color: #ffffff;
+}
+.button-container {
+  display: flex;
+  justify-content: space-between; /* To evenly space the buttons */
+  margin-top: 10px; /* Adjust as needed */
+}
+.card-img,
+.card-img-top {
+  border-top-left-radius: var(--bs-card-inner-border-radius);
+  border-top-right-radius: var(--bs-card-inner-border-radius);
+  vertical-align: middle
+}
+.container {
+  max-width: 600px;
+  margin: 30px auto;
+  
+  background-color: #fff;
+  /* Blanc */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  
+  flex: 1 0 calc(50% - 20px);
+  border: 1px solid #7ba0c9;
+  transition: box-shadow 0.3s;
+  vertical-align: right ;
+  
+}
+.container form label {
+  display: block;
+  margin-bottom: 5px;
+  color: #333;
+  /* Noir */
+}
+.container form input[type="text"],
+.container form input[type="file"] {
+  width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            /* Gris clair */
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .container form button {
+            background-color: #7ba0c9;
+            /* Bleu pétrole */
+            color: #fff;
+            /* Blanc */
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .container form button:hover {
+            background-color: #5a82ad;
+        }
+        
+
+
+        .rating {
+          display: inline-block;
+        }
+        
+        .rating input {
+          display: none;
+        }
+        
+        .rating label {
+          cursor: pointer;
+          width: 40px;
+          height: 40px;
+          margin : 1px;
+          background-image: url('../View/imagesFront/star.png'); /* Remplacez 'star.png' par votre image d'étoile */
+          background-size: cover;
+        }
+        
+        .rating label:before {
+          content: '\2605';
+          font-size: 40px;
+          color: transparent;
+        }
+        
+        .rating input:checked ~ label {
+          background-image: url('../View/imagesFront/starF.png'); /* Remplacez 'star-filled.png' par votre image d'étoile remplie */
+        }
+        
+        
