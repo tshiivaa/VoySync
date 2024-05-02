@@ -1,10 +1,7 @@
 <?php
-
 include "Configuration.php";
-
 class BlogC
 {
-
     public function listBlog()
     {
         $sql = "SELECT * FROM blog";
@@ -51,8 +48,6 @@ class BlogC
             echo 'Error: ' . $e->getMessage();
         }
     }
-
-
     function showBlog($IDart)
     {
         $sql = "SELECT * from blog where IDart = $IDart";
@@ -109,8 +104,6 @@ class BlogC
             return false;
         }
     }
-
-
     public function countTotalBlogEntries()
     {
         $db = Configuration::getConnexion();
@@ -128,95 +121,39 @@ class BlogC
         return $totalPages;
     }
 }
-class CommentC
+
+
+class CommentaireC
 {
-
-
-    public function addComment($ContenuComm, $AuteurComm, $IDart)
+    public function getCommentairesByArticleId($IDart)
     {
-        try {
-            $Comment = new Comment($ContenuComm, $AuteurComm, $IDart);
-
-            $db = Configuration::getConnexion();
-            $sql = "INSERT INTO commentaire (ContenuComm, AuteurComm, IDart) VALUES (:ContenuComm, :AuteurComm, :IDart)";
-            $query = $db->prepare($sql);
-            $query->execute([
-                "ContenuComm" => $Comment->getContenuComm(),
-                "AuteurComm" => $Comment->getAuteurComm(),
-                "IDart" => $Comment->getIDart()
-            ]);
-        } catch (PDOException $e) {
-            echo "Erreur: " . $e->getMessage();
-        }
-    }
-
-    function deleteComment($IDComm)
-    {
-        $sql = "DELETE FROM commentaire WHERE IDComm = :IDComm";
-        $db = Configuration::getConnexion();
-        $req = $db->prepare($sql);
-        $req->bindValue(':IDComm', $IDComm);
-
-        try {
-            $req->execute();
-        } catch (Exception $e) {
-            die('Error:' . $e->getMessage());
-        }
-    }
-
-    function updateComment($comment, $IDComm)
-    {
-        try {
-            $db = Configuration::getConnexion();
-            $query = $db->prepare(
-                'UPDATE commentaire SET  
-                ContenuComm = :ContenuComm,
-                DatePubComm = :DatePubComm,
-                AuteurComm = :AuteurComm
-            WHERE IDComm = :IDComm'
-            );
-
-            $query->execute([
-                'IDComm' => $IDComm,
-                'ContenuComm' => $comment->getContenuComm(),
-                'DatePubComm' => $comment->getDatePubComm(),
-                'AuteurComm' => $comment->getAuteurComm(),
-            ]);
-
-            echo $query->rowCount() . " records UPDATED successfully <br>";
-        } catch (PDOException $e) {
-            $e->getMessage();
-        }
-    }
-
-    function showCommentsForArticle($IDart)
-    {
-        $sql = "SELECT * FROM commentaire WHERE IDart = :IDart";
+        $sql = "SELECT * FROM commentaire WHERE IDart = $IDart";
         $db = Configuration::getConnexion();
         try {
             $query = $db->prepare($sql);
-            $query->bindValue(':IDart', $IDart);
             $query->execute();
-            $comments = $query->fetchAll();
-            return $comments;
+            $commentaires = $query->fetchAll(); // Utiliser fetchAll au lieu de fetch
+            return $commentaires; // Retourner tous les commentaires
         } catch (Exception $e) {
             die('Error: ' . $e->getMessage());
         }
     }
 
-    function countTotalCommentsForArticle($IDart)
+    public function ajouterCommentaire($commentaire)
     {
-        $sql = "SELECT COUNT(*) AS total FROM commentaire WHERE IDart = :IDart";
+        $sql = "INSERT INTO commentaire (IDcomm, ContenuComm,IDart) VALUES (:IDcomm, :ContenuComm,:IDart)";
         $db = Configuration::getConnexion();
         try {
             $query = $db->prepare($sql);
-            $query->bindValue(':IDart', $IDart);
-            $query->execute();
-            $result = $query->fetch(PDO::FETCH_ASSOC);
-            return $result['total'];
+            $query->execute([
+                'IDcomm' => $commentaire->getIDcomm(),
+                'ContenuComm' => $commentaire->getContenuComm(),
+                'IDart' => $commentaire->getIDart(),
+            ]);
+            return $db->lastInsertId();
         } catch (Exception $e) {
-            die('Error: ' . $e->getMessage());
+            echo 'Error: ' . $e->getMessage();
         }
     }
-
 }
+?>

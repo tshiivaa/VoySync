@@ -83,5 +83,54 @@ class Blog
     {
         return $this->etat = $etat;
     }
+    public function getComments($IDart)
+    {
+        // Connexion à la base de données
+        $db = Configuration::getConnexion();
+
+        try {
+            // Préparation de la requête SQL pour récupérer les commentaires de l'article spécifié
+            $sql = "SELECT * FROM commentaire WHERE IDart = :IDart";
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':IDart', $IDart);
+            $stmt->execute();
+
+            // Récupération des résultats
+            $comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            // Retourne les commentaires récupérés
+            return $comments;
+        } catch (PDOException $e) {
+            // Gestion des erreurs
+            echo "Erreur lors de la récupération des commentaires: " . $e->getMessage();
+            return [];
+        }
+    }
+    public function addComment($IDcomm, $ContenuComm, $DatePubComm, $AuteurComm, $IDart)
+    {
+        // Connexion à la base de données
+        $db = Configuration::getConnexion();
+
+        try {
+            // Préparation de la requête SQL pour ajouter un nouveau commentaire
+            $sql = "INSERT INTO commentaire (IDcomm, ContenuComm, DatePubComm, AuteurComm,IDart) 
+                VALUES (:IDcomm, :ContenuComm, :DatePubComm, :AuteurComm, :IDart)";
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':IDcomm', $IDcomm);
+            $stmt->bindParam(':ContenuComm', $ContenuComm);
+            $stmt->bindParam(':DatePubComm', $DatePubComm);
+            $stmt->bindParam(':AuteurComm', $AuteurComm);
+            $stmt->bindParam(':IDart', $IDart);
+            $stmt->execute();
+
+            // Retourne vrai si l'insertion a réussi, sinon retourne faux
+            return $stmt->rowCount() > 0;
+        } catch (PDOException $e) {
+            // Gestion des erreurs
+            echo "Erreur lors de l'ajout du commentaire: " . $e->getMessage();
+            return false;
+        }
+    }
+
 }
 ?>

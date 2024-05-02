@@ -1,18 +1,15 @@
 <?php
-class Comment
+class Commentaire
 {
     private ?int $IDcomm = null;
     private string $ContenuComm;
-    private string $DatePubComm = "";
-    private string $AuteurComm;
-    private ?int $IDart = null;
+    private int $IDart;
 
-    public function __construct(string $ContenuComm, string $AuteurComm, int $IDart)
+
+    public function __construct(string $ContenuComm, int $IDart)
     {
         $this->IDcomm = null;
         $this->ContenuComm = $ContenuComm;
-        $this->DatePubComm = "";
-        $this->AuteurComm = $AuteurComm;
         $this->IDart = $IDart;
     }
 
@@ -20,6 +17,8 @@ class Comment
     {
         return $this->IDcomm;
     }
+
+
 
     public function getContenuComm()
     {
@@ -30,27 +29,6 @@ class Comment
     {
         return $this->ContenuComm = $ContenuComm;
     }
-
-    public function getDatePubComm()
-    {
-        return $this->DatePubComm;
-    }
-
-    public function setDatePubComm($DatePubComm)
-    {
-        return $this->DatePubComm = $DatePubComm;
-    }
-
-    public function getAuteurComm()
-    {
-        return $this->AuteurComm;
-    }
-
-    public function setAuteurComm($AuteurComm)
-    {
-        return $this->AuteurComm = $AuteurComm;
-    }
-
     public function getIDart()
     {
         return $this->IDart;
@@ -60,5 +38,6 @@ class Comment
     {
         return $this->IDart = $IDart;
     }
+
 }
 ?>

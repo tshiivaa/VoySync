@@ -19,7 +19,6 @@
   <link rel="stylesheet" href="../../CSS/blog.css">
   <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-  <!-- https://templatemo.com/tm-580-woox-travel-->
 </head>
 
 <body>
@@ -35,6 +34,7 @@
     </div>
   </div>
   <!-- ***** Preloader End ***** -->
+
   <!-- ***** Header Area Start ***** -->
   <header class="header-area header-sticky">
     <div class="container">
@@ -107,29 +107,22 @@
                 <button type="submit" class="btn btn-danger btn-supprimer"
                   onclick="return confirmSuppression()">supprimer</button>
               </form>
+              <a href="comments.php?IDart=<?php echo $res['IDart']; ?>" class="btn btn-secondary">Commentaires</a>
             </div>
-            <!-- Affichage des détails de commentaires -->
-            <div class="comment-section">
-              <br>
-              <br>
-              <h3> Commentaires</h3>
-              <div class="comment-form">
-                <form id="commentForm_<?php echo $res['IDart']; ?>"
-                  onsubmit="return addComment(<?php echo $res['IDart']; ?>)">
-                  <textarea name="ContenuComm" id="ContenuComm_<?php echo $res['IDart']; ?>"
-                    placeholder="Votre commentaire"></textarea>
-                  <button type="submit" class="icon-button">
-                    <i class='bx bx-send'></i>
-                  </button>
-                </form>
-                <button class="icon-button" onclick="showCommentsForArticle(<?php echo $res['IDart']; ?>)">
-                  <i class='bx bx-show'></i>
-                </button>
-              </div>
-              <div id="comments_<?php echo $res['IDart']; ?>"></div>
-            </div>
-            <div class="Comment" id="Comment_<?php echo $res['IDart']; ?>"></div>
-            <a href="comments.php?IDart=<?php echo $res['IDart']; ?>">Comments</a>
+            <!-- <div class="rating">
+              <input type="radio" id="star5" name="rating" value="5">
+              <label for="star5">☆</label>
+              <input type="radio" id="star4" name="rating" value="4">
+              <label for="star4">☆</label>
+              <input type="radio" id="star3" name="rating" value="3">
+              <label for="star3">☆</label>
+              <input type="radio" id="star2" name="rating" value="2">
+              <label for="star2">☆</label>
+              <input type="radio" id="star1" name="rating" value="1">
+              <label for="star1">☆</label>
+            </div> -->
+
+
           </div>
           <?php
           $count++;
@@ -147,6 +140,7 @@
         }
         return false;
       }
+
     </script>
   </div>
   <div class="call-to-action">
