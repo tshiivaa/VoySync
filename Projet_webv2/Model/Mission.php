@@ -9,8 +9,9 @@
         private $gift_point;
         private $imageUS;
         private $rate;
+        private $id_r;
     
-        public function __construct($title ,$description ,$imageM,$place , $gift_point, $imageUS , $rate )
+        public function __construct($title ,$description ,$imageM,$place , $gift_point, $imageUS , $rate , $id_r)
         {
             $this->id_m=null;
             $this->title=$title;
@@ -20,6 +21,7 @@
             $this->gift_point=$gift_point; 
             $this->imageUS=$imageUS; 
             $this->rate=$rate;
+            $this->id_r=$id_r;
            
         }
         public function getIdM() {
@@ -45,6 +47,9 @@
         }
         public function getRate(){
             return $this->rate;
+        }   
+        public function getIdR() {
+            return $this->id_r;
         }   
     }
 ?>

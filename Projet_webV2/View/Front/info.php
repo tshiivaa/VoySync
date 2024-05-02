@@ -1,7 +1,11 @@
 <?php
 include '../../Controller/MissionC.php';
+include '../../Controller/ReviewC.php';
 include '../../Model/Mission.php';
+include '../../Model/Review.php';
+
 $error ="";
+
 
 if( isset($_GET['id_m'])) {
     $id_m = $_GET['id_m'];
@@ -17,6 +21,22 @@ if( isset($_GET['id_m'])) {
     echo "modifierid parameter is missing.";
     exit;
 }
+if (isset($_POST['submit'])) {
+  $ReviewC = new ReviewC();
+  // Récupérer les données du formulaire
+  $description = $_POST['description'];
+  $rate = $_POST['rating'];
+  $id_m = $_POST['id_m'];
+
+  $review = new Review( 
+    $description,
+    $rate,
+    $id_m
+    );
+    $ReviewC->addReview($review);
+    header('Location: FRMissionPage.php');
+      exit(); // Arrêter l'exécution ultérieure
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -97,7 +117,7 @@ if( isset($_GET['id_m'])) {
           </div>
           <div class="col-lg-6 align-self-center">
             <div class="content">
-              <span class="info">*Limited Offer Today</span>
+            
               <h4><?php echo $mission['title']; ?></h4>
               <div class="row">
                 <div class="col-6">
@@ -111,7 +131,7 @@ if( isset($_GET['id_m'])) {
               </div>
               <p><strong><?php echo $mission['description']; ?></strong></p>
               <div class="main-button">
-                <a class="btn" href="info.php?id_m=<?= $mission['id_m']; ?>" role="button">Plus d'info</a>
+                <a class="btn" id="mission" role="button">Fait la mission</a>
               </div>
             </div>
           </div>
@@ -120,6 +140,63 @@ if( isset($_GET['id_m'])) {
     </div>
   </div>
 </div>
+<section id="do-info" class="site-section bg-light" style="display: none;">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-7">  
+                <h2>Formulaire de mission</h2>
+                    <!-- Votre formulaire de candidature ici -->
+                        <form  method="post" enctype="multipart/form-data">
+                          <input type="hidden" name="id_m" value="<?php echo $mission['id_m'];?>" >
+  
+                          <label for="description">Feedback:</label>
+                          <textarea id="description" name="description" ></textarea><br>
+                           
+                            <label for="rate">Rate:</label>  
+                            <div class="rating">
+                                <input type="radio" id="star5" name="rating" value="5" />
+                                <label for="star5" title="5 stars"></label>
+                                <input type="radio" id="star4" name="rating" value="4" />
+                                <label for="star4" title="4 stars"></label>
+                                <input type="radio" id="star3" name="rating" value="3" />
+                                <label for="star3" title="3 stars"></label>
+                                <input type="radio" id="star2" name="rating" value="2" />
+                                <label for="star2" title="2 stars"></label>
+                                <input type="radio" id="star1" name="rating" value="1" />
+                                <label for="star1" title="1 star"></label>
+                              </div><br>
+                          
+                            <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+                        </form>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <script>
+    document.getElementById('mission').addEventListener('click', function() {
+      document.getElementById('do-info').style.display = 'block';
+    });
+  </script>
+    <script>
+          const score =document.querySelector('.score');
+          const ratings = document.querySelectorAll('.rating input');
+
+          ratings.forEach((rating) => {
+            rating.addEventListener('change', () => {
+              const selectedRating = rating.value;
+              const rate = rating.value;
+              console.log(rate);
+              const text =selectedRating == 1 ? 'star':
+              'stars';
+              score.textContent = `${selectedRating} ${text} rating.`;
+            });
+          });
+        </script>
+
 </body>
 
 </html>

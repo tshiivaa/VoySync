@@ -153,46 +153,56 @@ $missions = $MissionC->listMission();
           </div>
         </div>
         <div class="row">
-    <?php 
-        $nbr = 0;
-        foreach ($missions as $mission) {
-            if ($nbr % 2 == 0) {
-                echo '</div><div class="row">'; // Ferme la ligne précédente et commence une nouvelle ligne pour les deux missions suivantes
-            }
-    ?>
-    <div class="col-lg-6 col-sm-6">
-        <div class="item">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="image">
-                        <img class="img-fluid" src="<?php echo $mission['imageM']; ?>" alt="">
-                    </div>
+        <?php
+$nbr = 0;
+foreach ($missions as $mission) {
+?>
+<div class="col-lg-6 col-sm-6">
+    <div class="item">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="image">
+                    <img class="img-fluid" src="<?php echo $mission['imageM']; ?>" alt="">
                 </div>
-                <div class="col-lg-6 align-self-center">
-                    <div class="content">
-                        <h4><?php echo $mission['title']; ?></h4>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <span class="list">$ <?php echo $mission['gift_point']; ?> </span>
-                            </div>
-                            
-                            <div class="col-lg-6">
-                                <span class="list">&#128205;<?php echo $mission['place']; ?></span>
-                            </div>
+            </div>
+            <div class="col-lg-6 align-self-center">
+                <div class="content">
+                  <center><div class="rating">
+                    <?php
+                    // Afficher les étoiles pour chaque mission individuellement
+                    $rate = $mission['rate'];
+                    for ($i = 1; $i <= 5; $i++) {
+                      $checked = $i <= $rate ? 'checked' : ''; // Vérifie si l'étoile doit être cochée
+                      echo '<input type="radio" id="star' . $i . $nbr . '" name="rating' . $nbr . '" value="' . $i . '" ' . $checked . ' />';
+                      echo '<label for="star' . $i . $nbr . '" title="' . $i . ' stars"></label>';
+                    }
+                    ?>
+                  </div></center>
+                    <h4><?php echo $mission['title']; ?></h4>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <span class="list">$ <?php echo $mission['gift_point']; ?> </span>
                         </div>
-                        <p class ="description"><strong><?php echo $mission['description']; ?></strong></p>
-                        <div class="main-button">
-                            <a class="btn" href="info.php?id_m=<?= $mission['id_m']; ?>" role="button">Plus d'info</a>
+                        
+                        <div class="col-lg-6">
+                            <span class="list">&#128205;<?php echo $mission['place']; ?></span>
                         </div>
+                    </div>
+                    <p class ="description"><strong><?php echo $mission['description']; ?></strong></p>
+                    <div class="main-button">
+                        <a class="btn" href="info.php?id_m=<?= $mission['id_m']; ?>" role="button">Plus d'info</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <?php
-        $nbr++;
-        }
-    ?>
+</div>
+<?php
+    $nbr++;
+}
+?>
+
+
 </div>
 
         

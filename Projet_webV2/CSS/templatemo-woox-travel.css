@@ -2758,10 +2758,10 @@ body {
   overflow: hidden;
   text-overflow: ellipsis; /* Ajoute des points de suspension (...) pour indiquer que le texte est tronqué */
 }
-
+/*FRMissionPage*/
 .rating {
-  display: inline-block;
-  direction: rtl; /* Ajoutez cette ligne pour inverser l'affichage de droite à gauche */
+  display: inline-flex; 
+  direction: rtl;    /* Ajoutez cette ligne pour inverser l'affichage de droite à gauche */
 }
 
 .rating input {
@@ -2774,6 +2774,7 @@ body {
   height: 15px;
   margin : 1px;
   background-image: url('../View/imagesFront/star.png'); /* Remplacez 'star.png' par votre image d'étoile */
+  background-size: cover;
 }
 
 .rating label:before {
@@ -2783,5 +2784,34 @@ body {
 }
 
 .rating input:checked ~ label {
+  background-image: url('../View/imagesFront/starF.png'); /* Remplacez 'star-filled.png' par votre image d'étoile remplie */
+}
+
+/*info.php*/
+.ratingINFO {
+  display: inline-block;
+  direction: rtl; /* Ajoutez cette ligne pour inverser l'affichage de droite à gauche */
+}
+
+.ratingINFO input {
+  display: none;
+}
+
+.ratingINFO label {
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  margin : 1px;
+  background-image: url('../View/imagesFront/star.png'); /* Remplacez 'star.png' par votre image d'étoile */
+  background-size: cover;
+}
+
+.ratingINFO label:before {
+  content: '\2605';
+  font-size: 40px;
+  color: transparent;
+}
+
+.ratingINFO input:checked ~ label {
   background-image: url('../View/imagesFront/starF.png'); /* Remplacez 'star-filled.png' par votre image d'étoile remplie */
 }

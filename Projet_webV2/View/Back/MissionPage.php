@@ -1,20 +1,20 @@
 <?php
 include '../../Controller/MissionC.php';
+include '../../Controller/RewardC.php'; // Include the Reward controller
 include '../../Model/Mission.php';
+include '../../Model/Reward.php'; // Include the Reward model
 
 $MissionC = new MissionC();
+$RewardC = new RewardC();
 if (isset($_POST['id_m'])) {
-  // Vérifier si le champ 'delete_id' est défini pour une suppression
   $id_m = $_POST['id_m'];
-  
-  // Appeler la méthode de suppression dans le contrôleur
   $MissionC->deleteMission($id_m);
   
-  // Rediriger vers une autre page ou afficher un message de confirmation
   header("Location: MissionPage.php");
   exit();
 }
-$missions = $MissionC->listMission();
+$missions = $MissionC->listMissionWithReward(); // Update this method in your Mission controller
+
 ?>
 
 
@@ -169,21 +169,19 @@ $missions = $MissionC->listMission();
               echo '</div><div class="mission">';}
           ?>
           <div class="article">
-            <center><img class="card-img-top" src="<?php echo $mission['imageM']; ?>" alt="Image de l'article" maxlength="200" width="200">
-            <h4><?php echo $mission['title']; ?></h4>
+            <center><img class="card-img-top" src="<?php echo $mission['imageM']; ?>" alt="Image de l'article"  height ="200">
+            <h3><?php echo $mission['title']; ?></h3>
             <p><strong>Description :</strong> <?php echo $mission['description']; ?></p>
             <p><strong>Place:</strong> <?php echo $mission['place']; ?></p>
             <p><strong>Gift POINT:</strong> <?php echo $mission['gift_point']; ?></p>
-            <?php
-  // Supposons que $rate contient la valeur du rating récupérée depuis la base de données
-              $rate = $mission['rate'];
-            ?>
+            <p><strong>Reward:</strong> <?php echo $mission['reward_name']; ?></p> <!-- Display reward name -->
+
             <p><strong>Rate:</strong> 
               <div class="rating">
                 <?php
                 // Boucle pour afficher les étoiles en fonction de la valeur de $rate
                 for ($i = 1; $i <= 5; $i++) {
-                  $checked = $i <= $rate ? 'checked' : ''; // Vérifie si l'étoile doit être cochée
+                  $checked = $i <=  $mission['rate'] ? 'checked' : ''; // Vérifie si l'étoile doit être cochée
                   echo '<input type="radio" id="star' . $i . '" name="rating" value="' . $i . '" ' . $checked . ' />';
                   echo '<label for="star' . $i . '" title="' . $i . ' stars"></label>';
                 }
@@ -191,7 +189,7 @@ $missions = $MissionC->listMission();
               </div>
             </p>
 
-            <br><div class="button-container">     
+            <br><div class="button-container" >     
               <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>" onsubmit="return confirm('Do you want to delete this mission ?');">
                 <input type="hidden" name="id_m" value="<?php echo $mission['id_m']; ?>">
                 <button class="btn btn-danger" type="submit" name="delete" >Delete</button>

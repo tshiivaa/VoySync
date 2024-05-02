@@ -17,6 +17,7 @@ if( isset($_GET['id_r'])) {
     exit;
 }
 $valid = 0;
+if (isset($_POST['submit'])) {
 if(isset($_POST['title']) &&
     isset($_POST['description']) &&
     isset($_POST['type']) &&
@@ -62,7 +63,7 @@ header('Location: MissionPage.php');
     exit;
 
   }
-  
+} 
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -218,7 +219,7 @@ header('Location: MissionPage.php');
             <label for="place">Lieu:</label><br>
             <input type="text" id="place" name="place"  value="<?php echo $reward['place']; ?>"><br>
             
-            <label for="gift_posint">Gift Point:</label><br>
+            <label for="prix_coins">Gift Point:</label><br>
             <input type="number" id="prix_coins" name="prix_coins" value="<?php echo $reward['prix_coins']; ?>" ><br><br>
             <!-- Bouton de soumission -->
             <button class="btn" type="submit" name="submit">Update</button>

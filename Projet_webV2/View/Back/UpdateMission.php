@@ -53,6 +53,7 @@ if(isset($_POST['title']) &&
       $_POST["place"],
       $_POST["gift_point"],
       null,
+      null,
       null
        // Utiliser le chemin de l'image comme valeur
   );

@@ -1,8 +1,11 @@
 <?php
 include '../../Controller/MissionC.php';
+require_once '../../Controller/RewardC.php';
 include '../../Model/Mission.php';
 
 $MissionC = new MissionC();
+$RewardC = new RewardC();
+$rewards = $RewardC->listReward();
 
 if (isset($_POST['submit'])) {
   // Récupérer les données du formulaire
@@ -10,7 +13,7 @@ if (isset($_POST['submit'])) {
   $description = $_POST['description'];
   $place = $_POST['place'];
   $gift_point = $_POST['gift_point'];
-  $rate = $_POST['rating'];
+  $id_r = $_POST['id_r'];
 
   // Récupérer les données de l'image uploadée
   $imageM = $_FILES['imageM'];
@@ -29,7 +32,8 @@ if (isset($_POST['submit'])) {
           $place,
           $gift_point,
           null,
-          $rate
+          null,
+          $id_r
       );
 
       // Ajouter la mission à la base de données
@@ -47,6 +51,7 @@ if (isset($_POST['submit'])) {
 ?>
 
 
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -56,7 +61,6 @@ if (isset($_POST['submit'])) {
     <title>Voysync</title>
     <link rel="stylesheet" href="../../CSS/style.css" type="text/css">
     <link rel="stylesheet" href="../../CSS/styleTab.css" type="text/css">
-    <link rel="stylesheet" href="../../CSS/templatemo-woox-travel.css">
 
 </head>
 <body>
@@ -190,16 +194,16 @@ if (isset($_POST['submit'])) {
       <h2>Ajouter mission</h2>
       <form id="missionForm" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
             
-            <label for="title">Titre:</label><br>
-            <input type="text" id="title" name="title"  ><br>
+            <label for="title">Titre:</label>
+            <input type="text" id="title" name="title"  >
 
-            <label for="description">Description:</label><br>
-            <textarea id="description" name="description" ></textarea><br>
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" ></textarea>
 
             <label for="imageM">Image :</label>
-            <input type="file" id="imageM" name="imageM" accept="image/*" ><br>
+            <input type="file" id="imageM" name="imageM" accept="image/*" >
             
-            <label for="place">Lieu :</label><br> 
+            <label for="place">Lieu :</label> 
             <select class="form-select" id="place" name="place" >
                 <option value="">country</option>
                 <option value="Afghanistan">L'Afghanistan</option>
@@ -454,24 +458,21 @@ if (isset($_POST['submit'])) {
                 <option value="Yemen">Yémen</option>
                 <option value="Zambia">Zambie</option>
                 <option value="Zimbabwe">Zimbabwe</option>
-            </select><br>
+            </select>
             
-            <label for="gift_point">Gift Point:</label><br>
-            <input type="number" id="gift_point" name="gift_point"  ><br><br>
-            <div class="rating">
-              <input type="radio" id="star5" name="rating" value="5" />
-              <label for="star5" title="5 stars"></label>
-              <input type="radio" id="star4" name="rating" value="4" />
-              <label for="star4" title="4 stars"></label>
-              <input type="radio" id="star3" name="rating" value="3" />
-              <label for="star3" title="3 stars"></label>
-              <input type="radio" id="star2" name="rating" value="2" />
-              <label for="star2" title="2 stars"></label>
-              <input type="radio" id="star1" name="rating" value="1" />
-              <label for="star1" title="1 star"></label>
-            </div>
-            <div class="score" >No rating</div>
-
+            <label for="gift_point">Gift Point:</label>
+            <input type="number" id="gift_point" name="gift_point"  >
+            
+            <label for="id_r">Select Reward:</label>
+            <select id="id_r" name="id_r">
+                <?php 
+                foreach ($rewards as $reward) {
+                  echo '<option value="' . $reward['id_r'] . '">' . $reward['title'] .'';
+                }
+                 ?>
+            </select><br>
+            <br><br>
+            
             <!-- Bouton de soumission -->
             <button type="submit" name="submit">Ajouter</button>
         </form>
@@ -494,21 +495,7 @@ if (isset($_POST['submit'])) {
                 evt.currentTarget.className += " active";
             }
         </script>
-        <script>
-          const score =document.querySelector('.score');
-          const ratings = document.querySelectorAll('.rating input');
-
-          ratings.forEach((rating) => {
-            rating.addEventListener('change', () => {
-              const selectedRating = rating.value;
-              const rate = rating.value;
-              console.log(rate);
-              const text =selectedRating == 1 ? 'star':
-              'stars';
-              score.textContent = `${selectedRating} ${text} rating.`;
-            });
-          });
-        </script>
+        
         <script src="../js/script.js"></script>
 
 </body>

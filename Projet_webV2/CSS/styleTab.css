@@ -165,7 +165,9 @@
 .button-container {
   display: flex;
   justify-content: space-between; /* To evenly space the buttons */
+  align-items: flex-end; /* Align the buttons to the bottom */
   margin-top: 10px; /* Adjust as needed */
+
 }
 .card-img,
 .card-img-top {
@@ -225,7 +227,8 @@
 
 
         .rating {
-          display: inline-block;
+          display: inline-flex; 
+          direction: rtl;          
         }
         
         .rating input {
