@@ -1,9 +1,14 @@
+<?php
+require_once '../controller/VolC.php';
+$volC = new VolC();
+$vols = $volC->listVols();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
-
-    <meta charset="utf-8">
+<head>
+<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
@@ -12,27 +17,28 @@
     <title>Voysync - Explorez le monde</title>
   
     <!-- Bootstrap core CSS -->
-    <link href="/Projet2.0/Front/view/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://localhost/Projet2.0/Front/view/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    
   
     <!-- Fichiers CSS supplémentaires -->
-    <link rel="stylesheet" href="/Projet2.0/Front/CSS/templatemo-woox-travel.css">
-    <link rel="stylesheet" href="/Projet2.0/Front/CSS/owl.css">
-    <link rel="stylesheet" href="/Projet2.0/Front/CSS/animate.css">
+    <link rel="stylesheet" href="http://localhost/Projet2.0/Front/CSS/templatemo-woox-travel.css">
+    <link rel="stylesheet" href="http://localhost/Projet2.0/Front/CSS/owl.css">
+    <link rel="stylesheet" href="http://localhost/Projet2.0/Front/CSS/animate.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <!--
+      
   
   
     https://templatemo.com/tm-580-woox-travel
   
     -->
-  
-  </head>
+</head>
 
 <body>
-
-  <!-- ***** Preloader Start ***** -->
-  <div id="js-preloader" class="js-preloader">
+ <!-- ***** Preloader Start ***** -->
+ <div id="js-preloader" class="js-preloader">
     <div class="preloader-inner">
       <span class="dot"></span>
       <div class="dots">
@@ -52,17 +58,19 @@
                 <nav class="main-nav">
                     <!-- ***** Logo Start ***** -->
                     <a href="indexf.html" class="logo">
-                        <img src="/Projet2.0/Front/view/images/logo.png" alt="">
+                        <img src="http://localhost/Projet2.0/Front/view/images/logo.png" alt="">
                     </a>
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav">
-                      <li><a href="indexf.html" class="active">Accueil</a></li>
-                      <li><a href="about.html">À Propos</a></li>
-                      <li><a href="deals.html">Nos Offres</a></li>
-                      <li><a href="reservation.html">Contact</a></li>
-                      <li><a href="reservation.html">Blog</a></li>
-                      <li><a href="Depenses_front.html">Dépenses</a></li>
+                    <li><a href="indexf.html" class="active">Accueil</a></li>
+                    <li><a href="about.html">À Propos</a></li>
+                    <!-- <li><a href="deals.html">Nos Offres</a></li> -->
+                    <li><a href="ListLogementFront copy 2.php">Logements</a></li>
+                    <li><a href="ListVolFront copy.php">Vols</a></li>
+                    <li><a href="reservation.html">Contact</a></li>
+                    <li><a href="reservation.html">Blog</a></li>
+                    <li><a href="Depenses_front.html">Dépenses</a></li>
                     </ul>  
                     <a class='menu-trigger'>
                         <span>Menu</span>
@@ -138,51 +146,71 @@
 
   <div class="amazing-deals">
     <div class="container">
-      <div class="row">
-        <div class="col-lg-6 offset-lg-3">
-          <div class="section-heading text-center">
-            <h2>Best Weekly Offers In Each City</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p>
-          </div>
-        </div>
-        <!-- first deal container -->
-        <div class="col-lg-6 col-sm-6">
-          <div class="item">
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="image">
-                  <img src="/Projet2.0/Front/view/images/deals-01.jpg" alt="">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3">
+                <div class="section-heading text-center">
+                    <h2>Voici les offres de vol disponibles</h2>
+                    <p>Faites un tour pour voir nos offres et réserver un vol dans un endroit magique.</p>
                 </div>
-              </div>
-              <div class="col-lg-6 align-self-center">
-                <div class="content">
-                  <!-- <span class="info">*Limited Offer Today</span> 
-                  <h4>Glasgow City Lorem</h4>
-                  <div class="row">
-                    <div class="col-6">
-                      <i class="fa fa-clock"></i>
-                      <span class="list">5 Days</span>
-                    </div>
-                    <div class="col-6">
-                      <i class="fa fa-map"></i>
-                      <span class="list">Daily Places</span>
-                    </div>
-                  </div>
-                  <p>Lorem ipsum dolor sit amet dire consectetur adipiscing elit.</p>-->
-                  <div class="main-button">
-                    <a href="reservation.html">Make a Reservation</a>
-                  </div>
-                </div>
-              </div>
             </div>
-          </div>
         </div>
-        <div class="col-lg-6 col-sm-6">
+
+        <div class="row">
+        <?php $i = 0; ?>
+        <?php foreach ($vols as $vol): ?>
+            <!-- Start a new row every two items -->
+            <?php if ($i % 2 == 0 && $i != 0): ?>
+                </div> <!-- End current row -->
+                <div class="row"> <!-- Start a new row -->
+            <?php endif; ?>
+            
+            <div class="col-lg-6 col-sm-6"> <!-- Container for each vol -->
+                <div class="item"> <!-- Consistent class name -->
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="image">
+                                <img src="http://localhost/Projet2.0/Front/view/images/vol-image.jpg" alt="">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 align-self-center">
+                            <div class="content">
+                                <h4><?= $vol['Compagnie']; ?> - <?= $vol['Num_vol']; ?></h4>
+                                <p><?= $vol['Depart']; ?> - <?= $vol['Arrive']; ?></p>
+                                <p>Du <?= $vol['DateDepart']; ?> jusqu'au <?= $vol['DateArrive']; ?></p>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <i class="fa fa-dollar-sign"></i>
+                                        <span class="list"><?= $vol['Prix']; ?>Dt</span>
+                                    </div>
+                                    <div class="col-6">
+                                      <i class="fa fa-star"></i>
+                                      <span class="list"><?= $vol['Evaluation'] . ' ⭐️'; ?></span>
+                                  </div>
+
+                                </div>
+                                <div class="main-button">
+                                    <!-- Redirection vers reservation.php avec des paramètres GET -->
+                                    <a href="reservation.php?vol_id=<?= $vol['IDvol']; ?>&date_reservation=<?= urlencode($vol['DateArrive']); ?>&destination=<?= urlencode($vol['Arrive']); ?>">Réserver logement correspondant</a>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- End item -->
+            </div> <!-- End col -->
+
+            <?php $i++; ?> <!-- Increment counter -->
+        <?php endforeach; ?>
+    </div> <!-- End final row -->
+</div> <!-- End container -->
+
+        <!-- <div class="col-lg-6 col-sm-6"> 
           <div class="item">
             <div class="row">
               <div class="col-lg-6">
                 <div class="image">
-                  <img src="/Projet2.0/Front/view/images/deals-02.jpg" alt="">
+                  <img src="http://localhost/Projet2.0/Front/view/images/deals-02.jpg" alt="">
                 </div>
               </div>
               <div class="col-lg-6 align-self-center">
@@ -201,7 +229,7 @@
                   </div>
                   <p>Lorem ipsum dolor sit amet dire consectetur adipiscing elit.</p>
                   <div class="main-button">
-                    <a href="reservation.html">Make a Reservation</a>
+                    <a href="reservation.html">Reserver</a>
                   </div>
                 </div>
               </div>
@@ -213,7 +241,7 @@
             <div class="row">
               <div class="col-lg-6">
                 <div class="image">
-                  <img src="/Projet2.0/Front/view/images/deals-03.jpg" alt="">
+                  <img src="http://localhost/Projet2.0/Front/view/images/deals-03.jpg" alt="">
                 </div>
               </div>
               <div class="col-lg-6 align-self-center">
@@ -232,7 +260,7 @@
                   </div>
                   <p>Lorem ipsum dolor sit amet dire consectetur adipiscing elit.</p>
                   <div class="main-button">
-                    <a href="reservation.html">Make a Reservation</a>
+                    <a href="reservation.html">Reserver</a>
                   </div>
                 </div>
               </div>
@@ -244,7 +272,7 @@
             <div class="row">
               <div class="col-lg-6">
                 <div class="image">
-                  <img src="/Projet2.0/Front/view/images/deals-04.jpg" alt="">
+                  <img src="http://localhost/Projet2.0/Front/view/images/deals-04.jpg" alt="">
                 </div>
               </div>
               <div class="col-lg-6 align-self-center">
@@ -263,7 +291,7 @@
                   </div>
                   <p>This free CSS template is provided by Template Mo website.</p>
                   <div class="main-button">
-                    <a href="reservation.html">Make a Reservation</a>
+                    <a href="reservation.html">Reserver</a>
                   </div>
                 </div>
               </div>
@@ -282,7 +310,7 @@
       </div>
     </div>
   </div>
-
+-->
   <div class="call-to-action">
     <div class="container">
       <div class="row">
@@ -313,22 +341,22 @@
 
   <!-- Scripts -->
   <!-- Bootstrap core JavaScript -->
-  <script src="/Projet2.0/Front/view/vendor/jquery/jquery.min.js"></script>
-  <script src="/Projet2.0/Front/view/vendor/bootstrap/js/bootstrap.min.js"></script>
+  <script src="http://localhost/Projet2.0/Front/view/vendor/jquery/jquery.min.js"></script>
+  <script src="http://localhost/Projet2.0/Front/view/vendor/bootstrap/js/bootstrap.min.js"></script>
 
-  <script src="/Projet2.0/Front/js/isotope.min.js"></script>
-  <script src="/Projet2.0/Front/js/owl-carousel.js"></script>
+  <script src="http://localhost/Projet2.0/Front/js/isotope.min.js"></script>
+  <script src="http://localhost/Projet2.0/Front/js/owl-carousel.js"></script>
   <!-- <script src="../../js/wow.js"></script> -->
-  <script src="/Projet2.0/Front/js/tabs.js"></script>
-  <script src="/Projet2.0/Front/js/popup.js"></script>
-  <script src="/Projet2.0/Front/js/custom.js"></script>
+  <script src="http://localhost/Projet2.0/Front/js/tabs.js"></script>
+  <script src="http://localhost/Projet2.0/Front/js/popup.js"></script>
+  <script src="http://localhost/Projet2.0/Front/js/custom.js"></script>
   <script>
     $(".option").click(function(){
       $(".option").removeClass("active");
       $(this).addClass("active"); 
     });
   </script>
-
-  </body>
+  <!-- <script src="http://localhost/Projet2.0/js/script.js"></script> -->
+</body>
 
 </html>

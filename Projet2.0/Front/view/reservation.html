@@ -11,12 +11,13 @@
   <title>Voysync - Explorez le monde</title>
 
   <!-- Bootstrap core CSS -->
-  <link href="C:\xampp\htdocs\Projet2.0\Front\view\vendor\bootstrap\css\bootstrap.min.css" rel="stylesheet">
+  <link href="/Projet2.0/Front/view/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
 
   <!-- Fichiers CSS supplémentaires -->
-  <link rel="stylesheet" href="C:\xampp\htdocs\Projet2.0\Front\CSS\templatemo-woox-travel.css">
-  <link rel="stylesheet" href="C:\xampp\htdocs\Projet2.0\Front\CSS\owl.css">
-  <link rel="stylesheet" href="C:\xampp\htdocs\Projet2.0\Front\CSS\animate.css">
+  <link rel="stylesheet" href="/Projet2.0/Front/CSS/templatemo-woox-travel.css">
+  <link rel="stylesheet" href="/Projet2.0/Front/CSS/owl.css">
+  <link rel="stylesheet" href="/Projet2.0/Front/CSS/animate.css">
   <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
   <!--
@@ -51,7 +52,7 @@
                 <nav class="main-nav">
                     <!-- ***** Logo Start ***** -->
                     <a href="indexf.html" class="logo">
-                        <img src="C:\xampp\htdocs\Projet2.0\Front\view\images\logo.png" alt="">
+                        <img src="/Projet2.0/Front/view/images/logo.png" alt="">
                     </a>
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Menu Start ***** -->
@@ -124,7 +125,7 @@
           </div>
         </div>
         <div class="col-lg-12">
-          <form id="reservation-form" name="gs" method="submit" role="search" action="#">
+          <!-- <form id="reservation-form" name="gs" method="submit" role="search" action="#"> 
             <div class="row">
               <div class="col-lg-12">
                 <h4>Make Your <em>Reservation</em> Through This <em>Form</em></h4>
@@ -177,7 +178,67 @@
                   </fieldset>
               </div>
             </div>
+          </form>-->
+          <!-- <form id="reservation-form" name="gs" method="post" action="reservation.php"> -->
+          <form id="reservation-form" method="post" action="reservation.php">
+            <div class="row">
+              <div class="col-lg-12">
+                <h4>Make Your <em>Reservation</em> Through This <em>Form</em></h4>
+              </div>
+              <div class="col-lg-6">
+                <fieldset>
+                  <label for="Name" class="form-label">Your Name</label>
+                  <input type="text" name="Name" class="Name" placeholder="Ex. John Smithee" autocomplete="on" required>
+                </fieldset>
+              </div>
+              <div class="col-lg-6">
+                <fieldset>
+                  <label for="Number" class="form-label">Your Phone Number</label>
+                  <input type="text" name="Number" class="Number" placeholder="Ex. +xxx xxx xxx" autocomplete="on" required>
+                </fieldset>
+              </div>
+              <div class="col-lg-6">
+                <fieldset>
+                  <label for="chooseGuests" class="form-label">Number Of Guests</label>
+                  <select name="Guests" class="form-select" aria-label="Default select example" id="chooseGuests">
+                    <option selected>ex. 3 or 4 or 5</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4+">4+</option>
+                  </select>
+                </fieldset>
+              </div>
+              <div class="col-lg-6">
+                <fieldset>
+                  <label for="date_reservation" class="form-label">Check-In Date</label>
+                  <input type="date" name="date_reservation" required>
+                </fieldset>
+              </div>
+              <div class="col-lg-12">
+                <fieldset>
+                  <label for="chooseDestination" class="form-label">Choose Your Destination</label>
+                  <select name="Destination" class="form-select" aria-label="Default select example" id="chooseCategory">
+                    <option selected>ex. Switzerland, Lausanne</option>
+                    <option value="Italy, Roma">Italy, Roma</option>
+                    <option value="France, Paris">France, Paris</option>
+                    <option value="England, London">England, London</option>
+                    <option value="Switzerland, Lausanne">Switzerland, Lausanne</option>
+                  </select>
+                </fieldset>
+              </div>
+              <div class="col-lg-12">                        
+                <fieldset>
+                  <button class="main-button">Make Your Reservation Now</button>
+                </fieldset>
+              </div>
+            </div>
+          
+            <!-- Champs cachés pour envoyer les IDs de logement et de vol -->
+            <input type="hidden" name="logement_id" value="ID du logement">
+            <input type="hidden" name="vol_id" value="ID du vol">
           </form>
+          
         </div>
       </div>
     </div>
@@ -187,8 +248,8 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-12">
-          <p>Copyright © 2036 <a href="#">WoOx Travel</a> Company. All rights reserved. 
-          <br>Design: <a href="https://templatemo.com" target="_blank" title="free CSS templates">TemplateMo</a></p>
+          <p>Copyright © 2036 <a href="#">Voysync</a> Company. All rights reserved. 
+          <!-- <br>Design: <a href="https://templatemo.com" target="_blank" title="free CSS templates">TemplateMo</a></p> -->
         </div>
       </div>
     </div>
@@ -197,15 +258,15 @@
 
   <!-- Scripts -->
   <!-- Bootstrap core JavaScript -->
-  <script src="C:\xampp\htdocs\Projet2.0\Front\view\vendor\jquery\jquery.min.js"></script>
-  <script src="C:\xampp\htdocs\Projet2.0\Front\view\vendor\bootstrap\js\bootstrap.min.js"></script>
+  <script src="/Projet2.0/Front/view/vendor/jquery/jquery.min.js"></script>
+  <script src="/Projet2.0/Front/view/vendor/bootstrap/js/bootstrap.min.js"></script>
 
-  <script src="C:\xampp\htdocs\Projet2.0\Front\js\isotope.min.js"></script>
-  <script src="C:\xampp\htdocs\Projet2.0\Front\js\owl-carousel.js"></script>
-  <script src="../../js/wow.js"></script>
-  <script src="C:\xampp\htdocs\Projet2.0\Front\js\tabs.js"></script>
-  <script src="C:\xampp\htdocs\Projet2.0\Front\js\popup.js"></script>
-  <script src="C:\xampp\htdocs\Projet2.0\Front\js\custom.js"></script>
+  <script src="/Projet2.0/Front/js/isotope.min.js"></script>
+  <script src="/Projet2.0/Front/js/owl-carousel.js"></script>
+  <!-- <script src="../../js/wow.js"></script> -->
+  <script src="/Projet2.0/Front/js/tabs.js"></script>
+  <script src="/Projet2.0/Front/js/popup.js"></script>
+  <script src="/Projet2.0/Front/js/custom.js"></script>
 
 
   <script>

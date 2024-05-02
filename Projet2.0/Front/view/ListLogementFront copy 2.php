@@ -66,12 +66,14 @@ $logements = $logementC->listLogement();
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav">
-                      <li><a href="indexf.html" class="active">Accueil</a></li>
-                      <li><a href="about.html">À Propos</a></li>
-                      <li><a href="deals.html">Nos Offres</a></li>
-                      <li><a href="reservation.html">Contact</a></li>
-                      <li><a href="reservation.html">Blog</a></li>
-                      <li><a href="Depenses_front.html">Dépenses</a></li>
+                    <li><a href="indexf.html" class="active">Accueil</a></li>
+                    <li><a href="about.html">À Propos</a></li>
+                    <!-- <li><a href="deals.html">Nos Offres</a></li> -->
+                    <li><a href="ListLogementFront copy 2.php">Logements</a></li>
+                    <li><a href="ListVolFront copy.php">Vols</a></li>
+                    <li><a href="reservation.html">Contact</a></li>
+                    <li><a href="reservation.html">Blog</a></li>
+                    <li><a href="Depenses_front.html">Dépenses</a></li>
                     </ul>  
                     <a class='menu-trigger'>
                         <span>Menu</span>
@@ -170,7 +172,7 @@ $logements = $logementC->listLogement();
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="image">
-                                    <img src="http://localhost/Projet2.0/Front/view/images/deals-01.jpg" alt="">
+                                    <img src="/Projet2.0/Front/view/images/deals-01.jpg" alt="">
                                 </div>
                             </div>
                             <div class="col-lg-6 align-self-center">
@@ -184,11 +186,11 @@ $logements = $logementC->listLogement();
                                         </div>
                                         <div class="col-6">
                                             <i class="fa fa-dollar-sign"></i>
-                                            <span class="list"><?= $logement['Prix']; ?>€</span>
+                                            <span class="list"><?= $logement['Prix']; ?>Dt</span>
                                         </div>
                                     </div>
                                     <div class="main-button">
-                                        <a href="reservation.html">Réserver</a>
+                                        <a href="reservation.php">Réserver</a>
                                     </div>
                                 </div>
                             </div>

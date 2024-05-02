@@ -1,3 +1,17 @@
+<?php
+require_once '../controller/LogementC.php';
+// Récupérer les valeurs de la requête (GET ou POST)
+$vol_id = isset($_POST['vol_id']) ? intval($_POST['vol_id']) : null;
+$date_reservation = isset($_POST['date_reservation']) ? htmlspecialchars($_POST['date_reservation']) : null;
+$destination = isset($_POST['destination']) ? htmlspecialchars($_POST['destination']) : null;
+$capacite = isset($_POST['Capacite']) ? intval($_POST['Capacite']) : null;
+
+// Utiliser ces valeurs pour filtrer les logements
+$logementC = new LogementC();
+$logements = $logementC->getFilteredLogements($date_reservation, $destination, $capacite);
+//$logements = $logementC->listLogement();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,15 +26,18 @@
     <title>Voysync - Explorez le monde</title>
   
     <!-- Bootstrap core CSS -->
-    <link href="/Projet2.0/Front/view/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://localhost/Projet2.0/Front/view/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    
   
     <!-- Fichiers CSS supplémentaires -->
-    <link rel="stylesheet" href="/Projet2.0/Front/CSS/templatemo-woox-travel.css">
-    <link rel="stylesheet" href="/Projet2.0/Front/CSS/owl.css">
-    <link rel="stylesheet" href="/Projet2.0/Front/CSS/animate.css">
+    <link rel="stylesheet" href="http://localhost/Projet2.0/Front/CSS/templatemo-woox-travel.css">
+    <link rel="stylesheet" href="http://localhost/Projet2.0/Front/CSS/owl.css">
+    <link rel="stylesheet" href="http://localhost/Projet2.0/Front/CSS/animate.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <!--
+      
   
   
     https://templatemo.com/tm-580-woox-travel
@@ -52,17 +69,19 @@
                 <nav class="main-nav">
                     <!-- ***** Logo Start ***** -->
                     <a href="indexf.html" class="logo">
-                        <img src="/Projet2.0/Front/view/images/logo.png" alt="">
+                        <img src="http://localhost/Projet2.0/Front/view/images/logo.png" alt="">
                     </a>
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav">
-                      <li><a href="indexf.html" class="active">Accueil</a></li>
-                      <li><a href="about.html">À Propos</a></li>
-                      <li><a href="deals.html">Nos Offres</a></li>
-                      <li><a href="reservation.html">Contact</a></li>
-                      <li><a href="reservation.html">Blog</a></li>
-                      <li><a href="Depenses_front.html">Dépenses</a></li>
+                    <li><a href="indexf.html" class="active">Accueil</a></li>
+                    <li><a href="about.html">À Propos</a></li>
+                    <!-- <li><a href="deals.html">Nos Offres</a></li> -->
+                    <li><a href="ListLogementFront copy 2.php">Logements</a></li>
+                    <li><a href="ListVolFront copy.php">Vols</a></li>
+                    <li><a href="reservation.html">Contact</a></li>
+                    <li><a href="reservation.html">Blog</a></li>
+                    <li><a href="Depenses_front.html">Dépenses</a></li>
                     </ul>  
                     <a class='menu-trigger'>
                         <span>Menu</span>
@@ -138,51 +157,77 @@
 
   <div class="amazing-deals">
     <div class="container">
-      <div class="row">
-        <div class="col-lg-6 offset-lg-3">
-          <div class="section-heading text-center">
-            <h2>Best Weekly Offers In Each City</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p>
-          </div>
-        </div>
-        <!-- first deal container -->
-        <div class="col-lg-6 col-sm-6">
-          <div class="item">
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="image">
-                  <img src="/Projet2.0/Front/view/images/deals-01.jpg" alt="">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3">
+                <div class="section-heading text-center">
+                    <h2>Voici les offres de logement disponibles</h2>
+                    <p>Faites un tour pour voir nos offres et réserver un logement dans un endroit magique.</p>
                 </div>
-              </div>
-              <div class="col-lg-6 align-self-center">
-                <div class="content">
-                  <!-- <span class="info">*Limited Offer Today</span> 
-                  <h4>Glasgow City Lorem</h4>
-                  <div class="row">
-                    <div class="col-6">
-                      <i class="fa fa-clock"></i>
-                      <span class="list">5 Days</span>
-                    </div>
-                    <div class="col-6">
-                      <i class="fa fa-map"></i>
-                      <span class="list">Daily Places</span>
-                    </div>
-                  </div>
-                  <p>Lorem ipsum dolor sit amet dire consectetur adipiscing elit.</p>-->
-                  <div class="main-button">
-                    <a href="reservation.html">Make a Reservation</a>
-                  </div>
-                </div>
-              </div>
             </div>
-          </div>
         </div>
-        <div class="col-lg-6 col-sm-6">
+
+        <div class="row">
+            <?php $i = 0; ?>
+            <?php foreach ($logements as $logement): ?>
+                <!-- Start a new row every two items -->
+                <?php if ($i % 2 == 0 && $i != 0): ?>
+                    </div>
+                    <div class="row">
+                <?php endif; ?>
+                
+                <div class="col-lg-6 col-sm-6">
+                    <div class="item">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="image">
+                                    <img src="/Projet2.0/Front/view/images/deals-01.jpg" alt="">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 align-self-center">
+                                    <div class="content">
+                                        <h4><?= $logement['Nom']; ?> - <?= $logement['Adresse']; ?></h4>
+                                        <p><?= $logement['Description']; ?></p>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <i class="fa fa-tag"></i>
+                                                <span class="list"><?= $logement['Type']; ?></span>
+                                            </div>
+                                            <div class="col-6">
+                                                <i class="fa fa-dollar-sign"></i>
+                                                <span class="list"><?= $logement['Prix']; ?>Dt</span>
+                                            </div>
+                                        </div>
+                                        <div class="main-button">
+                                          <form method="post" action="create_reservation.php"> <!-- Assurez-vous que c'est la bonne action -->
+                                              <input type="hidden" name="vol_id" value="<?= htmlspecialchars($vol_id); ?>"> <!-- Vérifiez la valeur -->
+                                              <input type="hidden" name="logement_id" value="<?= htmlspecialchars($logement['IDlogement']); ?>"> <!-- Vérifiez la valeur -->
+                                              <!-- Autres champs obligatoires -->
+                                              <input type="hidden" name="date_reservation" value="<?= htmlspecialchars($date_reservation); ?>">
+                                              <input type="hidden" name="destination" value="<?= htmlspecialchars($destination); ?>">
+                                              <input type="hidden" name="guests" value="<?= htmlspecialchars($logement['Capacite']); ?>">
+                                              <button type="submit">Réserver</button>
+                                          </form>
+                                      </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <?php $i++; ?>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</div>
+
+        <!-- <div class="col-lg-6 col-sm-6"> 
           <div class="item">
             <div class="row">
               <div class="col-lg-6">
                 <div class="image">
-                  <img src="/Projet2.0/Front/view/images/deals-02.jpg" alt="">
+                  <img src="http://localhost/Projet2.0/Front/view/images/deals-02.jpg" alt="">
                 </div>
               </div>
               <div class="col-lg-6 align-self-center">
@@ -201,7 +246,7 @@
                   </div>
                   <p>Lorem ipsum dolor sit amet dire consectetur adipiscing elit.</p>
                   <div class="main-button">
-                    <a href="reservation.html">Make a Reservation</a>
+                    <a href="reservation.html">Reserver</a>
                   </div>
                 </div>
               </div>
@@ -213,7 +258,7 @@
             <div class="row">
               <div class="col-lg-6">
                 <div class="image">
-                  <img src="/Projet2.0/Front/view/images/deals-03.jpg" alt="">
+                  <img src="http://localhost/Projet2.0/Front/view/images/deals-03.jpg" alt="">
                 </div>
               </div>
               <div class="col-lg-6 align-self-center">
@@ -232,7 +277,7 @@
                   </div>
                   <p>Lorem ipsum dolor sit amet dire consectetur adipiscing elit.</p>
                   <div class="main-button">
-                    <a href="reservation.html">Make a Reservation</a>
+                    <a href="reservation.html">Reserver</a>
                   </div>
                 </div>
               </div>
@@ -244,7 +289,7 @@
             <div class="row">
               <div class="col-lg-6">
                 <div class="image">
-                  <img src="/Projet2.0/Front/view/images/deals-04.jpg" alt="">
+                  <img src="http://localhost/Projet2.0/Front/view/images/deals-04.jpg" alt="">
                 </div>
               </div>
               <div class="col-lg-6 align-self-center">
@@ -263,7 +308,7 @@
                   </div>
                   <p>This free CSS template is provided by Template Mo website.</p>
                   <div class="main-button">
-                    <a href="reservation.html">Make a Reservation</a>
+                    <a href="reservation.html">Reserver</a>
                   </div>
                 </div>
               </div>
@@ -282,7 +327,7 @@
       </div>
     </div>
   </div>
-
+-->
   <div class="call-to-action">
     <div class="container">
       <div class="row">
@@ -313,22 +358,22 @@
 
   <!-- Scripts -->
   <!-- Bootstrap core JavaScript -->
-  <script src="/Projet2.0/Front/view/vendor/jquery/jquery.min.js"></script>
-  <script src="/Projet2.0/Front/view/vendor/bootstrap/js/bootstrap.min.js"></script>
+  <script src="http://localhost/Projet2.0/Front/view/vendor/jquery/jquery.min.js"></script>
+  <script src="http://localhost/Projet2.0/Front/view/vendor/bootstrap/js/bootstrap.min.js"></script>
 
-  <script src="/Projet2.0/Front/js/isotope.min.js"></script>
-  <script src="/Projet2.0/Front/js/owl-carousel.js"></script>
+  <script src="http://localhost/Projet2.0/Front/js/isotope.min.js"></script>
+  <script src="http://localhost/Projet2.0/Front/js/owl-carousel.js"></script>
   <!-- <script src="../../js/wow.js"></script> -->
-  <script src="/Projet2.0/Front/js/tabs.js"></script>
-  <script src="/Projet2.0/Front/js/popup.js"></script>
-  <script src="/Projet2.0/Front/js/custom.js"></script>
+  <script src="http://localhost/Projet2.0/Front/js/tabs.js"></script>
+  <script src="http://localhost/Projet2.0/Front/js/popup.js"></script>
+  <script src="http://localhost/Projet2.0/Front/js/custom.js"></script>
   <script>
     $(".option").click(function(){
       $(".option").removeClass("active");
       $(this).addClass("active"); 
     });
   </script>
-
+  <!-- <script src="http://localhost/Projet2.0/js/script.js"></script> -->
   </body>
 
 </html>

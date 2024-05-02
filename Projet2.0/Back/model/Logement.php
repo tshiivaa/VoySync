@@ -11,6 +11,7 @@ class Logement
     private $Evaluation;
     private $Disponibilite;
     private $IDvol;
+    //private ?string $img = null;
 
     function getIDlogement()
     {
@@ -108,7 +109,17 @@ class Logement
     function setIDvol($IDvol) { // Ajout de la méthode setIDvol
         $this->IDvol = $IDvol;
     }
-    function __construct($IDlogement, $Nom, $Type, $Adresse, $Prix, $Description, $Capacite, $Evaluation, $Disponibilite, $IDvol = null) {
+
+    /*public function getImage()
+    {
+        return $this->img;
+    }
+
+    public function setImage($img)
+    {
+        return $this->img = $img;
+    }*/
+    function __construct($IDlogement, $Nom, $Type, $Adresse, $Prix, $Description, $Capacite, $Evaluation, $Disponibilite, $IDvol = null, string $img) {
         $this->IDlogement = $IDlogement;
         $this->Nom = $Nom;
         $this->Type = $Type;
@@ -119,6 +130,7 @@ class Logement
         $this->Evaluation = $Evaluation;
         $this->Disponibilite = $Disponibilite;
         $this->IDvol = $IDvol; // Initialiser IDvol
+        //$this->img = $img;
     }
 }
 ?>

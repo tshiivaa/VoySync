@@ -20,42 +20,45 @@ if (isset($_POST['submit'])) {
     $IDvol = $_POST['IDvol'];
 
     // Gérer l'upload de l'image
-    /* $image = $_FILES['img'];
+    $image = $_FILES['img'];
     $imageName = $image['name'];
     $imageTmpName = $image['tmp_name'];
-    $imageError = $image['error'];*/
+    $imageError = $image['error'];
 
 
-    // Déplacer l'image téléchargée
-    /*if ($imageError === 0) {
-        $upload_image = $upload_directory . time() . '-' . $imageName; // Timestamp pour éviter les collisions
-        if (!move_uploaded_file($imageTmpName, $upload_image)) {
-            echo "Erreur lors du déplacement de l'image.";
+    
+    if ($imageError === 0) {
+        $upload_image = '../uploads/' . $imageName;
+        move_uploaded_file($imageTmpName, $upload_image);
+
+        $sql = "INSERT INTO logement (IDLogement, Nom, Type, Adresse, Prix, Description, Capacite, Evaluation, Disponibilite, IDvol, img)  
+                VALUES (:IDLogement, :Nom, :Type, :Adresse, :Prix, :Description, :Capacite, :Evaluation, :Disponibilite, :IDvol, :img)";
+        $pdo = config::getConnexion();
+        try {
+            // Préparer la déclaration
+         $stmt = $pdo->prepare($sql);
+    // Créer un nouvel objet Logement avec le chemin de l'image
+            $stmt->bindParam(':IDLogement', $IDLogement);
+            $stmt->bindParam(':Nom', $Nom);
+            $stmt->bindParam(':Type', $Type);
+            $stmt->bindParam(':Adresse', $Adresse);
+            $stmt->bindParam(':Prix', $Prix);
+            $stmt->bindParam(':Description', $Description);
+            $stmt->bindParam(':Capacite', $Capacite);
+            $stmt->bindParam(':Evaluation', $Evaluation);
+            $stmt->bindParam(':Disponibilite', $Disponibilite);
+            $stmt->bindParam(':IDvol', $IDvol);
+            $stmt->bindParam(':img', $upload_image);
+            $stmt->execute();
+            header('Location: ListLogement.php');
+            exit();
+        } catch (PDOException $e) {
+            die('Error: ' . $e->getMessage());
         }
     } else {
-        echo "Erreur lors du téléchargement de l'image.";
-    }*/
-
-
-    // Créer un nouvel objet Logement avec le chemin de l'image
-    $logement = new Logement(
-        $IDlogement, 
-        $Nom, 
-        $Type, 
-        $Adresse, 
-        $Prix, 
-        $Description, 
-        $Capacite, 
-        $Evaluation, 
-        $Disponibilite, 
-        $IDvol, 
-        //$upload_image // Chemin de l'image
-    );
-
-
-
-    // Mettre un flag pour rediriger après succès
-    $s = 1;
+        // Gérer les erreurs d'upload d'image
+        die('Error uploading image.');
+    }
 }
 
 ?>
@@ -120,33 +123,22 @@ if (isset($_POST['submit'])) {
     </style>
     <!-- JavaScript for form validation -->
     <script>
-function validateForm() {
-    console.log("Form validation function called");
-    var idlogement = document.getElementById("idlogement").value;
-    var nom = document.getElementById("nom").value;
-    var type = document.getElementById("type").value;
-    var adresse = document.getElementById("adresse").value;
-    var prix = document.getElementById("prix").value;
-    var description = document.getElementById("description").value;
-    var capacite = document.getElementById("capacite").value;
-    var evaluation = document.getElementById("evaluation").value;
-    var disponibilite = document.getElementById("disponibilite").value;
-
-    console.log("IDLogement:", idlogement);
-    console.log("Nom:", nom);
-    console.log("Type:", type);
-    console.log("Adresse:", adresse);
-    console.log("Prix:", prix);
-    console.log("Description:", description);
-    console.log("Capacite:", capacite);
-    console.log("Evaluation:", evaluation);
-    console.log("Disponibilite:", disponibilite);
-
-    // Check if any field is empty
-    if (idlogement == "" || nom == "" || type == "" || adresse == "" || prix == "" || description == "" || capacite == "" || evaluation == "" || disponibilite == "") {
-        alert("Veuillez remplir tous les champs");
-        return false;
-    }
+document.getElementById('articleForm').addEventListener('submit', function (event) {
+    var idlogement = document.getElementById("idlogement");
+    var nom = document.getElementById("nom");
+    var type = document.getElementById("type");
+    var adresse = document.getElementById("adresse");
+    var prix = document.getElementById("prix");
+    var description = document.getElementById("description");
+    var capacite = document.getElementById("capacite");
+    var evaluation = document.getElementById("evaluation");
+    var disponibilite = document.getElementById("disponibilite");
+    if (!nom.value.trim() || !adresse.value.trim() || !prix.value.trim()|| !description.value.trim() || !capacite.value.trim()|| !evaluation.value.trim() ) {
+    // Prevent the form from submittin
+        event.preventDefault();
+        // Display an alert message
+        alert('Veuillez remplir tous les champs.');
+       }
 
     // Additional validation logic for specific fields
     if (isNaN(idlogement)) {
@@ -175,8 +167,7 @@ function validateForm() {
         return false;
     }
 
-    return true; // Submit the form if all validations pass
-}
+});
 </script>
 
 
@@ -342,30 +333,13 @@ function validateForm() {
         <label for="IDvol">IDvol:</label><br>
         <input type="text" id="IDvol" name="IDvol" placeholder="Entrer un IDvol existant" required><br><br>
 
-        <!-- <label for="img">Image :</label> -->
-        <!-- <input type="file" id="img" name="img" accept="img/*" required><br><br> -->
+        <label for="img">Image :</label>
+        <input type="file" id="img" name="img" accept="img/*" required><br><br>
         
         <input type="submit" value="Ajouter">
-    </form>
-
-    <?php if($s==1)
-    {
-        // Ajouter du logement
-        try {
-            $logementC->addLogement($logement);
-            echo "<script>alert('Vous avez ajouté un logement');</script>";
-            echo "<script>window.location.href='ListLogement.php';</script>";
-        } catch (Exception $e) {
-            echo "Erreur lors de l'ajout du logement: " . $e->getMessage();
-        }
-    }
-    ?>  
-    
+    </form>    
 </div>
   <script src="http://localhost/Projet2.0/js/script.js">
-    document.querySelector("form").addEventListener("submit", function (event) {
-    console.log("Formulaire soumis");
-});
   </script>
 </body>
 </html>

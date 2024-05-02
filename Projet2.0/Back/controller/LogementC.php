@@ -42,8 +42,8 @@ class LogementC
             throw new Exception("L'IDvol n'existe pas dans la table vol");
         }
         // Si l'IDvol est valide, procéder à l'ajout du logement
-        $sql = "INSERT INTO logement (IDLogement, Nom, Type, Adresse, Prix, Description, Capacite, Evaluation, Disponibilite, IDvol)  
-                VALUES (:IDLogement, :Nom, :Type, :Adresse, :Prix, :Description, :Capacite, :Evaluation, :Disponibilite, :IDvol)";
+        $sql = "INSERT INTO logement (IDLogement, Nom, Type, Adresse, Prix, Description, Capacite, Evaluation, Disponibilite, IDvol/*, img*/)  
+                VALUES (:IDLogement, :Nom, :Type, :Adresse, :Prix, :Description, :Capacite, :Evaluation, :Disponibilite, :IDvol/*, :img*/)";
         $query = $db->prepare($sql);
         $query->execute([
             'IDLogement' => $logement->getIDlogement(),
@@ -55,7 +55,8 @@ class LogementC
             'Capacite' => $logement->getCapacite(),
             'Evaluation' => $logement->getEvaluation(),
             'Disponibilite' => $logement->getDisponibilite(),
-            'IDvol' => $logement->getIDvol()
+            'IDvol' => $logement->getIDvol(),
+            //'img' => $logement->getImage(),
         ]);
     }
     catch (Exception $e) {
@@ -67,7 +68,7 @@ class LogementC
     public function updateLogement($logement, $IDlogement)
     {
         $sql = "UPDATE logement SET Nom = :Nom, Type = :Type, Adresse = :Adresse, Prix = :Prix, Description = :Description, 
-                Capacite = :Capacite, Evaluation = :Evaluation, Disponibilite = :Disponibilite WHERE IDlogement = :IDlogement";
+                Capacite = :Capacite, Evaluation = :Evaluation, Disponibilite = :Disponibilite/*, img = :img*/ WHERE IDlogement = :IDlogement";
         $db = config::getConnexion();
         try {
             $query = $db->prepare($sql);
@@ -80,7 +81,8 @@ class LogementC
                 'Description' => $logement->getDescription(),
                 'Capacite' => $logement->getCapacite(),
                 'Evaluation' => $logement->getEvaluation(),
-                'Disponibilite' => $logement->getDisponibilite()
+                'Disponibilite' => $logement->getDisponibilite(),
+                //'img' => $logement->getImage(),
             ]);
         } 
         catch (Exception $e) 
