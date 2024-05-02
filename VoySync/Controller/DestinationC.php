@@ -73,5 +73,44 @@ class DestinationController {
         $stmt->bindParam(':id_destination', $id_destination);
         $stmt->execute();
     }
+
+    public function listCountries() {
+        $pdo = config::getConnexion();
+        $query = "SELECT DISTINCT pays FROM destination";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute();
+        $countries = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $countryNames = [];
+        foreach ($countries as $country) {
+            $countryNames[] = $country['pays'];
+        }
+        return $countryNames;
+    }
+
+    public function listDestinationsByCountry($country) {
+        $pdo = config::getConnexion();
+        $query = "SELECT nom FROM destination WHERE pays = :country";
+        $stmt = $pdo->prepare($query);
+        $stmt->bindParam(':country', $country, PDO::PARAM_STR);
+        $stmt->execute();
+        
+        $options = ""; // Chaîne pour stocker les options HTML
+        
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $options .= "<option value='" . $row['nom'] . "'>" . $row['nom'] . "</option>";
+        }
+    
+        return $options;
+    }
+}
+if (isset($_GET['country'])) {
+    $selectedCountry = $_GET['country'];
+
+    // Appeler la méthode pour récupérer les destinations associées au pays sélectionné
+    $DestinationController = new DestinationController();
+    $options = $DestinationController->listDestinationsByCountry($selectedCountry);
+
+    // Retourner les options HTML
+    echo $options;
 }
 ?>

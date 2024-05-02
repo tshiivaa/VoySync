@@ -210,7 +210,7 @@ $listTransports = $transportController->listTransports();
                         <li>
                             <div class="transport-info">
                                 <strong><?php echo $transport->getType(); ?></strong>
-                                <span class="details">(<?php echo $transport->getPaysDepart(); ?> to <?php echo $transport->getPaysArrivee(); ?>)</span>
+                                <span class="details">(<?php echo $transport->getLieuxDepart(); ?> to <?php echo $transport->getLieuxArrivee(); ?>)</span>
                             </div>
                             <a href="?delete=<?php echo $transport->getIdTransport(); ?>" class="delete-btn" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce transport ?')">Supprimer</a>
                         </li>

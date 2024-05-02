@@ -4,7 +4,6 @@ include_once '../config.php';
 
 class TransportController {
     
-    // Méthode pour lister tous les transports
     public function listTransports() {
         $query = "SELECT * FROM transport";
         $pdo = config::getConnexion();
@@ -31,7 +30,6 @@ class TransportController {
         }
     }
 
-    // Méthode pour créer un nouveau transport
     public function createTransport($type, $pays_depart, $pays_arrivee, $lieux_depart, $lieux_arrivee, $temps_depart, $temps_arrivee, $prix) {
         $pdo = config::getConnexion();
         $query = "INSERT INTO transport (type, pays_depart, pays_arrivee, lieux_depart, lieux_arrivee, temps_depart, temps_arrivee, prix) VALUES (:type, :pays_depart, :pays_arrivee, :lieux_depart, :lieux_arrivee, :temps_depart, :temps_arrivee, :prix)";
@@ -47,7 +45,6 @@ class TransportController {
         $stmt->execute();
     }
 
-    // Méthode pour mettre à jour un transport existant
     public function updateTransport($id_transport, $type, $pays_depart, $pays_arrivee, $lieux_depart, $lieux_arrivee, $temps_depart, $temps_arrivee, $prix) {
         $pdo = config::getConnexion();
         $query = "UPDATE transport SET type = :type, pays_depart = :pays_depart, pays_arrivee = :pays_arrivee, lieux_depart = :lieux_depart, lieux_arrivee = :lieux_arrivee, temps_depart = :temps_depart, temps_arrivee = :temps_arrivee, prix = :prix WHERE id_transport = :id_transport";
@@ -64,7 +61,6 @@ class TransportController {
         $stmt->execute();
     }
 
-    // Méthode pour supprimer un transport
     public function deleteTransport($id_transport) {
         $pdo = config::getConnexion();
         $query = "DELETE FROM transport WHERE id_transport = :id_transport";
@@ -72,5 +68,35 @@ class TransportController {
         $stmt->bindParam(':id_transport', $id_transport);
         $stmt->execute();
     }
+
+    public function listTransportsByDestinationAndLocation($destination, $currentLocation) {
+        $pdo = config::getConnexion();
+        $query = "SELECT * FROM transport  WHERE lieux_depart  = :currentLocation AND lieux_arrivee  = :destination";
+        $stmt = $pdo->prepare($query);
+        $stmt->bindParam(':currentLocation', $currentLocation, PDO::PARAM_STR);
+        $stmt->bindParam(':destination', $destination, PDO::PARAM_STR);
+        $stmt->execute();
+    
+        $options = ""; 
+    
+        while ($transport = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $options .= "<option value='" . $transport['id_transport'] . "'>" . $transport['type'] . " (" . $transport['lieux_depart'] . " to " . $transport['lieux_arrivee'] . ")</option>";
+        }
+    
+        return $options;
+    }
+    
+    
 }
+if (isset($_GET['destination']) && isset($_GET['currentLocation'])) {
+    $selectedDestination = $_GET['destination'];
+    $selectedCurrentLocation = $_GET['currentLocation'];
+
+    $TransportController = new TransportController();
+    $options = $TransportController->listTransportsByDestinationAndLocation($selectedDestination, $selectedCurrentLocation);
+
+    echo $options;
+}
+
+
 ?>

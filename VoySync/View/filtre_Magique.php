@@ -4,6 +4,7 @@ include_once '../Controller/TransportC.php';
 
 $DestinationController = new DestinationController();
 $listDestinations = $DestinationController->listDestinations();
+$listCountries = $DestinationController->listCountries();
 $TransportController = new TransportController();
 $listTransport = $TransportController->listTransports();
 ?>
@@ -60,26 +61,48 @@ $listTransport = $TransportController->listTransports();
       </div>
     </div>
   <div class="form-container">
-    <div class="form-step" data-step="1">
-          <h1 class="title">Destination :</h1>
-          <p class="step-description"> Veuillez donner la destination </p>
-          <form>
-            <label for="select">Destination</label>
-            <select id="destination" name="destination" class="my-select-menu">
-                <?php foreach ($listDestinations as $destination): ?>
-                    <option value=""><?php echo $destination->getNom(); ?></option>
-                <?php endforeach; ?>
-            </select>
-            <br>
-            <label for="select">Position Actuelle</label>
-            <select id="destination" name="destination" class="my-select-menu">
-                <?php foreach ($listDestinations as $destination): ?>
-                    <option value=""><?php echo $destination->getNom(); ?></option>
-                <?php endforeach; ?>
-            </select>
-          </form>
+      <div class="form-step" data-step="1">
+      <h1 class="title">Destination :</h1>
+      <p class="step-description"> Veuillez choisir le pays </p>
+      <!-- Destination -->
+      <h2>Destination</h2>
+      <label for="select">Pays</label>
+      <select id="country" name="country" class="my-select-menu" onchange="formDestinations()">
+          <option value="">Choisir un pays</option>
+          <?php foreach ($listCountries as $country): ?>
+              <option value="<?php echo $country; ?>"><?php echo $country; ?></option>
+          <?php endforeach; ?>
+      </select>
+
+      <br>
+
+      <label for="select">Lieu</label>
+
+      <select id="destination" name="destination" class="my-select-menu">
+      </select>
+
+            <!-- Actuelle -->
+            <h2>Lieu actuelle</h2>
+            <label for="select">Pays</label>
+      <select id="country2" name="country2" class="my-select-menu" onchange="formDestinations2()">
+          <option value="">Choisir un pays</option>
+          <?php foreach ($listCountries as $country): ?>
+              <option value="<?php echo $country; ?>"><?php echo $country; ?></option>
+          <?php endforeach; ?>
+      </select>
+
+      <br>
+
+      <label for="select">Lieu</label>
+
+      <select id="destination2" name="destination2" class="my-select-menu">
+      </select>
+
       <button class="next-step">Next</button>
+
     </div>
+
+
     <div class="form-step" data-step="2" style="display: none;">
       <h1 class="title">Date :</h1>
       <p class="step-description"> Veuillez donner la date </p>
@@ -87,100 +110,53 @@ $listTransport = $TransportController->listTransports();
       <button class="prev-step">Previous</button>
       <button class="next-step" id="nextDateStep">Next</button>
     </div>
+
     <div class="form-step" data-step="3" style="display: none;">
       <h1 class="title">Budget :</h1>
       <p class="step-description"> Veuillez donner votre budget </p>
-      <input type="number" placeholder="Enter budget" id="budgetInput">
+      <input type="number" placeholder="Enter budget" id="budgetInput" pattern="\d+" title="Please enter numbers only" required>
+      <select id="currency" name="currency" class="my-select-menu">
+        <option value="USD">USD</option>
+        <option value="EUR">EUR</option>
+        <option value="TND">TND</option>
+      </select>
       <button class="prev-step">Previous</button>
       <button class="next-step" id="nextBudgetStep">Next</button>
     </div>
+
     <div class="form-step" data-step="4" style="display: none;">
-    <h1 class="title">Transport :</h1>
-    <form>
-            <label for="select">Transport</label>
-            <select id="transport" name="transport" class="my-select-menu">
-                <?php foreach ($listTransport as $Transport): ?>
-                    <option value="" id="TransportInput"><?php echo $Transport->getType(); ?></option>
-                <?php endforeach; ?>
-            </select>
-            <button class="prev-step">Previous</button>
-            <button class="next-step" id="nextTransportStep">Next</button>
-          </form>
-    </div>
-    <div class="form-step" data-step="5" style="display: none;">
-      <h1 class="title">Accommodation :</h1>
-      <p class="step-description"> Veuillez donner votre Accommodation </p>
-      <select id="hebergement" name="hebergement" class="my-select-menu">
-            <option value="Hotel">Hotel</option>
-            <option value="Maison">Maison d'hote</option>
-            <option value="Hotel">Airbnb</option>
+      <h1 class="title">Transport :</h1>
+      <label for="select">Transport</label>
+      <select id="transport" name="transport" class="my-select-menu">
       </select>
+      <button class="prev-step">Previous</button>
+      <button class="next-step" id="nextTransportStep">Next</button>
+    </div>
+
+    <div class="form-step" data-step="5" style="display: none;">
+      <h1 class="title">Hebergement :</h1>
+      <p class="step-description"> Veuillez donner votre Accommodation </p>
+          <div class="radio-inputs">
+      <label class="radio">
+        <input type="radio" name="radio" checked="">
+        <span class="name">Hotel</span>
+      </label>
+      <label class="radio">
+        <input type="radio" name="radio">
+        <span class="name">Maison d'Hote</span>
+      </label>
+          
+      <label class="radio">
+        <input type="radio" name="radio">
+        <span class="name">AirBnb</span>
+      </label>
+    </div>
+    <br>
       <button class="prev-step">Previous</button>
       <button class="submit">Submit</button>
     </div>
   </div>
 </div>
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const formSteps = document.querySelectorAll('.form-step');
-    const nextButtons = document.querySelectorAll('.next-step');
-    const prevButtons = document.querySelectorAll('.prev-step');
-
-    // Function to show the next step
-    function showNextStep(currentStep) {
-      const nextStep = currentStep.nextElementSibling;
-      currentStep.style.display = 'none';
-      if (nextStep) {
-        nextStep.style.display = 'block';
-      }
-    }
-
-    // Function to show the previous step
-    function showPrevStep(currentStep) {
-      const prevStep = currentStep.previousElementSibling;
-      currentStep.style.display = 'none';
-      if (prevStep) {
-        prevStep.style.display = 'block';
-      }
-    }
-
-    // Event listeners for next buttons
-    nextButtons.forEach(button => {
-      button.addEventListener('click', function() {
-        const currentStep = this.parentElement;
-        if (currentStep.dataset.step === '2') {
-          // Check if the date input is filled
-          const dateInput = document.getElementById('dateInput');
-          if (!dateInput.value) {
-            alert('Please enter a date.');
-            return;
-          }
-        } else if (currentStep.dataset.step === '3') {
-          // Check if the budget input is filled
-          const budgetInput = document.getElementById('budgetInput');
-          if (!budgetInput.value) {
-            alert('Please enter a budget.');
-            return;
-          }
-        } else if (currentStep.dataset.step === '4') {
-          const budgetInput = document.getElementById('TransportInput');
-          if (!budgetInput.value) {
-            alert('Please enter a budget.');
-            return;
-          }
-        }
-        showNextStep(currentStep);
-      });
-    });
-
-    // Event listeners for previous buttons
-    prevButtons.forEach(button => {
-      button.addEventListener('click', function() {
-        const currentStep = this.parentElement;
-        showPrevStep(currentStep);
-      });
-    });
-  });
-</script>
+<script src="filtre.js"></script>
 </body>
 </html>
