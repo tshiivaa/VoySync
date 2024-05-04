@@ -7,6 +7,8 @@ $listDestinations = $DestinationController->listDestinations();
 $listCountries = $DestinationController->listCountries();
 $TransportController = new TransportController();
 $listTransport = $TransportController->listTransports();
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -98,7 +100,8 @@ $listTransport = $TransportController->listTransports();
       <select id="destination2" name="destination2" class="my-select-menu">
       </select>
 
-      <button class="next-step">Next</button>
+      <button class="next-step" onclick="save()">Next</button>
+
 
     </div>
 
@@ -153,7 +156,11 @@ $listTransport = $TransportController->listTransports();
     </div>
     <br>
       <button class="prev-step">Previous</button>
-      <button class="submit">Submit</button>
+
+      <form id="myForm" action="idea.php" method="post">
+        <input type="text" id="destinationide" name="destination" style="display: none;">
+        <button type="submit" id="submitButton" class="submit">Get Ideas</button>
+      </form>
     </div>
   </div>
 </div>

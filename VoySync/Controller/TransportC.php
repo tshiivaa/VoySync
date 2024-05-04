@@ -86,7 +86,6 @@ class TransportController {
         return $options;
     }
     
-    
 }
 if (isset($_GET['destination']) && isset($_GET['currentLocation'])) {
     $selectedDestination = $_GET['destination'];

@@ -3,6 +3,45 @@ console.log("test");
 let selectedDestination = ""; // Variable globale pour stocker la destination sélectionnée
 let selectedDestination2 = ""; // Variable globale pour stocker la destination sélectionnée
 
+function getGeminiResponse() {
+    // ... other request options as needed
+    fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=AIzaSyDbEjwo2d9tdx-VmELQ7ynm6el4LTks5ns', {
+        method: 'POST',
+        // ... other request options as needed
+    })
+
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                console.error("Error:", data.error.message);
+                // Handle API error (e.g., display an alert to the user)
+                return;
+            }
+            const generatedText = data.candidates[0].content.parts[0].text;
+            document.getElementById("gemini_response").innerHTML = generatedText;
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            // Handle other errors (e.g., network issues)
+        });
+}
+
+function save() {
+    selectedDestination = document.getElementById("destination").value;
+    selectedDestination2 = document.getElementById("destination2").value;
+
+    // Vérifiez si les deux destinations ont été sélectionnées
+    if (selectedDestination && selectedDestination2) {
+        // Appelez la fonction pour mettre à jour la liste des transports
+        formTransports(selectedDestination, selectedDestination2);
+    } else {
+        // Gérez le cas où une ou les deux destinations ne sont pas sélectionnées
+        console.log("Veuillez sélectionner une destination et une position actuelle.");
+    }
+}
+
+
+
 function formDestinations() {
     var selectedCountry = document.getElementById("country").value;
     var destinationSelect = document.getElementById("destination");
@@ -21,8 +60,6 @@ function formDestinations() {
         .then(options => {
             destinationSelect.innerHTML = options;
             selectedDestination = destinationSelect.value;
-            // Appel de formTransports avec les valeurs mises à jour
-            formTransports(selectedDestination2, selectedDestination);
         });
 }
 
@@ -50,8 +87,6 @@ function formDestinations2() {
         .then(options => {
             destinationSelect.innerHTML = options;
             selectedDestination2 = destinationSelect.value;
-            // Appel de formTransports avec les valeurs mises à jour
-            formTransports(selectedDestination2, selectedDestination);
         });
 
 }
@@ -65,9 +100,9 @@ document.addEventListener('DOMContentLoaded', function () {
 function formTransports(selectedDestination2, selectedDestination) {
 
     var transportSelect = document.getElementById("transport");
+    var ide = document.getElementById("destinationide");
+    console.log(selectedDestination, "to ", selectedDestination2)
 
-    console.log("Selected destination:", selectedDestination);
-    console.log("Selected current location:", selectedDestination2);
 
     // Effacer les options précédentes
     transportSelect.innerHTML = "";
@@ -84,13 +119,10 @@ function formTransports(selectedDestination2, selectedDestination) {
             console.log("Response from server:", options);
             // Ajouter les options HTML à la liste déroulante
             transportSelect.innerHTML = options;
+            ide.innerHTML = selectedDestination2;
         });
 }
 
-// Appel de la fonction formTransports après le chargement du DOM
-document.addEventListener('DOMContentLoaded', function () {
-    formTransports(selectedDestination2, selectedDestination);
-});
 
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -167,4 +199,10 @@ document.addEventListener('DOMContentLoaded', function () {
             showPrevStep(currentStep);
         });
     });
+
+
+
+    // Call the function from another part of your Javascript code (e.g., after a user action on the "Hébergement" step)
+
+
 });
