@@ -1,32 +1,10 @@
+
 <?php
 require_once "../../config.php";
 
 class MissionC
 {
-    public function calculateRatingStars($rate)
-    {
-        $output = '';
-        $fullStars = intval($rate);
-        $halfStar = ($rate - $fullStars) >= 0.5 ? true : false;
-
-        // Full stars
-        for ($i = 0; $i < $fullStars; $i++) {
-            $output .= '<i class="fa fa-star"></i>';
-        }
-
-        // Half star if needed
-        if ($halfStar) {
-            $output .= '<i class="fa fa-star-half"></i>';
-        }
-
-        // Empty stars to complete the row
-        $emptyStars = 5 - $fullStars - ($halfStar ? 1 : 0);
-        for ($i = 0; $i < $emptyStars; $i++) {
-            $output .= '<i class="fa fa-star-o"></i>';
-        }
-
-        return $output;
-    }
+   
     public function listMission()
     {
         $sql = "SELECT * FROM mission;";

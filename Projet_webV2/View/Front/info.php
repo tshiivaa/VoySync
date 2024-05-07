@@ -34,6 +34,7 @@ if (isset($_POST['submit'])) {
     $id_m
     );
     $ReviewC->addReview($review);
+    $ReviewC->updateMissionWithReview($id_m);
     header('Location: FRMissionPage.php');
       exit(); // Arrêter l'exécution ultérieure
   }

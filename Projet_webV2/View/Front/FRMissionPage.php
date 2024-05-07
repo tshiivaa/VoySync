@@ -160,23 +160,38 @@ foreach ($missions as $mission) {
 <div class="col-lg-6 col-sm-6">
     <div class="item">
         <div class="row">
-            <div class="col-lg-6">
-                <div class="image">
-                    <img class="img-fluid" src="<?php echo $mission['imageM']; ?>" alt="">
-                </div>
-            </div>
+        <div class="col-lg-6">
+    <div class="image-container" style="overflow: hidden; position: relative; height: 342px;  justify-content: center; align-items: center;">
+        <img style="width: 100%; height: 342px; vertical-align: middle;" src="<?php echo $mission['imageM']; ?>" alt="">
+    </div>
+</div>
+
+
             <div class="col-lg-6 align-self-center">
                 <div class="content">
                   <center><div class="rating">
                     <?php
                     // Afficher les étoiles pour chaque mission individuellement
                     $rate = $mission['rate'];
-                    for ($i = 1; $i <= 5; $i++) {
-                      $checked = $i <= $rate ? 'checked' : ''; // Vérifie si l'étoile doit être cochée
-                      echo '<input type="radio" id="star' . $i . $nbr . '" name="rating' . $nbr . '" value="' . $i . '" ' . $checked . ' />';
-                      echo '<label for="star' . $i . $nbr . '" title="' . $i . ' stars"></label>';
+                    if ($rate > 0)
+                    {
+                      $starsToShow = $rate > 0 ? $rate : 0; // Déterminer le nombre d'étoiles à afficher (rate si supérieur à 0, sinon 5)
+                      for ($i = 5; $i >= 1; $i--) {
+                          $checked = $i >= $starsToShow ? 'checked' : ''; // Vérifie si l'étoile doit être cochée
+                          echo '<input type="radio" id="star' . $i . $nbr . '" name="rating' . $nbr . '" value="' . $i . '" ' . $checked . ' />';
+                          echo '<label for="star' . $i . $nbr . '" title="' . $i . ' stars"></label>';
+                      }
+                    }else
+                    {
+                      $starsToShow = $rate > 0 ? $rate : 0; // Si le taux est supérieur à 0, affiche le taux, sinon affiche 0
+    for ($i = 5; $i >= 1; $i--) {
+        $checked = $i > $starsToShow ? '' : 'checked'; // Si l'étoile doit être cochée (taux non nul), sinon vide
+        echo '<input type="radio" id="star' . $i . $nbr . '" name="rating' . $nbr . '" value="' . $i . '" ' . $checked . ' />';
+        echo '<label for="star' . $i . $nbr . '" title="' . $i . ' stars"></label>';
+    }
                     }
-                    ?>
+                    
+                  ?>
                   </div></center>
                     <h4><?php echo $mission['title']; ?></h4>
                     <div class="row">

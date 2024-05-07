@@ -1,64 +1,54 @@
 <!--
-private function getData($sqlQuery) {
-    $stmt = $this->pdo->query($sqlQuery);
-    $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    return $data;
-}	
-private function getNumRows($sqlQuery) {
-    $stmt = $this->pdo->query($sqlQuery);
-    $numRows = $stmt->rowCount();
-    return $numRows;
-}   
-public function getItemList(){
-    $sqlQuery = "
-        SELECT * FROM ".$this->itemTable;
-    return  $this->getData($sqlQuery);    
-}
-public function getItem($itemId){
-    $sqlQuery = "
-        SELECT * FROM ".$this->itemTable."
-        WHERE id='".$itemId."'";
-    return  $this->getData($sqlQuery);    
-}
-public function getItemRating($id_m){
-    $sqlQuery = "SELECT r.*, m.title
-    FROM review r
-    LEFT JOIN mission m ON r.id_m = m.id_m;";
-    return  $this->getData($sqlQuery);        
-}
-
-
-public function getRatingAverage($id_m){
-    $itemRating = $this->getItemRating($id_m);
-    $ratingNumber = 0;
-    $count = 0;		
-    foreach($itemRating as $itemRatingDetails){
-        $ratingNumber+= $itemRatingDetails['ratingNumber'];
-        $count += 1;			
+       public function addReview($review)
+{
+    $sql = "INSERT INTO review (id_rev,description,rate,id_m)
+            VALUES (:id_rev, :description, :rate, :id_m)";
+            
+    $db = config::getConnexion();
+    try {
+        $query = $db->prepare($sql);
+        $query->execute([
+            'id_rev' => $review->getIdRev(),
+            'description' => $review->getDescription(),
+            'rate'=> $review->getRate(),
+            'id_m'=> $review->getIdM()
+        ]);
+    } catch (Exception $e) {
+        echo 'Error: ' . $e->getMessage();
     }
-    $average = 0;
-    if($ratingNumber && $count) {
-        $average = $ratingNumber/$count;
-    }
-    return $average;	
-}
-public function saveRating($POST, $id_m){      
-    $insertRating = "INSERT INTO mission (itemId, userId, ratingNumber, title, comments, created, modified) 
-                     VALUES ('".$POST['itemId']."', '".$userID."', '".$POST['rating']."', '".$POST['title']."', '".$POST["comment"]."', '".date("Y-m-d H:i:s")."', '".date("Y-m-d H:i:s")."')";
-    $this->dbConnect->exec($insertRating);    
 }
 -->
 <?php
 require_once "../../config.php";
+require_once '../../vendor/autoload.php'; // Update the path to autoload.php
+use Twilio\Rest\Client;
+
 
 class ReviewC
 {
-    private $pdo;
-    private $itemTable = 'item'; 
-    private $itemRatingTable = 'item_rating';
-   
-
-
+    public function updateMissionWithReview($id_m)
+{
+    $sql = "UPDATE mission m
+            JOIN (
+                SELECT id_m, Round(Avg(rate),1) AS avg_rate
+                FROM review
+                GROUP BY id_m
+            ) r ON m.id_m = r.id_m
+            SET m.rate = r.avg_rate
+            WHERE m.id_m = :id_m";
+    
+    $db = config::getConnexion();
+    try {
+        $query = $db->prepare($sql);
+        $query->execute(['id_m' => $id_m]);
+        $rowCount = $query->rowCount();
+        echo $rowCount . " records UPDATED successfully <br>";
+        return $rowCount;
+    } catch (PDOException $e) {
+        echo 'Error: ' . $e->getMessage();
+        return -1;
+    }
+}
     public function listReviewWithMission()
 {
     $sql = "SELECT r.*, m.title
@@ -85,24 +75,42 @@ public function listReview()
         }
     }
 
-    public function addReview($review)
-{
-    $sql = "INSERT INTO review (id_rev,description,rate,id_m)
-            VALUES (:id_rev, :description, :rate, :id_m)";
-            
-    $db = config::getConnexion();
-    try {
-        $query = $db->prepare($sql);
-        $query->execute([
-            'id_rev' => $review->getIdRev(),
-            'description' => $review->getDescription(),
-            'rate'=> $review->getRate(),
-            'id_m'=> $review->getIdM()
-        ]);
-    } catch (Exception $e) {
-        echo 'Error: ' . $e->getMessage();
+ 
+public function addReview($review)
+    {
+        $sql = "INSERT INTO review (id_rev, description, rate, id_m) VALUES (:id_rev, :description, :rate, :id_m)";
+        $db = config::getConnexion();
+        
+        try {
+            $query = $db->prepare($sql);
+            $query->execute([
+                'id_rev' => $review->getIdRev(),
+                'description' => $review->getDescription(),
+                'rate'=> $review->getRate(),
+                'id_m'=> $review->getIdM()
+            ]);
+
+            // Send SMS notification
+            $sid = "ACc4c16b3aa501bbe3b1099c6b9c5b0020"; // Your Twilio Account SID
+            $token = "c63ec04ff6b849d0af81d6d832b0ea27"; // Your Twilio Auth Token
+            $twilio = new Client($sid, $token);
+
+            $message = $twilio->messages
+                ->create("+21655626765", // to (recipient phone number)
+                    array(
+                        "from" => "+18289701375", // your Twilio phone number
+                        "body" => "New review added!" // message body
+                    )
+                );
+
+            print($message->sid); // Optional: print the message SID for debugging
+
+            return true;
+        } catch (Exception $e) {
+            echo 'Error: ' . $e->getMessage();
+            return false;
+        }
     }
-}
 
 
     

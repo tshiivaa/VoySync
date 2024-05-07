@@ -1080,10 +1080,7 @@ Visit Country Style
   border-bottom: none;
 }
 
-.visit-country .item .image img {
-  border-radius: 23px;
-  object-fit: cover;
-}
+
 
 .visit-country .item .right-content h4 {
   font-size: 20px;
@@ -2140,12 +2137,7 @@ Deals Page Style
   margin-top: 120px;
 }
 
-.amazing-deals .item .image {
-  border-top-left-radius: 23px;
-  border-bottom-left-radius: 23px;
-  overflow: hidden;
-  object-fit: cover;
-}
+
 
 .amazing-deals .item {
   background-color: #f7f7f7;
@@ -2532,12 +2524,7 @@ body {
     margin-bottom: 30px;
   }
 
-  .amazing-deals .item .image {
-    border-top-right-radius: 23px;
-    border-bottom-left-radius: 0px;
-    object-fit: cover;
-  }
-
+  
   .amazing-deals .item {
     padding-right: 0px;
   }
@@ -2722,11 +2709,7 @@ body {
   padding: 30px;
 }
 
-.info-box .image img {
-  max-width: 100%;
-  height: auto;
-  object-fit: cover;
-}
+
 
 .info-box .content h4 {
   margin-top: 20px;
