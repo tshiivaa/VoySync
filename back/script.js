@@ -115,6 +115,7 @@ const formatter = new Intl.NumberFormat("en-US", {
     currency: "USD",
     signDisplay: "always",
 });
+
 ////////////////////////////CRUD 
 const status = document.getElementById("status");
 const balance = document.getElementById("balance");
@@ -136,5 +137,4 @@ function updateTotal() {
     income.textContent = formatter.format(incomeTotal);
     expense.textContent = formatter.format(expenseTotal * -1);
 }
-
 

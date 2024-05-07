@@ -22,9 +22,11 @@
         <i class="bi bi-grid"></i>
         <i class='bx bx-sun' id="darkLight"></i>
         <i class='bx bx-bell'></i>
-        <img src="images/profile.png" alt="" class="profile">
+        <i class='bx bx-log-out' id="logout"></i>
+        <img src="images/profile.jpg" alt="" class="profile" id="profileImg">
     </div>
 </nav>
+
 <nav class="sidebar">
     <div class="menu_content">
         <ul class="menu_items">
@@ -81,7 +83,9 @@
                      </span>
                     <span class="navlink">Compte</span>
                 </div>
-
+                <ul class="menu_items submenu">
+                    <a href="../Controller/index.php" class="nav_link sublink">Back office</a>
+                </ul>
             </li>
         </ul>
         <ul class="menu_items">
@@ -116,5 +120,10 @@
     </div>
 </nav>
 <script src="script.js"></script>
+<script>
+    document.getElementById("logout").addEventListener("click", function () {
+        window.location.href = "../View/inscriptionview.php";
+    });
+</script>
 </body>
 </html>

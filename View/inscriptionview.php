@@ -61,7 +61,8 @@ if (array_key_exists('connect', $_POST)) {
 
                 <p class="social-text">Ou connectez-vous les plateformes sociales</p>
                 <div class="social-media">
-                    <a href="https://www.facebook.com/profile.php?id=100009553055928&mibextid=LQQJ4d" class="social-icon">
+                    <a href="https://www.facebook.com/profile.php?id=100009553055928&mibextid=LQQJ4d"
+                       class="social-icon">
                         <i class="fab fa-facebook-f"></i>
                     </a>
                     <a href="https://www.instagram.com/_tshiiivaa_?igsh=MWZ6Zzh5azFsejV5NA==" class="social-icon">
@@ -108,7 +109,8 @@ if (array_key_exists('connect', $_POST)) {
 
                 <p class="social-text">Ou Visitez-vous les plateformes sociales</p>
                 <div class="social-media">
-                    <a href="https://www.facebook.com/profile.php?id=100009553055928&mibextid=LQQJ4d" class="social-icon">
+                    <a href="https://www.facebook.com/profile.php?id=100009553055928&mibextid=LQQJ4d"
+                       class="social-icon">
                         <i class="fab fa-facebook-f"></i>
                     </a>
                     <a href="https://www.instagram.com/_tshiiivaa_?igsh=MWZ6Zzh5azFsejV5NA==" class="social-icon">
@@ -122,7 +124,7 @@ if (array_key_exists('connect', $_POST)) {
     <div class="panels-container">
         <div class="panel left-panel">
             <div class="content">
-                <h3>VOYSYNC</h3>
+                <img height="80px" src="yello1.png" alt="logo">
                 <p>
                     Bienvenue sur la page du site web de VOYSYNC. Complétez votre inscription pour accéder au
                     site web.
@@ -131,11 +133,11 @@ if (array_key_exists('connect', $_POST)) {
                     S'inscrire
                 </button>
             </div>
-            <img src="yello1.png" class="image" alt=""/>
+            <img src="hero-img.png" class="image" alt=""/>
         </div>
         <div class="panel right-panel">
             <div class="content">
-                <h3>VOYSYNC</h3>
+                <img height="80px" src="bleu1.png" alt="logo">
                 <p>
                     Bienvenue sur la page du site web de VOYSYNC. Connectez-vous pour accéder au site web.
                 </p>
@@ -143,7 +145,7 @@ if (array_key_exists('connect', $_POST)) {
                     Se connecter
                 </button>
             </div>
-            <img src="yello1.png" class="image" alt=""/>
+            <img src="hero-img.png" class="image" alt=""/>
         </div>
     </div>
 </div>
@@ -167,6 +169,60 @@ if (array_key_exists('connect', $_POST)) {
         container.classList.remove("sign-up-mode");
     });
 </script>
+<footer class="pb-0 pb-lg-4">
+    <div class="content">
+        <div class="row">
+            <div class="col-lg-3 col-md-7 col-12 mb-4 mb-md-6 mb-lg-0 order-0">
+                <img class="mb-4" src="yello1.png" width="150" alt="jadoo"/>
+                <p class="fs--1 text-secondary mb-0 fw-medium">Book your trip in minutes, get full control for much
+                    longer.</p>
+            </div>
+            <div class="col-lg-2 col-md-4 mb-4 mb-lg-0 order-lg-1 order-md-2">
+                <h4 class="footer-heading-color fw-bold font-sans-serif mb-3 mb-lg-4">Company</h4>
+                <ul class="list-unstyled mb-0">
+                    <li class="mb-2"><a class="link-900 fs-1 fw-medium text-decoration-none" href="#!">About</a></li>
+                    <li class="mb-2"><a class="link-900 fs-1 fw-medium text-decoration-none" href="#!">Careers</a></li>
+                    <li class="mb-2"><a class="link-900 fs-1 fw-medium text-decoration-none" href="#!">Mobile</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-2 col-md-4 mb-4 mb-lg-0 order-lg-2 order-md-3">
+                <h4 class="footer-heading-color fw-bold font-sans-serif mb-3 mb-lg-4">Contact</h4>
+                <ul class="list-unstyled mb-0">
+                    <li class="mb-2"><a class="link-900 fs-1 fw-medium text-decoration-none" href="#!">Help/FAQ</a></li>
+                    <li class="mb-2"><a class="link-900 fs-1 fw-medium text-decoration-none" href="#!">Press</a></li>
+                    <li class="mb-2"><a class="link-900 fs-1 fw-medium text-decoration-none" href="#!">Affiliate</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-2 col-md-4 mb-4 mb-lg-0 order-lg-3 order-md-4">
+                <h4 class="footer-heading-color fw-bold font-sans-serif mb-3 mb-lg-4">More</h4>
+                <ul class="list-unstyled mb-0">
+                    <li class="mb-2"><a class="link-900 fs-1 fw-medium text-decoration-none" href="#!">Airline Fees</a>
+                    </li>
+                    <li class="mb-2"><a class="link-900 fs-1 fw-medium text-decoration-none" href="#!">Airline</a></li>
+                    <li class="mb-2"><a class="link-900 fs-1 fw-medium text-decoration-none" href="#!">Low Fare Tips</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-3 col-md-5 col-12 mb-4 mb-md-6 mb-lg-0 order-lg-4 order-md-1">
+                <div class="icon-group mb-4">
+                    <a class="text-decoration-none icon-item shadow-social" id="facebook" href="#!"><i
+                                class="fab fa-facebook-f"></i></a>
+                    <a class="text-decoration-none icon-item shadow-social" id="instagram" href="#!"><i
+                                class="fab fa-instagram"></i></a>
+                    <a class="text-decoration-none icon-item shadow-social" id="twitter" href="#!"><i
+                                class="fab fa-twitter"></i></a>
+                </div>
+                <h4 class="fw-medium font-sans-serif text-secondary mb-3">Discover our app</h4>
+                <div class="d-flex align-items-center">
+                    <a href="#!"><img class="me-2" src="play-store.png" alt="Play Store"/></a>
+                    <a href="#!"><img src="apple-store.png" alt="Apple Store"/></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
 </body>
 </html>
 
