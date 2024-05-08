@@ -368,3 +368,28 @@ body.dark {
   color: #999;
   font-size: 12px;
 }
+.comment-form {
+  margin-top: 20px;
+}
+
+.comment-textarea {
+  width: 100px;
+  padding: 50px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  resize: none;
+  margin-bottom: 10px;
+}
+
+.comment-form button {
+  background-color: #4267B2;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.comment-form button:hover {
+  background-color: #385898;
+}

@@ -8,6 +8,7 @@ class Blog
     private string $AuteurArt;
     private ?string $img = null;
     private string $etat = "en attente";
+    private int $note;
 
     public function __construct(string $TitreArt, string $ContenuArt, string $AuteurArt, string $img)
     {
@@ -83,54 +84,95 @@ class Blog
     {
         return $this->etat = $etat;
     }
-    public function getComments($IDart)
+    public function getNotation()
     {
-        // Connexion à la base de données
-        $db = Configuration::getConnexion();
-
-        try {
-            // Préparation de la requête SQL pour récupérer les commentaires de l'article spécifié
-            $sql = "SELECT * FROM commentaire WHERE IDart = :IDart";
-            $stmt = $db->prepare($sql);
-            $stmt->bindParam(':IDart', $IDart);
-            $stmt->execute();
-
-            // Récupération des résultats
-            $comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-            // Retourne les commentaires récupérés
-            return $comments;
-        } catch (PDOException $e) {
-            // Gestion des erreurs
-            echo "Erreur lors de la récupération des commentaires: " . $e->getMessage();
-            return [];
-        }
+        return $this->notation;
     }
-    public function addComment($IDcomm, $ContenuComm, $DatePubComm, $AuteurComm, $IDart)
+
+    public function setNotation($notation)
     {
-        // Connexion à la base de données
-        $db = Configuration::getConnexion();
-
-        try {
-            // Préparation de la requête SQL pour ajouter un nouveau commentaire
-            $sql = "INSERT INTO commentaire (IDcomm, ContenuComm, DatePubComm, AuteurComm,IDart) 
-                VALUES (:IDcomm, :ContenuComm, :DatePubComm, :AuteurComm, :IDart)";
-            $stmt = $db->prepare($sql);
-            $stmt->bindParam(':IDcomm', $IDcomm);
-            $stmt->bindParam(':ContenuComm', $ContenuComm);
-            $stmt->bindParam(':DatePubComm', $DatePubComm);
-            $stmt->bindParam(':AuteurComm', $AuteurComm);
-            $stmt->bindParam(':IDart', $IDart);
-            $stmt->execute();
-
-            // Retourne vrai si l'insertion a réussi, sinon retourne faux
-            return $stmt->rowCount() > 0;
-        } catch (PDOException $e) {
-            // Gestion des erreurs
-            echo "Erreur lors de l'ajout du commentaire: " . $e->getMessage();
-            return false;
-        }
+        return $this->notation = $notation;
     }
+
+}
+class Comment
+{
+    private ?int $IDcomm = null;
+    private string $ContenuComm;
+    private int $IDart;
+
+
+    public function __construct(string $ContenuComm, int $IDart)
+    {
+        $this->IDcomm = null;
+        $this->ContenuComm = $ContenuComm;
+        $this->IDart = $IDart;
+    }
+
+    public function getIDcomm()
+    {
+        return $this->IDcomm;
+    }
+
+    public function getContenuComm()
+    {
+        return $this->ContenuComm;
+    }
+
+    public function setContenuComm($ContenuComm)
+    {
+        return $this->ContenuComm = $ContenuComm;
+    }
+    public function getIDart()
+    {
+        return $this->IDart;
+    }
+
+    public function setIDart($IDart)
+    {
+        return $this->IDart = $IDart;
+    }
+
+
+}
+class notation
+{
+    private ?int $IDnot = null;
+    private int $rating;
+    private int $IDart;
+
+
+    public function __construct(int $rating, int $IDart)
+    {
+        $this->IDnot = null;
+        $this->rating = $rating;
+        $this->IDart = $IDart;
+    }
+
+    public function getIDnot()
+    {
+        return $this->IDnot;
+    }
+
+    public function getRating()
+    {
+        return $this->rating;
+    }
+
+    public function setRating($rating)
+    {
+        return $this->rating = $rating;
+    }
+    public function getIDart()
+    {
+        return $this->IDart;
+    }
+
+    public function setIDart($IDart)
+    {
+        return $this->IDart = $IDart;
+    }
+
 
 }
 ?>

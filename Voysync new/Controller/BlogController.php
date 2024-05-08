@@ -27,8 +27,6 @@ class BlogC
             die('Error:' . $e->getMessage());
         }
     }
-
-
     function addBlog($blog)
     {
         $sql = "INSERT INTO blog(IDart, TitreArt, ContenuArt, DatePubArt, AuteurArt, img, etat) VALUES (:IDart, :TitreArt, :ContenuArt, :DatePubArt, :AuteurArt, :img, :etat)";
@@ -42,7 +40,7 @@ class BlogC
                 'DatePubArt' => $blog->getDatePubArt(),
                 'AuteurArt' => $blog->getAuteurArt(),
                 'img' => $blog->getImage(),
-                'etat' => $blog->getEtat(), // Ajout de l'attribut 'etat'
+                'etat' => $blog->getEtat(),
             ]);
         } catch (Exception $e) {
             echo 'Error: ' . $e->getMessage();
@@ -82,7 +80,7 @@ class BlogC
                 'ContenuArt' => $blog->getContenuArt(),
                 'AuteurArt' => $blog->getAuteurArt(),
                 'img' => $blog->getImage(),
-                'etat' => $blog->getEtat(), // Mise à jour de l'attribut 'etat'
+                'etat' => $blog->getEtat(),
             ]);
 
             echo $query->rowCount() . " records UPDATED successfully <br>";
@@ -121,7 +119,37 @@ class BlogC
         return $totalPages;
     }
 }
-
+class notationC
+{
+    public function publierArticle($IDart)
+    {
+        $db = Configuration::getConnexion();
+        try {
+            $sql = "UPDATE blog SET etat = 'verifie' WHERE IDart = :IDart";
+            $stmt = $db->prepare($sql);
+            $stmt->bindValue(':IDart', $IDart);
+            $stmt->execute();
+            return true;
+        } catch (PDOException $e) {
+            echo "Erreur lors de la publication de l'article : " . $e->getMessage();
+            return false;
+        }
+    }
+    public function calculateAverageRating($IDart)
+    {
+        $db = Configuration::getConnexion();
+        try {
+            $sql = "SELECT AVG(rating) AS averageRating FROM notation WHERE IDart = :IDart";
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':IDart', $IDart);
+            $stmt->execute();
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $row['averageRating'];
+        } catch (PDOException $e) {
+            echo "Erreur lors de la publication de l'article : " . $e->getMessage();
+        }
+    }
+}
 
 class CommentaireC
 {

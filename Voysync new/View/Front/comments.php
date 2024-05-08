@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="../../CSS/owl.css">
     <link rel="stylesheet" href="../../CSS/animate.css">
     <link rel="stylesheet" href="../../CSS/blog.css">
+    <link rel="stylesheet" href="../../CSS/style.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 </head>
@@ -114,21 +115,18 @@
                     </div>
                     <br>
                     <br>
-                    <form action="ajouterCommentaire.php" method="post">
+                    <form action="ajouterCommentaire.php" method="post" class="comment-form">
                         <input type="hidden" name="IDart" value="<?php echo $IDart; ?>">
                         <textarea name="ContenuComm" placeholder="Ajouter un commentaire"></textarea>
                         <button type="submit">Ajouter</button>
                     </form>
-
                     <?php
                     // Afficher les commentaires s'il y en a
                     if ($commentaires) {
                         echo '<h3>Commentaires</h3>';
                         foreach ($commentaires as $commentaire) {
                             echo '<div class="comment">';
-                            //echo '<p class="user">' . $commentaire['AuteurComm'] . '</p>';
                             echo '<p>' . $commentaire['ContenuComm'] . '</p>';
-                            //echo '<p class="date">' . $commentaire['DateComm'] . '</p>';
                             echo '</div>';
                         }
                     } else {
@@ -140,9 +138,6 @@
         }
         ?>
         </div>
-
-
-
         <script>
             function confirmSuppression() {
                 return confirm("Voulez-vous vraiment supprimer cet article ?");
@@ -153,7 +148,6 @@
                 }
                 return false;
             }
-
         </script>
     </div>
     <div class="call-to-action">
