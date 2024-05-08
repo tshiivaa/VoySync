@@ -1,5 +1,12 @@
 <?php
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 require_once '../controller/ReservationC.php';
+require '../../phpmailer/src/Exception.php';
+require '../../phpmailer/src/PHPMailer.php';
+require '../../phpmailer/src/SMTP.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Récupérer les valeurs du formulaire
@@ -34,8 +41,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'mail' => $mail
         ]);
 
+        $mailer = new PHPMailer(true);
+        $mailer->isSMTP();
+        $mailer->Host = 'smtp.gmail.com';
+        $mailer->SMTPAuth = true;
+        $mailer->Username = 'asmanegra@gmail.com'; // Your Gmail address
+        $mailer->Password = 'upucfcnvzwthdmub'; // App-specific password
+        $mailer->SMTPSecure = 'ssl';
+        $mailer->Port = 465;
+
+        $mailer->setFrom('asmanegra@gmail.com', 'Voysync');
+        $mailer->addAddress($mail); // Send to the reservation email
+        $mailer->isHTML(true);
+        $mailer->Subject = 'Confirmation de reservation';
+        $mailer->Body = "
+            Bonjour $nom,
+        
+            <br><br>
+            Nous sommes ravis de vous informer que votre réservation a été confirmée!
+            <br><br>
+            Votre logement à $destination est réservé pour le $date_reservation.
+            <br><br>
+            Si vous avez des questions ou des demandes spéciales, n'hésitez pas à nous contacter.
+            <br><br>
+            Merci de nous avoir choisis pour votre séjour. Nous avons hâte de vous accueillir!
+            <br><br>
+            Cordialement,
+            <br>
+            L'équipe de Voysync
+        ";
+    
+        $mailer->send();
+
         // Redirection après succès
-        header("Location: ListLogementFrontTries.php");
+        // header("Location: ListLogementFrontTries.php");
+        header("Location: indexf.html");
         exit();
     } catch (Exception $e) {
         die('Erreur lors de la réservation: ' . $e->getMessage());

@@ -61,6 +61,7 @@ class ReservationController {
                 echo "Réservation créée avec succès !";
                 // Redirection
                 header("Location: ListLogementFrontTries.php.php");
+                
                 exit();
             
             } catch (Exception $e) {
