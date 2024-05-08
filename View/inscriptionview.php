@@ -48,6 +48,7 @@ if (array_key_exists('connect', $_POST)) {
                     <input name="password" type="password" placeholder="Mot de passe"/>
                 </div>
 
+
                 <div class="error"><?php if (!empty($passwordErr)) echo $passwordErr; ?></div>
                 <div class="error"><?php if (!empty($loginErr)) echo $loginErr; ?></div>
 
@@ -68,6 +69,11 @@ if (array_key_exists('connect', $_POST)) {
                     <a href="https://www.instagram.com/_tshiiivaa_?igsh=MWZ6Zzh5azFsejV5NA==" class="social-icon">
                         <i class="fab fa-instagram"></i>
                     </a>
+
+                    <a href="https://github.com/tshiivaa/VoySync.git" class="social-icon">
+                        <i class="fab fa-github"></i>
+                    </a>
+
 
                 </div>
             </form>
@@ -100,7 +106,7 @@ if (array_key_exists('connect', $_POST)) {
                 <h6 style="color: #1C4771FF;">Clé</h6>
                 <div class="input-field">
                     <i class="fas fa-lock"></i>
-                    <input type="password" placeholder="Mot de passe" name="password"/>
+                    <input name="password" type="password" placeholder="Mot de passe"/>
                 </div>
                 <div class="error"><?php if (!empty($passwordErr)) echo $passwordErr; ?></div>
 
@@ -115,6 +121,9 @@ if (array_key_exists('connect', $_POST)) {
                     </a>
                     <a href="https://www.instagram.com/_tshiiivaa_?igsh=MWZ6Zzh5azFsejV5NA==" class="social-icon">
                         <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://github.com/tshiivaa/VoySync.git" class="social-icon">
+                        <i class="fab fa-github"></i>
                     </a>
                 </div>
             </form>
@@ -222,7 +231,20 @@ if (array_key_exists('connect', $_POST)) {
         </div>
     </div>
 </footer>
+<script>
+    function togglePasswordVisibility() {
+        var passwordField = document.getElementById("password");
+        var toggleBtn = document.querySelector(".toggle-password");
 
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+            toggleBtn.innerHTML = '<i class="fas fa-eye-slash"></i>';
+        } else {
+            passwordField.type = "password";
+            toggleBtn.innerHTML = '<i class="fas fa-eye"></i>';
+        }
+    }
+</script>
 </body>
 </html>
 
