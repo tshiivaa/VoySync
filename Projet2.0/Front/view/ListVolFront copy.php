@@ -169,7 +169,7 @@ $vols = $volC->listVols();
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="image">
-                                <img src="http://localhost/Projet2.0/Front/view/images/vol-image.jpg" alt="">
+                                <img src="/Projet2.0/Front/view/images/bizerteV.jpg" alt="">
                             </div>
                         </div>
                         <div class="col-lg-6 align-self-center">

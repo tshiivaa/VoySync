@@ -7,43 +7,44 @@ $s = 0;
 
 // Check if all form fields are set
 if (
-    isset($_POST['idlogement']) &&
-    isset($_POST['nom']) &&
-    isset($_POST['type']) &&
-    isset($_POST['adresse']) &&
-    isset($_POST['prix']) &&
-    isset($_POST['description']) &&
-    isset($_POST['capacite']) &&
-    isset($_POST['evaluation']) &&
-    isset($_POST['disponibilite'])
+    //isset($_POST['IDlogement']) &&
+    isset($_POST['Nom']) &&
+    isset($_POST['Type']) &&
+    isset($_POST['Adresse']) &&
+    isset($_POST['Prix']) &&
+    isset($_POST['Description']) &&
+    isset($_POST['Capacite']) &&
+    isset($_POST['Evaluation']) &&
+    isset($_POST['Disponibilite']) &&
+    isset($_POST['IDvol'])
 ) {
     // Create a new instance of the Logement class and set its properties
     $logement = new Logement(
-        $_POST['idlogement'],  // IDLogement
-        $_POST['nom'],         // Nom
-        $_POST['type'],        // Type
-        $_POST['adresse'],     // Adresse
-        $_POST['prix'],        // Prix
-        $_POST['description'], // Description
-        $_POST['capacite'],    // Capacite
-        $_POST['evaluation'],  // Evaluation
-        $_POST['disponibilite']// Disponibilite
+        //$_POST['IDlogement'],  // IDlogement
+        $_POST['Nom'],
+        $_POST['Type'],
+        $_POST['Adresse'],
+        $_POST['Prix'],
+        $_POST['Description'],
+        $_POST['Capacite'],
+        $_POST['Evaluation'],
+        $_POST['Disponibilite'],
+        $_POST['IDvol']
     );
-
+    try {
+        $logementC->updateLogement($logement, $_POST['IDlogement']);
+        $s = 1; // Set flag for successful update
+    } catch (Exception $e) {
+        echo 'Error updating logement: ' . $e->getMessage();
+    }
     // Update the logement using the LogementController
-    $logementC->updateLogement($logement, $_POST['idlogement']);
-
-    // Set the flag to indicate that the data is valid
-    $s = 1;
 }
 
 // Fetch the logement details to prepopulate the form
-if (isset($_GET['idlogement'])) {
-    $idlogement = $_GET['idlogement'];
-    $logementDetails = $logementC->showLogement($idlogement);
-} else {
-    // Handle the case when IDlogement is not provided
-    // Redirect to an error page or handle gracefully
+$logementDetails = null; // Initialize to null
+if (isset($_GET['IDlogement'])) {
+    $IDlogement = $_GET['IDlogement'];
+    $logementDetails = $logementC->showLogement($IDlogement);
 }
 ?>
 
@@ -190,6 +191,7 @@ if (isset($_GET['idlogement'])) {
             <ul class="menu_items submenu">
                 <a href="../view/ListLogement.php" class="nav_link sublink">Logement</a>
                 <a href="../view/ListVol.php" class="nav_link sublink">Vol</a>
+                <a href="../view/ListReservation.php" class="nav_link sublink">Reservation</a>
             </ul>
             </li>
         </ul>
@@ -229,48 +231,52 @@ if (isset($_GET['idlogement'])) {
     <form method="POST" action="UpdateLogement.php">
 
     <!-- Hidden input field to pass IDlogement -->
-    <input type="hidden" id="idlogement" name="idlogement" value="<?= $logementDetails['IDlogement']; ?>" required>
+    <input type="hidden" id="IDlogement" name="IDlogement" value="<?= isset($logementDetails['IDlogement']) ? $logementDetails['IDlogement'] : ''; ?>" required>
 
-    <label for="nom">Nom:</label><br>
-    <input type="text" id="nom" name="nom" value="<?= $logementDetails['Nom']; ?>" placeholder="Entrer Le nom de l'offre" required><br>
-    
-    <label for="type">Type:</label><br>
-    <select id="type" name="type" required>
-        <option value="hotel"<?= $logementDetails['Type'] == 'hotel' ? ' selected' : ''; ?>>Hôtel</option>
-        <option value="maison d hote"<?= $logementDetails['Type'] == 'maison d hote' ? ' selected' : ''; ?>>Maison d'hôte</option>
-        <option value="villa"<?= $logementDetails['Type'] == 'villa' ? ' selected' : ''; ?>>Villa</option>
-        <option value="appartement"<?= $logementDetails['Type'] == 'appartement' ? ' selected' : ''; ?>>Appartement</option>
-    </select>
-    
-    <label for="adresse">Adresse:</label><br>
-    <input type="text" id="adresse" name="adresse" value="<?= $logementDetails['Adresse']; ?>" placeholder="Entrer Le pays" required><br>
-    
-    <label for="prix">Prix de la nuitée (Dt):</label><br>
-    <input type="number" id="prix" name="prix" value="<?= $logementDetails['Prix']; ?>" placeholder="Prix par personne" required><br>
-    
-    <label for="description">Description:</label><br>
-    <textarea id="description" name="description" placeholder="Entrer plus d'informations sur l'offre" required><?= $logementDetails['Description']; ?></textarea><br>
-    
-    <label for="capacite">Capacité:</label><br>
-    <input type="number" id="capacite" name="capacite" value="<?= $logementDetails['Capacite']; ?>" placeholder="La capacite est entre 1 et 20" required><br>
-    
-    <label for="evaluation">Evaluation:</label><br>
-    <input type="number" id="evaluation" name="evaluation" min="0" max="5" value="<?= $logementDetails['Evaluation']; ?>"placeholder="Noter sur 5 étoiles" required><br>
-    
-    <label for="disponibilite">Disponibilité:</label><br>
-    <select id="disponibilite" name="disponibilite" required>
-        <option value="disponible" <?= $logementDetails['Disponibilite'] == 'disponible' ? ' selected' : ''; ?>>Disponible</option>
-        <option value="non disponible" <?= $logementDetails['Disponibilite'] == 'non disponible' ? ' selected' : ''; ?>>Non disponible</option>
-    </select><br><br>
-    
-    <input type="submit" value="Modifier">
-</form>
+            <!-- Fields prefilled with existing data -->
+            <label for="Nom">Nom :</label><br>
+            <input type="text" id="Nom" name="Nom" placeholder="Entrer le nom du logement" required value="<?= isset($logementDetails['Nom']) ? $logementDetails['Nom'] : ''; ?>"><br>
+            
+            <label for="Type">Type :</label><br>
+            <select id="Type" name="Type" required>
+                <option value="hotel"<?= isset($logementDetails['Type']) && $logementDetails['Type'] == 'hotel' ? ' selected' : ''; ?>>Hôtel</option>
+                <option value="maison d hote"<?= isset($logementDetails['Type']) && $logementDetails['Type'] == 'maison d hote' ? ' selected' : ''; ?>>Maison d'hôte</option>
+                <option value="villa"<?= isset($logementDetails['Type']) && $logementDetails['Type'] == 'villa' ? ' selected' : ''; ?>>Villa</option>
+                <option value="appartement"<?= isset($logementDetails['Type']) && $logementDetails['Type'] == 'appartement' ? ' selected' : ''; ?>>Appartement</option>
+            </select><br>
+            
+            <label for="Adresse">Adresse :</label><br>
+            <input type="text" id="Adresse" placeholder="Adresse du logement" required name="Adresse" value="<?= isset($logementDetails['Adresse']) ? $logementDetails['Adresse'] : ''; ?>"><br>
+            
+            <label for="Prix">Prix par nuitée (Dt) :</label><br>
+            <input type="number" id="Prix" placeholder="Prix par nuitée" required name="Prix" value="<?= isset($logementDetails['Prix']) ? $logementDetails['Prix'] : ''; ?>"><br>
+            
+            <label for="Description">Description :</label><br>
+            <textarea id="Description" name="Description" required placeholder="Description du logement"><?= isset($logementDetails['Description']) ? $logementDetails['Description'] : ''; ?></textarea><br>
+            
+            <label for="Capacite">Capacité :</label><br>
+            <input type="number" id="Capacite" name="Capacite" placeholder="Capacité du logement" required value="<?= isset($logementDetails['Capacite']) ? $logementDetails['Capacite'] : ''; ?>"><br>
+            
+            <label for="Evaluation">Evaluation :</label><br>
+            <input type="number" id="Evaluation" name="Evaluation" min="0" max="5" required value="<?= isset($logementDetails['Evaluation']) ? $logementDetails['Evaluation'] : ''; ?>"><br>
+            
+            <label for="Disponibilite">Disponibilité :</label><br>
+            <select id="Disponibilite" name="Disponibilite" required>
+                <option value="disponible" <?= isset($logementDetails['Disponibilite']) && $logementDetails['Disponibilite'] == 'disponible' ? ' selected' : ''; ?>>Disponible</option>
+                <option value="non disponible" <?= isset($logementDetails['Disponibilite']) && $logementDetails['Disponibilite'] == 'non disponible' ? ' selected' : ''; ?>>Non disponible</option>
+            </select><br><br>
+
+            <label for="IDvol"></label>
+            <input type="hidden" id="IDvol" name="IDvol" placeholder="IDvol" required value="<?= isset($logementDetails['IDvol']) ? $logementDetails['IDvol'] : ''; ?>">
+            
+            <input type="submit" value="Modifier">
+        </form>
 
 
-    <?php if($s==1): ?>
-        <script>alert('Vous avez modifié le logement');</script>
-        <script>window.location.href='ListLogement.php'</script>
-    <?php endif; ?>
+        <?php if ($s == 1): ?>
+            <script>alert('Logement modifié avec succès');</script>
+            <script>window.location.href='ListLogement.php';</script>
+        <?php endif; ?>
     </div>
   <script src="http://localhost/Projet2.0/js/script.js"></script>
 </body>

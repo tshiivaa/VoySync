@@ -8,7 +8,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $date_reservation = isset($_POST['date_reservation']) ? $_POST['date_reservation'] : null;
     $destination = isset($_POST['destination']) ? $_POST['destination'] : null;
     $guests = isset($_POST['guests']) ? intval($_POST['guests']) : null;
-    //$telephone = isset($_POST['Number']) ? $_POST['Number'] : null;
+    $nom = isset($_POST['Name']) ? $_POST['Name'] : null;
+    $telephone = isset($_POST['Number']) ? $_POST['Number'] : null;
+    $mail = isset($_POST['mail']) ? $_POST['mail'] : null;
 
     // Afficher les valeurs récupérées pour vérifier
     var_dump($vol_id, $logement_id, $date_reservation, $destination, $guests, $telephone);
@@ -27,7 +29,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'date_reservation' => $date_reservation,
             'destination' => $destination,
             'guests' => $guests,
-            //'telephone' => $telephone
+            'telephone' => $telephone,
+            'nom' => $nom,
+            'mail' => $mail
         ]);
 
         // Redirection après succès

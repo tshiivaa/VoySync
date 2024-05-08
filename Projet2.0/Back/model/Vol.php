@@ -123,7 +123,7 @@ class Vol
         $this->Evaluation = $Evaluation;
     }
 
-    function __construct($IDvol, $Compagnie, $Num_vol, $Depart, $Arrive, $DateDepart, $DateArrive, $DureeOffre, $Prix, $Classe, $Evaluation)
+    /*function __construct($IDvol, $Compagnie, $Num_vol, $Depart, $Arrive, $DateDepart, $DateArrive, $DureeOffre, $Prix, $Classe, $Evaluation)
     {
         $this->IDvol = $IDvol;
         $this->Compagnie = $Compagnie;
@@ -136,6 +136,21 @@ class Vol
         $this->Prix = $Prix;
         $this->Classe = $Classe;
         $this->Evaluation = $Evaluation;
+    }*/
+    // Constructor without IDvol as an argument
+    function __construct($Compagnie, $Num_vol, $Depart, $Arrive, $DateDepart, $DateArrive, $DureeOffre, $Prix, $Classe, $Evaluation)
+    {
+        $this->Compagnie = $Compagnie;
+        $this->Num_vol = $Num_vol;
+        $this->Depart = $Depart;
+        $this->Arrive = $Arrive;
+        $this->DateDepart = $DateDepart;
+        $this->DateArrive = $DateArrive;
+        $this->DureeOffre = $DureeOffre;
+        $this->Prix = $Prix;
+        $this->Classe = $Classe;
+        $this->Evaluation = $Evaluation;
     }
+
 }
 ?>

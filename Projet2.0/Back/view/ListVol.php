@@ -101,6 +101,7 @@ $vols = $volC->listVols();
           <ul class="menu_items submenu">
             <a href="../view/ListLogement.php" class="nav_link sublink">Logement</a>
             <a href="../view/ListVol.php" class="nav_link sublink">Vol</a>
+            <a href="../view/ListReservation.php" class="nav_link sublink">Reservation</a>
           </ul>
         </li>
       </ul>

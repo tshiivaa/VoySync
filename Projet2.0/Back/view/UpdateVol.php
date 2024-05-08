@@ -7,7 +7,7 @@ $s = 0;
 
 // Check if all form fields are set
 if (
-    isset($_POST['IDvol']) &&
+    //isset($_POST['IDvol']) &&
     isset($_POST['Compagnie']) &&
     isset($_POST['Num_vol']) &&
     isset($_POST['Depart']) &&
@@ -17,11 +17,11 @@ if (
     isset($_POST['DureeOffre']) &&
     isset($_POST['Prix']) &&
     isset($_POST['Classe']) &&
-    isset($_POST['Evaluation'])
+    isset($_POST['Evaluation']) 
 ) {
     // Create a new instance of the Vol class and set its properties
     $vol = new Vol(
-        $_POST['IDvol'],           // IDvol
+        //$_POST['IDvol'],           // IDvol
         $_POST['Compagnie'],      // Compagnie
         $_POST['Num_vol'],        // Num_vol
         $_POST['Depart'],         // Depart
@@ -221,6 +221,7 @@ if (isset($_GET['IDvol'])) {
           <ul class="menu_items submenu">
             <a href="../view/ListLogement.php" class="nav_link sublink">Logement</a>
             <a href="../view/ListVol.php" class="nav_link sublink">Vol</a>
+            <a href="../view/ListReservation.php" class="nav_link sublink">Reservation</a>
           </ul>
         </li>
       </ul>

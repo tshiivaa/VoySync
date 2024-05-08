@@ -32,10 +32,11 @@ class ReservationController {
             $destination = isset($_POST['Destination']) ? $_POST['Destination'] : null;
             $logement_id = isset($_POST['logement_id']) ? $_POST['logement_id'] : null;
             $vol_id = isset($_POST['vol_id']) ? $_POST['vol_id'] : null;
+            $mail = isset($_POST['mail']) ? $_POST['mail'] : null;
             
                         
             // Valider les données
-            if (empty($nom) || empty($telephone) || empty($date_reservation) || empty($destination) || empty($vol_id)) {
+            if ( empty($telephone) || empty($date_reservation) || empty($destination) || empty($vol_id)) {
                 die('Tous les champs sont obligatoires.');
             }            
 
@@ -53,7 +54,8 @@ class ReservationController {
                     'date_reservation' => $date_reservation,
                     'destination' => $destination,
                     'logement_id' => $logement_id,
-                    'vol_id' => $vol_id
+                    'vol_id' => $vol_id,
+                    'mail' => $mail
                 ]);
             
                 echo "Réservation créée avec succès !";
@@ -70,7 +72,7 @@ class ReservationController {
     }
     public function createReservation2($data) {
         // Assurez-vous que tous les champs obligatoires sont présents
-        $requiredFields = ['vol_id', 'logement_id', 'date_reservation', 'destination', 'guests'];
+        $requiredFields = ['vol_id', 'logement_id', 'nom', 'telephone', 'date_reservation', 'destination', 'guests', 'mail'];
         foreach ($requiredFields as $field) {
             if (!isset($data[$field]) || empty($data[$field])) {
                 throw new Exception("Field '$field' is required.");

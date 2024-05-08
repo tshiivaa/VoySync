@@ -46,8 +46,8 @@ class Reservation {
         try {
             $this->db->beginTransaction();
 
-            $sql = "INSERT INTO reservation (nom, telephone, guests, date_reservation, destination, logement_id, vol_id)
-                    VALUES (:nom, :telephone, :guests, :date_reservation, :destination, :logement_id, :vol_id)";
+            $sql = "INSERT INTO reservation (nom, telephone, guests, date_reservation, destination, logement_id, vol_id, mail)
+                    VALUES (:nom, :telephone, :guests, :date_reservation, :destination, :logement_id, :vol_id, :mail)";
             $stmt = $this->db->prepare($sql);
 
             $stmt->bindParam(':nom', $data['nom']);
@@ -57,6 +57,7 @@ class Reservation {
             $stmt->bindParam(':destination', $data['destination']);
             $stmt->bindParam(':logement_id', $data['logement_id']);
             $stmt->bindParam(':vol_id', $data['vol_id']);
+            $stmt->bindParam(':mail', $data['mail']);
 
             $stmt->execute();
 

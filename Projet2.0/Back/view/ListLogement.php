@@ -101,6 +101,7 @@ $logements = $logementC->listLogement();
           <ul class="menu_items submenu">
             <a href="../view/ListLogement.php" class="nav_link sublink">Logement</a>
             <a href="../view/ListVol.php" class="nav_link sublink">Vol</a>
+            <a href="../view/ListReservation.php" class="nav_link sublink">Reservation</a>
           </ul>
         </li>
       </ul>
@@ -174,11 +175,11 @@ $logements = $logementC->listLogement();
                         // Demander à l'utilisateur s'il veut vraiment supprimer l'élément
                         return confirm("Voulez-vous vraiment supprimer cette offre ?");
                     }
-                    function confirmModification(idlogement) {
+                    function confirmModification(IDlogement) {
                     // Demander confirmation avant de modifier
                     if (confirm("Voulez-vous vraiment modifier cette offre ?")) {
                         // Si l'utilisateur confirme, rediriger vers la page de modification
-                        window.location.href = 'UpdateLogement.php?idlogement=' + idlogement;
+                        window.location.href = 'UpdateLogement.php?IDlogement=' + IDlogement;
                     }
                     // Sinon, rester sur la page actuelle
                     return false;

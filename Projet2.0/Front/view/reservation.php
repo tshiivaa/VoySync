@@ -62,6 +62,12 @@ $destination = isset($_GET['destination']) ? htmlspecialchars($_GET['destination
                 </div>
                 <div class="col-lg-6">
                     <fieldset>
+                        <label pour="mail">Adresse email</label>
+                        <input type="text" name="mail" placeholder="Ex. abs@gmail.com" required>
+                    </fieldset>
+                </div>
+                <div class="col-lg-6">
+                    <fieldset>
                         <label pour="Capacite">Capacité</label>
                         <input type="text" name="Capacite" placeholder="Ex. 1 personne ou +" required>
                     </fieldset>

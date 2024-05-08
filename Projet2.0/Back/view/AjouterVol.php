@@ -7,7 +7,7 @@ $s = 0;
 
 // Check if all form fields are set
 if (
-    isset($_POST['IDvol']) &&
+    //isset($_POST['IDvol']) &&
     isset($_POST['Compagnie']) &&
     isset($_POST['Num_vol']) &&
     isset($_POST['Depart']) &&
@@ -21,7 +21,7 @@ if (
 ) {
     // Create a new instance of the Vol class and set its properties
     $vol = new Vol(
-        $_POST['IDvol'],           // IDvol
+        //$_POST['IDvol'],           // IDvol
         $_POST['Compagnie'],      // Compagnie
         $_POST['Num_vol'],        // Num_vol
         $_POST['Depart'],         // Depart
@@ -209,6 +209,7 @@ if (
           <ul class="menu_items submenu">
             <a href="../view/ListLogement.php" class="nav_link sublink">Logement</a>
             <a href="../view/ListVol.php" class="nav_link sublink">Vol</a>
+            <a href="../view/ListReservation.php" class="nav_link sublink">Reservation</a>
           </ul>
         </li>
       </ul>
@@ -247,8 +248,8 @@ if (
     <h2>Ajouter un vol</h2>
     <form method="POST" action="">
 
-         <label for="IDvol">ID Vol:</label><br>
-        <input type="number" id="IDvol" name="IDvol" placeholder="L'id doit etre un nombre" required><br>
+        <!-- <label for="IDvol">ID Vol:</label><br> -->
+        <!-- <input type="number" id="IDvol" name="IDvol" placeholder="L'id doit etre un nombre" required><br> -->
 
         <label for="Compagnie">Compagnie:</label><br>
         <input type="text" id="Compagnie" name="Compagnie" placeholder="Entrer le nom de la compagnie aérienne" required><br>

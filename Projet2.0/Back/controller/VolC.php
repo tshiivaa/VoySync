@@ -28,7 +28,7 @@ class VolC
         }
     }
 
-    public function addVol($vol)
+    /*public function addVol($vol)
     {
         $sql = "INSERT INTO vol (IDvol, Compagnie, Num_vol, Depart, Arrive, DateDepart, DateArrive, DureeOffre, Prix, Classe, Evaluation)  
                 VALUES (:IDvol, :Compagnie, :Num_vol, :Depart, :Arrive, :DateDepart, :DateArrive, :DureeOffre, :Prix, :Classe, :Evaluation)";
@@ -51,7 +51,31 @@ class VolC
         } catch (Exception $e) {
             throw new Exception('Error adding vol: ' . $e->getMessage());
         }
+    }*/
+    public function addVol($vol)
+    {
+        $sql = "INSERT INTO vol (Compagnie, Num_vol, Depart, Arrive, DateDepart, DateArrive, DureeOffre, Prix, Classe, Evaluation)
+                VALUES (:Compagnie, :Num_vol, :Depart, :Arrive, :DateDepart, :DateArrive, :DureeOffre, :Prix, :Classe, :Evaluation)";
+        $db = config::getConnexion();
+        try {
+            $query = $db->prepare($sql);
+            $query->execute([
+                'Compagnie' => $vol->getCompagnie(),
+                'Num_vol' => $vol->getNum_vol(),
+                'Depart' => $vol->getDepart(),
+                'Arrive' => $vol->getArrive(),
+                'DateDepart' => $vol->getDateDepart(),
+                'DateArrive' => $vol->getDateArrive(),
+                'DureeOffre' => $vol->getDureeOffre(),
+                'Prix' => $vol->getPrix(),
+                'Classe' => $vol->getClasse(),
+                'Evaluation' => $vol->getEvaluation()
+            ]);
+        } catch (Exception $e) {
+            throw new Exception('Error adding vol: ' . $e->getMessage());
+        }
     }
+
 
     public function updateVol($vol, $IDvol)
     {

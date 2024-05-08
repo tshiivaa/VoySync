@@ -5,6 +5,9 @@ $vol_id = isset($_POST['vol_id']) ? intval($_POST['vol_id']) : null;
 $date_reservation = isset($_POST['date_reservation']) ? htmlspecialchars($_POST['date_reservation']) : null;
 $destination = isset($_POST['destination']) ? htmlspecialchars($_POST['destination']) : null;
 $capacite = isset($_POST['Capacite']) ? intval($_POST['Capacite']) : null;
+$nom = isset($_POST['Name']) ? htmlspecialchars($_POST['Name']) : null;
+$telephone = isset($_POST['Number']) ? htmlspecialchars($_POST['Number']) : null;
+$mail = isset($_POST['mail']) ? htmlspecialchars($_POST['mail']) : null;
 
 // Utiliser ces valeurs pour filtrer les logements
 $logementC = new LogementC();
@@ -199,12 +202,15 @@ $logements = $logementC->getFilteredLogements($date_reservation, $destination, $
                                         </div>
                                         <div class="main-button">
                                           <form method="post" action="create_reservation.php"> <!-- Assurez-vous que c'est la bonne action -->
-                                              <input type="hidden" name="vol_id" value="<?= htmlspecialchars($vol_id); ?>"> <!-- Vérifiez la valeur -->
+                                              <input type="text" name="vol_id" value="<?= htmlspecialchars($vol_id); ?>"> <!-- Vérifiez la valeur -->
                                               <input type="hidden" name="logement_id" value="<?= htmlspecialchars($logement['IDlogement']); ?>"> <!-- Vérifiez la valeur -->
                                               <!-- Autres champs obligatoires -->
                                               <input type="hidden" name="date_reservation" value="<?= htmlspecialchars($date_reservation); ?>">
                                               <input type="hidden" name="destination" value="<?= htmlspecialchars($destination); ?>">
                                               <input type="hidden" name="guests" value="<?= htmlspecialchars($logement['Capacite']); ?>">
+                                              <input type="hidden" name="Name" value="<?= htmlspecialchars($nom); ?>">
+                                              <input type="hidden" name="Number" value="<?= htmlspecialchars($telephone); ?>">
+                                              <input type="hidden" name="mail" value="<?= htmlspecialchars($mail); ?>">
                                               <button type="submit">Réserver</button>
                                           </form>
                                       </div>
