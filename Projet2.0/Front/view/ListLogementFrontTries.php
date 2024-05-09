@@ -202,7 +202,7 @@ $logements = $logementC->getFilteredLogements($date_reservation, $destination, $
                                         </div>
                                         <div class="main-button">
                                           <form method="post" action="create_reservation.php" onsubmit="return confirmReservation()"> <!-- Assurez-vous que c'est la bonne action -->
-                                              <input type="text" name="vol_id" value="<?= htmlspecialchars($vol_id); ?>"> <!-- Vérifiez la valeur -->
+                                              <input type="hidden" name="vol_id" value="<?= htmlspecialchars($vol_id); ?>"> <!-- Vérifiez la valeur -->
                                               <input type="hidden" name="logement_id" value="<?= htmlspecialchars($logement['IDlogement']); ?>"> <!-- Vérifiez la valeur -->
                                               <!-- Autres champs obligatoires -->
                                               <input type="hidden" name="date_reservation" value="<?= htmlspecialchars($date_reservation); ?>">
@@ -382,7 +382,7 @@ $logements = $logementC->getFilteredLogements($date_reservation, $destination, $
   <!-- <script src="http://localhost/Projet2.0/js/script.js"></script> -->
   <script>
 function confirmReservation() {
-    return confirm("If you click OK, a confirmation email will be sent to your email address. Do you want to proceed?");
+  return confirm("En cliquant sur OK, vous recevrez un e-mail de confirmation à votre adresse e-mail ainsi qu'un SMS sur votre téléphone. Souhaitez-vous continuer?");
 }
 </script>
 

@@ -76,7 +76,7 @@ $destination = isset($_GET['destination']) ? htmlspecialchars($_GET['destination
                 <div class="col-lg-6">
                     <fieldset>
                         <label pour="Number">Téléphone</label>
-                        <input type="text" name="Number" placeholder="Ex. 216(votre numero)" required>
+                        <input type="text" name="Number" placeholder="Ex. +123456789" required>
                     </fieldset>
                 </div>
                 <div class="col-lg-6">

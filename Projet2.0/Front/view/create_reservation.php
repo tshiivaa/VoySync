@@ -74,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <br><br>
             Cordialement,
             <br>
-            L'équipe de Voysync
+            L'équipe de Voysync.
         ";
     
         $mailer->send();
