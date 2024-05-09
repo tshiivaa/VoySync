@@ -2,11 +2,17 @@
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+use Infobip\Configuration;
+use Infobip\Api\SmsApi;
+use Infobip\Model\SmsDestination;
+use Infobip\Model\SmsTextualMessage;
+use Infobip\Model\SmsAdvancedTextualRequest;
 
 require_once '../controller/ReservationC.php';
 require '../../phpmailer/src/Exception.php';
 require '../../phpmailer/src/PHPMailer.php';
 require '../../phpmailer/src/SMTP.php';
+require __DIR__ . "/SMS/vendor/autoload.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Récupérer les valeurs du formulaire
@@ -72,6 +78,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ";
     
         $mailer->send();
+
+
+         // Envoyer un SMS de confirmation
+         $apiURL = "e1kmg2.api.infobip.com"; // Nom d'hôte Infobip
+         $apiKey = "3a4ec6672757536d86a10e691e834b62-2da3a4b0-6838-4fa0-8e73-318aa8c18c62"; // Votre clé API
+ 
+         $configuration = new Configuration(
+             host: $apiURL,
+             apiKey: $apiKey
+         );
+ 
+         $api = new SmsApi(config: $configuration);
+ 
+         $destinationSms = new SmsDestination(to: $telephone); // Numéro de téléphone
+         $smsMessage = new SmsTextualMessage(
+             destinations: [$destinationSms],
+             text: "Bonjour $nom, votre réservation a été confirmée pour le $date_reservation à $destination. Merci de nous avoir choisis!",
+             from: "VoySync"
+         );
+ 
+         $request = new SmsAdvancedTextualRequest(messages: [$smsMessage]);
+         $api->sendSmsMessage($request);
+ 
 
         // Redirection après succès
         // header("Location: ListLogementFrontTries.php");
