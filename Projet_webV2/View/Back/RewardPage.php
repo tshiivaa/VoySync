@@ -4,10 +4,8 @@ include '../../Model/Reward.php';
 
 $RewardC = new RewardC();
 if (isset($_POST['id_r'])) {
-  // Vérifier si le champ 'delete_id' est défini pour une suppression
   $id_r = $_POST['id_r'];
   
-  // Appeler la méthode de suppression dans le contrôleur
   $RewardC->deleteReward($id_r);
   
   // Rediriger vers une autre page ou afficher un message de confirmation

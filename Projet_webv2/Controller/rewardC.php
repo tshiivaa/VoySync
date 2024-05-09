@@ -54,36 +54,42 @@ class RewardC
 
 
     function updateReward($reward, $id_r)
-    {
-        try {
-            $db = config::getConnexion();
-            $query = $db->prepare(
-                'UPDATE `reward` SET 
-                    title = :title,
-                    type = :type,
-                    image = :image, 
-                    description = :description,
-                    place = :place, 
-                    prix_coins = :prix_coins
-                WHERE id_r = :id_r'
-            );
-            $query->execute([
-                'id_r'=> $reward->getIdR(),
-                'title'=> $reward->getTitle(),
-                'type' => $reward->getType(),
-                'image'=> $reward->getImage(),
-                'description' => $reward->getDescription(),
-                'place'=> $reward->getPlace(),
-                'prix_coins' => $reward->getPrixCoins(),
-            ]);
-            $rowCount = $query->rowCount();
+{
+    try {
+        $db = config::getConnexion();
+        $query = $db->prepare(
+            'UPDATE `reward` SET 
+                title = :title,
+                type = :type,
+                image = :image, 
+                description = :description,
+                place = :place, 
+                prix_coins = :prix_coins
+            WHERE id_r = :id_r'
+        );
+        $query->execute([
+            'id_r' => $id_r,
+            'title' => $reward->getTitle(),
+            'type' => $reward->getType(),
+            'image' => $reward->getImage(),
+            'description' => $reward->getDescription(),
+            'place' => $reward->getPlace(),
+            'prix_coins' => $reward->getPrixCoins(),
+        ]);
+        $rowCount = $query->rowCount();
+        if ($rowCount > 0) {
             echo $rowCount . " records UPDATED successfully <br>";
             return $rowCount;
-        } catch (PDOException $e) {
-            echo 'Error: ' . $e->getMessage();
-            return -1;
+        } else {
+            echo "No records were updated.";
+            return 0;
         }
+    } catch (PDOException $e) {
+        echo 'Error: ' . $e->getMessage();
+        return -1;
     }
+}
+
 
     function showReward($id_r)
     {

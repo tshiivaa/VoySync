@@ -2673,6 +2673,15 @@ body {
 .plan .button:focus {
   background-color: #1e558d;
 }
+.visit-country .item .image img {
+  border-radius: 23px;
+}
+.amazing-deals .item .image {
+  border-top-left-radius: 23px;
+  border-bottom-left-radius: 23px;
+  overflow: hidden;
+}
+
 .mission-image {
   width: 100%;
   height: 100%;

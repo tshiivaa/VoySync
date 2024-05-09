@@ -137,11 +137,7 @@ if (isset($_POST['submit'])) {
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
-<section id="do-info" class="site-section bg-light" style="display: none;">
+        <section id="do-info" class="site-section bg-light" style="display: none;">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-7">  
@@ -174,6 +170,11 @@ if (isset($_POST['submit'])) {
             </div>
         </div>
     </section>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 
 

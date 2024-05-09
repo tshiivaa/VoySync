@@ -205,8 +205,7 @@ if (isset($_POST['submit'])) {
 
             <label for="description">Description :</label><br>
             <textarea id="description" name="description" ></textarea><br>
-
-            
+   
             <label for="place">Lieu :</label><br> 
             <select class="form-select" id="place" name="place" >
                 <option value="">country</option>

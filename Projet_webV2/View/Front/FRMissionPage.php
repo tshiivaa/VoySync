@@ -1,9 +1,25 @@
+<!-- <div class="col-lg-4">
+                <fieldset>
+                  <form id="search-form" name="searchForm" method="get" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                    <div class="search-wrapper">
+                      <div class="input-holder">
+                          <input type="text" id="searchInput" name="searchQuery" placeholder="Rechercher par titre..."/>
+                          <button class="search-icon" type="submit" onclick="searchToggle(this, event);"><span></span></button>
+                      </div>
+                      <span class="close" onclick="searchToggle(this, event);"></span>
+                    </div>
+                  </form>
+                </fieldset>
+                
+              </div> -->
 <?php
 include '../../Controller/MissionC.php';
 include '../../Model/Mission.php';
 
+
 $MissionC = new MissionC();
 $missions = $MissionC->listMission();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,6 +41,7 @@ $missions = $MissionC->listMission();
     <link rel="stylesheet" href="../../CSS/templatemo-woox-travel.css">
     <link rel="stylesheet" href="../../CSS/owl.css">
     <link rel="stylesheet" href="../../CSS/animate.css">
+    <link rel="stylesheet" href="../../CSS/search.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <!--
@@ -94,51 +111,62 @@ $missions = $MissionC->listMission();
       </div>
     </div>
   </div>
-
   <div class="search-form">
     <div class="container">
       <div class="row">
         <div class="col-lg-12">
-          <form id="search-form" name="gs" method="submit" role="search" action="#">
+          <div id="search-form">
             <div class="row">
               <div class="col-lg-2">
                 <h4>Sort Deals By:</h4>
               </div>
-              <div class="col-lg-4">
+              <div class="col-lg-5">
                   <fieldset>
-                      <select name="Location" class="form-select" aria-label="Default select example" id="chooseLocation" onChange="this.form.click()">
-                          <option selected>Destinations</option>
-                          <option type="checkbox" name="option1" value="Italy">Italy</option>
-                          <option value="France">France</option>
-                          <option value="Switzerland">Switzerland</option>
-                          <option value="Thailand">Thailand</option>
-                          <option value="Australia">Australia</option>
-                          <option value="India">India</option>
-                          <option value="Indonesia">Indonesia</option>
-                          <option value="Malaysia">Malaysia</option>
-                          <option value="Singapore">Singapore</option>
-                      </select>
+                      <form id="trie-form" name="trieForm" method="get" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                          <select name="trie" class="form-select" aria-label="Default select example" id="chooseLocation" onchange="this.form.submit()">
+                              <option selected disabled>trie</option>
+                              <option value="title">Titre</option>
+                              <option value="gift_point">Gift point</option>
+                              <option value="place">Lieu</option>
+                          </select>
+                      </form>
                   </fieldset>
               </div>
-              <div class="col-lg-4">
-                  <fieldset>
-                      <select name="Price" class="form-select" aria-label="Default select example" id="choosePrice" onChange="this.form.click()">
-                          <option selected>Price Range</option>
-                          <option value="100">$100 - $250</option>
-                          <option value="250">$250 - $500</option>
-                          <option value="500">$500 - $1,000</option>
-                          <option value="1000">$1,000 - $2,500</option>
-                          <option value="2500+">$2,500+</option>
-                      </select>
-                  </fieldset>
-              </div>
-              <div class="col-lg-2">                        
-                  <fieldset>
-                      <button class="border-button">Search Results</button>
-                  </fieldset>
+              <div class="col-lg-5">
+                <fieldset>
+                  <form id="search-form" name="searchForm" method="get" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                      <input type="text" id="searchInput" name="searchQuery" placeholder="Rechercher par titre..."/>
+                      <button  type="submit" >Rechercher</button>
+                  </form>
+                </fieldset>
+                
               </div>
             </div>
-          </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+<?php
+// include '../../Controller/MissionC.php'; // Include your controller
+if (isset($_GET['searchQuery'])) {
+  $searchQuery = $_GET['searchQuery'];
+  $MissionC = new MissionC();
+  $missions = $MissionC->searchMissions($searchQuery);
+  // Display search results as needed
+}
+
+// Get the search query from the URL
+if (isset($_GET['trie'])) {
+    $TrieQuery = $_GET['trie'];
+    $MissionC = new MissionC();
+    $missions = $MissionC->TrieMissions($TrieQuery);
+    // Display search results as needed
+}
+?>
+
+        
         </div>
       </div>
     </div>
@@ -152,75 +180,67 @@ $missions = $MissionC->listMission();
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p>
           </div>
         </div>
-        <div class="row">
-        <?php
-$nbr = 0;
-foreach ($missions as $mission) {
-?>
-<div class="col-lg-6 col-sm-6">
-    <div class="item">
-        <div class="row">
-        <div class="col-lg-6">
-    <div class="image-container" style="overflow: hidden; position: relative; height: 342px;  justify-content: center; align-items: center;">
-        <img style="width: 100%; height: 342px; vertical-align: middle;" src="<?php echo $mission['imageM']; ?>" alt="">
-    </div>
-</div>
-
-
-            <div class="col-lg-6 align-self-center">
-                <div class="content">
-                  <center><div class="rating">
-                    <?php
-                    // Afficher les étoiles pour chaque mission individuellement
-                    $rate = $mission['rate'];
-                    if ($rate > 0)
-                    {
-                      $starsToShow = $rate > 0 ? $rate : 0; // Déterminer le nombre d'étoiles à afficher (rate si supérieur à 0, sinon 5)
-                      for ($i = 5; $i >= 1; $i--) {
-                          $checked = $i >= $starsToShow ? 'checked' : ''; // Vérifie si l'étoile doit être cochée
-                          echo '<input type="radio" id="star' . $i . $nbr . '" name="rating' . $nbr . '" value="' . $i . '" ' . $checked . ' />';
-                          echo '<label for="star' . $i . $nbr . '" title="' . $i . ' stars"></label>';
-                      }
-                    }else
-                    {
-                      $starsToShow = $rate > 0 ? $rate : 0; // Si le taux est supérieur à 0, affiche le taux, sinon affiche 0
-    for ($i = 5; $i >= 1; $i--) {
-        $checked = $i > $starsToShow ? '' : 'checked'; // Si l'étoile doit être cochée (taux non nul), sinon vide
-        echo '<input type="radio" id="star' . $i . $nbr . '" name="rating' . $nbr . '" value="' . $i . '" ' . $checked . ' />';
-        echo '<label for="star' . $i . $nbr . '" title="' . $i . ' stars"></label>';
-    }
-                    }
-                    
-                  ?>
-                  </div></center>
+        <div class="row" id="searchResults">
+          <?php
+            $nbr = 0;
+            foreach ($missions as $mission) {
+          ?>
+          <div class="col-lg-6 col-sm-6">
+            <div class="item">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="image-container" style="overflow: hidden; position: relative; height: 342px;  border-top-left-radius: 23px; border-bottom-left-radius: 23px;justify-content: center; align-items: center;">
+                      <img style="width: 100%; height: 342px; vertical-align: middle;" src="<?php echo $mission['imageM']; ?>" alt="">
+                  </div>
+                </div>
+                <div class="col-lg-6 align-self-center">
+                  <div class="content">
+                    <center><div class="rating">
+                      <?php
+                        $rate = $mission['rate'];
+                        if ($rate > 0)
+                        {
+                          $starsToShow = $rate > 0 ? $rate : 0; // Déterminer le nombre d'étoiles à afficher (rate si supérieur à 0, sinon 5)
+                          for ($i = 5; $i >= 1; $i--) {
+                            $checked = $i >= $starsToShow ? 'checked' : ''; // Vérifie si l'étoile doit être cochée
+                            echo '<input type="radio" id="star' . $i . $nbr . '" name="rating' . $nbr . '" value="' . $i . '" ' . $checked . ' />';
+                            echo '<label for="star' . $i . $nbr . '" title="' . $i . ' stars"></label>';
+                          }
+                        }else
+                        {
+                          $starsToShow = $rate > 0 ? $rate : 0; // Si le taux est supérieur à 0, affiche le taux, sinon affiche 0
+                          for ($i = 5; $i >= 1; $i--) {
+                              $checked = $i > $starsToShow ? '' : 'checked'; // Si l'étoile doit être cochée (taux non nul), sinon vide
+                              echo '<input type="radio" id="star' . $i . $nbr . '" name="rating' . $nbr . '" value="' . $i . '" ' . $checked . ' />';
+                              echo '<label for="star' . $i . $nbr . '" title="' . $i . ' stars"></label>';
+                          }
+                        }  
+                      ?>
+                    </div></center>
                     <h4><?php echo $mission['title']; ?></h4>
                     <div class="row">
-                        <div class="col-lg-6">
-                            <span class="list">$ <?php echo $mission['gift_point']; ?> </span>
-                        </div>
-                        
-                        <div class="col-lg-6">
-                            <span class="list">&#128205;<?php echo $mission['place']; ?></span>
-                        </div>
+                      <div class="col-lg-6">
+                          <span class="list">$ <?php echo $mission['gift_point']; ?> </span>
+                      </div>
+                      <div class="col-lg-6">
+                          <span class="list">&#128205;<?php echo $mission['place']; ?></span>
+                      </div>
                     </div>
                     <p class ="description"><strong><?php echo $mission['description']; ?></strong></p>
                     <div class="main-button">
                         <a class="btn" href="info.php?id_m=<?= $mission['id_m']; ?>" role="button">Plus d'info</a>
                     </div>
+                  </div>
                 </div>
+              </div>
             </div>
+          </div>
+          <?php
+              $nbr++;
+          }
+          ?>
         </div>
-    </div>
-</div>
-<?php
-    $nbr++;
-}
-?>
 
-
-</div>
-
-        
         <div class="col-lg-12">
           <ul class="page-numbers">
             <li><a href="#"><i class="fa fa-arrow-left"></i></a></li>
@@ -273,13 +293,44 @@ foreach ($missions as $mission) {
   <script src="../../js/tabs.js"></script>
   <script src="../../js/popup.js"></script>
   <script src="../../js/custom.js"></script>
-
+<!--
   <script>
-    $(".option").click(function(){
-      $(".option").removeClass("active");
-      $(this).addClass("active"); 
+function searchMissions() {
+    var searchQuery = document.getElementById('searchInput').value;
+    $.ajax({
+        type: 'GET',
+        url: '../../Controller/MissionC.php',
+        data: { action: 'searchMission', searchQuery: searchQuery },
+        dataType: 'html',  // Change the data type back to HTML
+        success: function(response) {
+          console.log('AJAX Response:', response);
+            var searchResultsContainer = document.getElementById('searchResults');
+            console.log(searchResultsContainer.innerHTML)
+            searchResultsContainer.innerHTML = response;  // Insert the HTML directly into the container
+        },
+        error: function(xhr, status, error) {
+            console.error(error);
+        }
     });
-  </script>
+}
+
+</script>
+--> 
+<script>
+  function searchToggle(obj, evt){
+      var container = $(obj).closest('.search-wrapper');
+          if(!container.hasClass('active')){
+              container.addClass('active');
+              evt.preventDefault();
+          }
+          else if(container.hasClass('active') && $(obj).closest('.input-holder').length == 0){
+              container.removeClass('active');
+              // clear input
+              container.find('.search-input').val('');
+          }
+  }
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
   </body>
 

@@ -159,6 +159,15 @@ $missions = $MissionC->listMissionWithReward(); // Update this method in your Mi
       <div>
 				  <a href="CreateMission.php" class="btn">Ajouter Mission</a>
       </div>
+      <div>
+                <!-- Button to generate PDF -->
+                <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                    <input type="hidden" name="generatePDF" value="true">
+                    <button type="submit" class="btn">Générer le PDF</button>
+                </form>
+
+            </div>
+      
       <br>
       <div>
         <h2>Liste des Missions</h2>
