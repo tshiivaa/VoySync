@@ -7,11 +7,26 @@
   font-size: 15px;
   font-weight:normal;
   text-align: center;
-  margin-bottom: 20px;
   color: #333; /* You can adjust the color to your preference */
   border-bottom: 2px solid #ccc; /* Optional: Adds a border at the bottom */
   padding-bottom: 10px; /* Optional: Adds some space between the text and the border */
 }
+.headerdevise h4{
+  padding: 10px;
+  padding-top: 20px;
+}
+.nour p {
+  font-size: 18px; /* Taille de police plus grande */
+  font-weight: normal;
+  text-align: center;
+  color: #555; /* Couleur de texte légèrement plus foncée */
+  margin: 20px 0; /* Marge supérieure et inférieure pour séparer les paragraphes */
+}
+
+.nour p:first-of-type {
+  margin-top: 0; /* Supprime la marge supérieure du premier paragraphe */
+}
+
 
 .wrapper{
   width: 370px;

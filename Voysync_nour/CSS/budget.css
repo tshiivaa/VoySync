@@ -270,9 +270,7 @@ section {
 /* Checkbox container */
 .option {
   width: 800px;
-  /* Adjust as needed */
   margin-left: 9rem;
-  /* Adjust as needed */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -334,7 +332,8 @@ input#type:checked~.option::before {
 #transactionForm input:not(#type),
 #transactionForm button,
 #transactionForm select,
-#transactionForm textarea {
+#transactionForm textarea
+#transactionForm option {
   width: 100%;
   padding: 10px;
   border: 1px solid var(--whiter-color);
@@ -478,5 +477,4 @@ input#type:checked~.option::before {
   border: 2px solid #ccc;
   border-radius: 5px;
   max-width: 100%; /* Ensure the photo does not overflow */
-  height: auto;
 }

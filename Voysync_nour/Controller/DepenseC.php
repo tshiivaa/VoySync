@@ -142,6 +142,45 @@ class DepenseC
     }
 }
 
+    public function TotalB() {
+        $sql = "SELECT 
+            SUM(CASE WHEN montant >= 0 THEN montant ELSE 0 END) AS total_positif,
+            SUM(CASE WHEN montant < 0 THEN montant ELSE 0 END) AS total_negatif,
+            SUM(montant) AS total_general
+        FROM depense;";
+
+        // Exécuter la requête SQL et retourner les résultats
+        $db = config::getConnexion();
+        try {
+            $query = $db->query($sql);
+            return $query->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            echo 'Error: ' . $e->getMessage();
+            return null;
+        }
+    }
+
+    public function TotalB_Lieu($lieu) {
+        $sql = "SELECT 
+            SUM(CASE WHEN montant >= 0 THEN montant ELSE 0 END) AS total_positif,
+            SUM(CASE WHEN montant < 0 THEN montant ELSE 0 END) AS total_negatif,
+            SUM(montant) AS total_general
+        FROM depense
+        WHERE Lieu = :lieu";
+
+        // Exécuter la requête SQL avec le paramètre $lieu et retourner les résultats
+        $db = config::getConnexion();
+        try {
+            $query = $db->prepare($sql);
+            $query->execute([':lieu' => $lieu]);
+            return $query->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            echo 'Error: ' . $e->getMessage();
+            return null;
+        }
+    }
+
+
 
 }
 ?>

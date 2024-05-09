@@ -165,7 +165,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
     <div>
         <label for="Type">Type de document</label>
-        <input type="text" name="Type" id="Type" required />
+      <input type="text" name="Type" id="Type" required />
     </div>
     <div>
         <label for="DateExp">Date d'expiration</label>

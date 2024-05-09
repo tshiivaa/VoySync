@@ -24,3 +24,41 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   });
 });
+
+function bannerSwitcher() {
+  next = $('.sec-1-input').filter(':checked').next('.sec-1-input');
+  if (next.length) next.prop('checked', true);
+  else $('.sec-1-input').first().prop('checked', true);
+}
+
+var bannerTimer = setInterval(bannerSwitcher, 5000);
+
+$('nav .controls label').click(function () {
+  clearInterval(bannerTimer);
+  bannerTimer = setInterval(bannerSwitcher, 5000)
+});
+
+function viewPhoto(encodedImage) {
+var modal = document.getElementById('modal-overlay');
+var img = document.getElementById('modal-image');
+img.src = 'data:image/jpeg;base64,' + encodedImage;
+modal.style.display = 'block';
+}
+
+function closeModal() {
+var modal = document.getElementById('modal-overlay');
+modal.style.display = 'none';
+}
+function goBack() {
+window.history.back();
+}
+function confirmDelete(event) {
+// Prompt the user for confirmation
+if (!confirm("Voulez-vous vraiment supprimer ce document ?")) {
+  // If the user cancels, prevent the default link behavior
+  event.preventDefault(); // Prevent the default link behavior
+  return false; // Cancel the action
+}
+// If the user confirms, continue with the default link behavior
+return true; // Proceed with the action
+}

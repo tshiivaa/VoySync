@@ -91,7 +91,7 @@
     </div>
   <div class="main_body_f">
     <div class="wrapper">
-      <header>Convertisseur Devise</header>
+      <h3 style="font-weight: normal; padding-left: 10px;">Convertisseur Devise</h3>
       <form action="#">
         <div class="amount">
           <p>Saisissez votre somme</p>

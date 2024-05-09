@@ -111,8 +111,13 @@ p {
   line-height: 30px;
   color: #1e1e1e;
 }
-
-
+img{
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  width: 100%;
+}
 /* 
 ---------------------------------------------
 Global Styles
