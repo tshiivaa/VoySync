@@ -100,7 +100,22 @@ body {
     float: left;
 }
 
+
+.sidebar_right {
+    position: relative;
+    right: 0;
+    padding: 10px;
+    overflow: hidden;
+    float: right;
+}
+
+
+
 .sidebar img {
+    height: 95vh;
+}
+
+.sidebar_right img {
     height: 95vh;
 }
 
@@ -383,6 +398,10 @@ input[type="checkbox"] {
 
 }
 
+.h3 {
+    color: #1e558d;
+}
+
 .option1,
 .option2,
 .option3 {
@@ -528,10 +547,7 @@ footer {
 }
 
 .form-container {
-    margin: 2rem auto;
     display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
 .form-step {
@@ -590,30 +606,6 @@ p.step-description {
 
 .error {
     color: var(--light-theme-error-color);
-}
-
-.sidebar {
-    position: relative;
-    left: 0;
-    padding: 10px;
-    overflow: hidden;
-    float: left;
-}
-
-.sidebar_right {
-    position: relative;
-    right: 0;
-    padding: 10px;
-    overflow: hidden;
-    float: right;
-}
-
-.sidebar img {
-    height: 95vh;
-}
-
-.sidebar_right img {
-    height: 95vh;
 }
 
 
@@ -877,20 +869,51 @@ p.step-description {
     }
 }
 
-.result-item {
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin-bottom: 10px;
+.card-container {
+    display: flex;
+    flex-direction: column;
+    /* Display cards in a column */
+    max-width: 800px;
+    /* Adjust as needed */
+    margin: 0 auto;
+    /* Center the container */
 }
 
-.result-item h2 {
+.card {
+    width: 100%;
+    /* Take full width of the container */
+    margin-bottom: 20px;
+    /* Add some space between cards */
+    background-color: var(--light-theme-background);
+    /* Use light theme background color */
+    box-shadow: 0 4px 8px var(--light-theme-shadow);
+    /* Use light theme shadow */
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
+    cursor: pointer;
+    border: 2px solid transparent;
+    /* Transparent border by default */
+}
+
+
+.card-inner {
+    padding: 20px;
+}
+
+.card p {
     margin: 0;
 }
 
-.result-item p {
-    margin: 5px 0;
-}
-
-.result-item .details {
-    font-style: italic;
+.card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    /* Semi-transparent black overlay */
+    opacity: 0;
+    /* Initially invisible */
+    transition: opacity 0.3s ease-in-out;
 }

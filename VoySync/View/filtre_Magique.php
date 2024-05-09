@@ -1,12 +1,14 @@
 <?php
 include_once '../Controller/DestinationC.php';
 include_once '../Controller/TransportC.php';
+include_once '../Controller/ResultC.php';
 
 $DestinationController = new DestinationController();
 $listDestinations = $DestinationController->listDestinations();
 $listCountries = $DestinationController->listCountries();
 $TransportController = new TransportController();
 $listTransport = $TransportController->listTransports();
+
 
 
 ?>
@@ -67,7 +69,7 @@ $listTransport = $TransportController->listTransports();
       <h1 class="title">Destination :</h1>
       <p class="step-description"> Veuillez choisir le pays </p>
       <!-- Destination -->
-      <h2>Destination</h2>
+      <h2>Lieu actuelle</h2>
       <label for="select">Pays</label>
       <select id="country" name="country" class="my-select-menu" onchange="formDestinations()">
           <option value="">Choisir un pays</option>
@@ -84,7 +86,7 @@ $listTransport = $TransportController->listTransports();
       </select>
 
             <!-- Actuelle -->
-            <h2>Lieu actuelle</h2>
+            <h2>Destination</h2>
             <label for="select">Pays</label>
       <select id="country2" name="country2" class="my-select-menu" onchange="formDestinations2()">
           <option value="">Choisir un pays</option>
@@ -111,7 +113,7 @@ $listTransport = $TransportController->listTransports();
       <p class="step-description"> Veuillez donner la date </p>
       <input type="date" id="dateInput">
       <button class="prev-step">Previous</button>
-      <button class="next-step" id="nextDateStep">Next</button>
+      <button class="next-step" id="nextDateStep" onclick="savedate()">Next</button>
     </div>
 
     <div class="form-step" data-step="3" style="display: none;">
@@ -124,7 +126,7 @@ $listTransport = $TransportController->listTransports();
         <option value="TND">TND</option>
       </select>
       <button class="prev-step">Previous</button>
-      <button class="next-step" id="nextBudgetStep">Next</button>
+      <button class="next-step" id="nextBudgetStep" onclick="savebudg()">Next</button>
     </div>
 
     <div class="form-step" data-step="4" style="display: none;">
@@ -133,37 +135,82 @@ $listTransport = $TransportController->listTransports();
       <select id="transport" name="transport" class="my-select-menu">
       </select>
       <button class="prev-step">Previous</button>
-      <button class="next-step" id="nextTransportStep">Next</button>
+      <button class="next-step" id="nextTransportStep" onclick="savetrans()">Next</button>
     </div>
 
     <div class="form-step" data-step="5" style="display: none;">
       <h1 class="title">Hebergement :</h1>
       <p class="step-description"> Veuillez donner votre Accommodation </p>
-          <div class="radio-inputs">
-      <label class="radio">
-        <input type="radio" name="radio" checked="">
-        <span class="name">Hotel</span>
-      </label>
-      <label class="radio">
-        <input type="radio" name="radio">
-        <span class="name">Maison d'Hote</span>
-      </label>
-          
-      <label class="radio">
-        <input type="radio" name="radio">
-        <span class="name">AirBnb</span>
-      </label>
-    </div>
-    <br>
+      <div class="radio-inputs">
+        <label class="radio">
+          <input type="radio" name="heb" value="Hotel" onclick="myFunction(this.value)">
+          <span class="name">Hotel</span>
+        </label>
+        <label class="radio">
+          <input type="radio" name="heb" value="Maison d'Hote" onclick="myFunction(this.value)">
+          <span class="name">Maison d'Hote</span>
+        </label>
+        <label class="radio">
+          <input type="radio" name="heb" value="AirBnb" onclick="myFunction(this.value)">
+          <span class="name">AirBnb</span>
+        </label>
+      </div>
+      <br>
       <button class="prev-step">Previous</button>
+      <button class="next-step" onclick="result()" id="nextResultStep">Confirm</button>
+    </div>
 
-      <form id="myForm" action="idea.php" method="post">
-        <input type="text" id="destinationide" name="destination" style="display: none;">
-        <button type="submit" id="submitButton" class="submit">Get Ideas</button>
-      </form>
+    <div class="form-step" data-step="6" style="display: none;">
+      <h1 class="title">Pack :</h1>
+      <p class="step-description"> Voici Votre Pack </p>
+      <br>
+      <div id="result-container"></div>
+      <div id="accommodation-container"></div>
+      <button class="prev-step">Previous</button>
+      <button class="submit">Confirm</button>
+      <div>
+        <form id="myForm" action="idea.php?destinationide=" method="post">
+          <input type="text" id="destinationide" name="destinationide" style="display: none;">
+          <br>
+          <button type="submit" id="submitButton" class="submit">Idee D'activites</button>
+        </form>        
+      </div>
     </div>
   </div>
+  <div class="sidebar_right ">
+            <img src="./assets/images/bg-sidebar-desktop.svg" alt="side-bar" class="side-bar">
+  </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+  let hebb="";
+  function myFunction(heb) {
+    hebb=heb;
+  }
+
+  document.getElementById("myForm").addEventListener("submit", function(event) {
+    // Prevent the form from submitting by default
+    event.preventDefault();
+    
+    // Get the value you want to set for the input field
+    var inputValue = document.getElementById("destinationide").value;
+    
+    // Set the value of the input field
+    document.getElementById("destinationide").value = inputValue;
+    
+    // Construct the URL with the value of destinationide
+    var url = "idea.php?destinationide=" + encodeURIComponent(inputValue);
+    console.log(inputValue);
+    
+    // Open the URL in a new tab/window
+    window.open(url, "_blank");
+  });
+</script>
+
+
+
+
 <script src="filtre.js"></script>
 </body>
 </html>

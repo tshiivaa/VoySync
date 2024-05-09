@@ -2,18 +2,15 @@
 $response = null;
 
 // Check if destination is provided via POST
-if (isset($_POST["destination"]) && !empty($_POST["destination"])) {
+if (isset($_GET["destinationide"]) && !empty($_GET["destinationide"])) {
 
-    // Debugging: Print out the destination received via POST
-    echo "Destination received: " . $_POST["destination"] . "<br>";
-
-    $destination = $_POST["destination"];
+    $destinationide = $_GET["destinationide"];
 
     // URL endpoint
     $key = "AIzaSyDbEjwo2d9tdx-VmELQ7ynm6el4LTks5ns"; // Replace this with your actual API key
     $url = 'https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=' . $key;
 
-    $text = "Donne-moi des idées de choses à faire à $destination";
+    $text = "Donne-moi des idées de choses à faire à $destinationide";
 
     // Request data
     $data = array(
@@ -54,11 +51,85 @@ if (isset($_POST["destination"]) && !empty($_POST["destination"])) {
         $responseData = json_decode($response, true);
 
         // Check if response contains expected data
-        if (isset($responseData["candidates"][0]["content"]["parts"][0]["text"])) {
-            // Print response
-            $response = $responseData["candidates"][0]["content"]["parts"][0]["text"];
+        if (isset($responseData["candidates"])) {
+            // Display each pair of categories within one card
+            $categories = []; // Initialize an array to store categories
+
+            foreach ($responseData["candidates"] as $candidate) {
+                // Check if the response contains the expected data
+                if (isset($candidate["content"]["parts"][0]["text"])) {
+                    // Extract the response text
+                    $responseText = $candidate["content"]["parts"][0]["text"];
+
+                    // Split the response into categories
+                    $categories = explode("**", $responseText);
+                }
+            }
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VoySync | Filter Magique</title>
+    <link rel="stylesheet" href="stylee.css">
+    <link rel="stylesheet" href="back.css">
+    <style>
+            @media print {
+        /* Define styles for printing */
+        /* You can hide elements, adjust layout, etc. */
+        .no-print {
+            display: none;
+        }
+    }
+    </style>
+</head>
+<body>
+    <div>
+    <button id="download-pdf" class="next-step" onclick="window.print()">Download PDF</button>
+
+    </div>
+    <div class="main">
+        
+        <div class="sidebar">
+            <img src="./assets/images/bg-sidebar-desktop.svg" alt="side-bar" class="side-bar">
+        </div>
+        <div class="form-container">
+            <?php
+                // Group categories into pairs and display within one card
+                for ($i = 1; $i < count($categories); $i += 2) {
+                    // Display a pair of categories within one card
+                    echo "<div class='card'>";
+                    echo "<div class='card-inner'>";
+                    if (isset($categories[$i])) {
+                        echo "<h3>" . trim($categories[$i]) . "</h3>";
+                    }
+                    if (isset($categories[$i + 1])) {
+                        // Split each line starting with * into separate paragraphs
+                        $lines = explode("*", trim($categories[$i + 1]));
+                        foreach ($lines as $line) {
+                            if (!empty(trim($line))) {
+                                echo "<p>" . trim($line) . "</p> <br>";
+                            }
+                        }
+                    }
+                    echo "</div>";
+                    echo "</div>";
+                }
+            ?>
+        </div>
+        <div class="sidebar_right ">
+            <img src="./assets/images/bg-sidebar-desktop.svg" alt="side-bar" class="side-bar">
+        </div>
+    </div>
+</body>
+</html>
+
+<?php
         } else {
-            echo "Error: Unexpected response format";
+            // Display error message if no candidates found
+            echo "<div style='color: red; font-weight: bold;'>Error: No candidates found</div>";
         }
     }
 
@@ -70,25 +141,3 @@ if (isset($_POST["destination"]) && !empty($_POST["destination"])) {
     echo "Error: Destination not provided";
 }
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-<?php if ($response !== null) {
-        ?>
-        <section id="home">
-            <h4>Découvrez les activités disponibles</h4>
-            <p>
-                <?= $response; ?>
-            </p>
-        </section>
-    <?php
-    }
-    ?>
-</body>
-</html>

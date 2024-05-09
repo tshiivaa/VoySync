@@ -1,30 +1,12 @@
 console.log("test");
 
 let selectedDestination = ""; // Variable globale pour stocker la destination sélectionnée
-let selectedDestination2 = ""; // Variable globale pour stocker la destination sélectionnée
+let selectedDestination2 = "";
+let dateInput = "";
+let budgetInput = ""; // Variable globale pour stocker la destination sélectionnée
+let currency = "";
+let transportInput = "";
 
-function getGeminiResponse() {
-    // ... other request options as needed
-    fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=AIzaSyDbEjwo2d9tdx-VmELQ7ynm6el4LTks5ns', {
-        method: 'POST',
-        // ... other request options as needed
-    })
-
-        .then(response => response.json())
-        .then(data => {
-            if (data.error) {
-                console.error("Error:", data.error.message);
-                // Handle API error (e.g., display an alert to the user)
-                return;
-            }
-            const generatedText = data.candidates[0].content.parts[0].text;
-            document.getElementById("gemini_response").innerHTML = generatedText;
-        })
-        .catch(error => {
-            console.error("Error:", error);
-            // Handle other errors (e.g., network issues)
-        });
-}
 
 function save() {
     selectedDestination = document.getElementById("destination").value;
@@ -39,6 +21,107 @@ function save() {
         console.log("Veuillez sélectionner une destination et une position actuelle.");
     }
 }
+function savedate() {
+    dateInput = document.getElementById("dateInput").value;
+}
+function savebudg() {
+    budgetInput = document.getElementById("budgetInput").value;
+    currency = document.getElementById("currency").value;
+}
+function savetrans() {
+    transportInput = document.getElementById("transport").value;
+}
+function result() {
+
+    // Make sure depart and arrive are selected
+    if (!selectedDestination || !selectedDestination2) {
+        console.log("Please select both depart and arrive destinations.");
+        return;
+    }
+
+    // Make the fetch request to ResultC.php with the query
+    fetch(`../Controller/ResultC.php?depart=${encodeURIComponent(selectedDestination)}&arrive=${encodeURIComponent(selectedDestination2)}`)
+        .then(response => response.text())
+        .then(data => {
+            const resultContainer = document.getElementById("result-container");
+            resultContainer.innerHTML = ""; // Clear previous results
+            const jsonData = JSON.parse(data);
+
+            // Loop through each item in the JSON data and create HTML elements to display it
+            jsonData.forEach(item => {
+                const resultItem = document.createElement("div");
+                resultItem.classList.add("result-item");
+
+                // Display relevant information
+                const title = document.createElement("h2");
+                title.textContent = `${item.Compagnie} - Vol ${item.Num_vol}`;
+                resultItem.appendChild(title);
+
+                const details = document.createElement("p");
+                details.textContent = `Depart: ${item.Depart} | Arrive: ${item.Arrive} | Date: ${item.DateDepart}`;
+                resultItem.appendChild(details);
+
+                const price = document.createElement("p");
+                price.textContent = `Price: ${item.Prix} | Class: ${item.Classe}`;
+                resultItem.appendChild(price);
+
+                // Additional details if needed
+                const additionalDetails = document.createElement("p");
+                additionalDetails.classList.add("details");
+                additionalDetails.textContent = `Duration: ${item.DureeOffre} | Evaluation: ${item.Evaluation}`;
+                resultItem.appendChild(additionalDetails);
+
+                // Append the result item to the container
+                resultContainer.appendChild(resultItem);
+                budgetInput = budgetInput - item.Prix;
+                console.log("bugetnow= " + budgetInput);
+            });
+
+        })
+    GetAccom();
+
+}
+function GetAccom() {
+    fetch(`../Controller/ResultC.php?prix=${encodeURIComponent(budgetInput)}&adresse=${encodeURIComponent(selectedDestination2)}&heb=${encodeURIComponent(hebb)}`)
+        .then(response2 => response2.text())
+        .then(data2 => {
+            const accomContainer = document.getElementById("accommodation-container");
+            accomContainer.innerHTML = ""; // Clear previous results
+            const jsonData2 = JSON.parse(data2);
+
+            jsonData2.forEach(item2 => {
+                const accomItem = document.createElement("div");
+                accomItem.classList.add("accom-item");
+
+                const title2 = document.createElement("h2");
+                title2.textContent = `${item2.Nom} - ${item2.Adresse}`;
+                accomItem.appendChild(title2);
+
+                const details2 = document.createElement("p");
+                details2.textContent = `Price: ${item2.Prix} | Capacity: ${item2.Capacite}`;
+                accomItem.appendChild(details2);
+
+                // Additional details if needed
+                const additionalDetails2 = document.createElement("p");
+                additionalDetails2.classList.add("details");
+                additionalDetails2.textContent = `Rating: ${item2.Evaluation} | Availability: ${item2.Disponibilite}`;
+                accomItem.appendChild(additionalDetails2);
+
+                accomContainer.appendChild(accomItem);
+
+                const rp = document.createElement("h2");
+                rp.textContent = `Reste de votre Budget :  ${budgetInput = budgetInput - item2.Prix}`;
+                accomItem.appendChild(rp);
+            });
+        })
+        .catch(error2 => {
+            console.error('Error fetching accommodation data:', error2);
+        });
+}
+
+
+
+
 
 
 
@@ -98,11 +181,9 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function formTransports(selectedDestination2, selectedDestination) {
-
     var transportSelect = document.getElementById("transport");
     var ide = document.getElementById("destinationide");
     console.log(selectedDestination, "to ", selectedDestination2)
-
 
     // Effacer les options précédentes
     transportSelect.innerHTML = "";
@@ -112,6 +193,9 @@ function formTransports(selectedDestination2, selectedDestination) {
         return;
     }
 
+    // Set the value of the destinationide input field to selectedDestination2
+    ide.value = selectedDestination;
+
     // Appeler la fonction PHP pour récupérer les transports associés à la destination et au lieu actuel sélectionnés
     fetch('../Controller/TransportC.php?destination=' + encodeURIComponent(selectedDestination) + '&currentLocation=' + encodeURIComponent(selectedDestination2))
         .then(response => response.text()) // Récupérer la réponse en tant que texte
@@ -119,9 +203,10 @@ function formTransports(selectedDestination2, selectedDestination) {
             console.log("Response from server:", options);
             // Ajouter les options HTML à la liste déroulante
             transportSelect.innerHTML = options;
-            ide.innerHTML = selectedDestination2;
+            console.log("test AI", ide.value)
         });
 }
+
 
 
 
