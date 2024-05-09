@@ -14,6 +14,8 @@ if (isset($_POST['submit'])) {
   $place = $_POST['place'];
   $gift_point = $_POST['gift_point'];
   $id_r = $_POST['id_r'];
+  $latitude = $_POST['latitude'];
+  $longitude = $_POST['longitude'];
 
   // Récupérer les données de l'image uploadée
   $imageM = $_FILES['imageM'];
@@ -33,24 +35,19 @@ if (isset($_POST['submit'])) {
           $gift_point,
           null,
           null,
-          $id_r
+          $id_r,
+          $latitude,
+          $longitude
       );
-
-      // Ajouter la mission à la base de données
       $missionController = new MissionC();
       $missionController->addMission($mission);
-
-      // Rediriger vers une autre page en cas de succès
       header('Location: MissionPage.php');
-      exit(); // Arrêter l'exécution ultérieure
+      exit(); 
   } else {
-      // Gérer les erreurs d'upload d'image
       die('Error uploading image.');
   }
 }
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -61,6 +58,9 @@ if (isset($_POST['submit'])) {
     <title>Voysync</title>
     <link rel="stylesheet" href="../../CSS/style.css" type="text/css">
     <link rel="stylesheet" href="../../CSS/styleTab.css" type="text/css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
 
 </head>
 <body>
@@ -201,7 +201,12 @@ if (isset($_POST['submit'])) {
             <textarea id="description" name="description" ></textarea>
 
             <label for="imageM">Image :</label>
-            <input type="file" id="imageM" name="imageM" accept="image/*" >
+            <input type="file" id="imageM" name="imageM" accept="image/*" ><br>
+            
+            <div id="map" style="height: 400px;"></div><br>
+
+            Latitude: <input type="text" id="latitude" name="latitude" readonly><br>
+            Longitude: <input type="text" id="longitude" name="longitude" readonly><br>
             
             <label for="place">Lieu :</label> 
             <select class="form-select" id="place" name="place" >
@@ -465,6 +470,7 @@ if (isset($_POST['submit'])) {
             
             <label for="id_r">Select Reward:</label>
             <select id="id_r" name="id_r">
+              
                 <?php 
                 foreach ($rewards as $reward) {
                   echo '<option value="' . $reward['id_r'] . '">' . $reward['title'] .'';
@@ -473,7 +479,6 @@ if (isset($_POST['submit'])) {
             </select><br>
             <br><br>
             
-            <!-- Bouton de soumission -->
             <button type="submit" name="submit">Ajouter</button>
         </form>
     </div>
@@ -495,8 +500,45 @@ if (isset($_POST['submit'])) {
                 evt.currentTarget.className += " active";
             }
         </script>
+        <script>
+    var map = L.map('map').setView([34.8333, 9.5], 6.2); // Set initial coordinates and zoom level
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+        maxZoom: 18,
+    }).addTo(map);
+        var marker;
+        map.on('click', function(e) {
+            if (marker) {
+                map.removeLayer(marker); // Remove previous marker
+            }
+            marker = L.marker(e.latlng).addTo(map); // Add new marker
+            $('#latitude').val(e.latlng.lat); // Set latitude value in form
+            $('#longitude').val(e.latlng.lng); // Set longitude value in form
+        });
+
+        // AJAX form submission
+        $('#addMissionForm').submit(function(e) {
+            e.preventDefault(); // Prevent default form submission
+            $.ajax({
+                type: 'POST',
+                url: 'add_mission.php', // URL of your PHP backend
+                data: $(this).serialize(), // Serialize form data
+                success: function(response) {
+                    alert('Mission added successfully!');
+                    // Additional handling if needed
+                },
+                error: function(xhr, status, error) {
+                    alert('Error adding mission: ' + error);
+                    // Error handling
+                }
+            });
+        });
+</script>
         
         <script src="../js/script.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 
 </body>
 </html>

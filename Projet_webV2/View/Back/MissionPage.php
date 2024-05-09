@@ -156,18 +156,12 @@ $missions = $MissionC->listMissionWithReward(); // Update this method in your Mi
     </div>
      <br> <br>
     <div id="Missions" class="tabcontent">
-      <div>
-				  <a href="CreateMission.php" class="btn">Ajouter Mission</a>
+      <div class="row">
+        <div class="col-5"></div>
       </div>
       <div>
-                <!-- Button to generate PDF -->
-                <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-                    <input type="hidden" name="generatePDF" value="true">
-                    <button type="submit" class="btn">Générer le PDF</button>
-                </form>
-
-            </div>
-      
+				  <a href="CreateMission.php" class="btn">Ajouter Mission</a>
+      </div> 
       <br>
       <div>
         <h2>Liste des Missions</h2>
@@ -185,18 +179,28 @@ $missions = $MissionC->listMissionWithReward(); // Update this method in your Mi
             <p><strong>Gift POINT:</strong> <?php echo $mission['gift_point']; ?></p>
             <p><strong>Reward:</strong> <?php echo $mission['reward_name']; ?></p> <!-- Display reward name -->
 
-            <p><strong>Rate:</strong> 
-              <div class="rating">
-                <?php
-                // Boucle pour afficher les étoiles en fonction de la valeur de $rate
-                for ($i = 1; $i <= 5; $i++) {
-                  $checked = $i <=  $mission['rate'] ? 'checked' : ''; // Vérifie si l'étoile doit être cochée
-                  echo '<input type="radio" id="star' . $i . '" name="rating" value="' . $i . '" ' . $checked . ' />';
-                  echo '<label for="star' . $i . '" title="' . $i . ' stars"></label>';
-                }
-                ?>
-              </div>
-            </p>
+            <div class="rating">
+              <?php
+                $rate = $mission['rate'];
+                if ($rate > 0)
+                {
+                  $starsToShow = $rate > 0 ? $rate : 0; // Déterminer le nombre d'étoiles à afficher (rate si supérieur à 0, sinon 5)
+                  for ($i = 5; $i >= 1; $i--) {
+                    $checked = $i >= $starsToShow ? 'checked' : ''; // Vérifie si l'étoile doit être cochée
+                    echo '<input type="radio" id="star' . $i . $nbr . '" name="rating' . $nbr . '" value="' . $i . '" ' . $checked . ' />';
+                    echo '<label for="star' . $i . $nbr . '" title="' . $i . ' stars"></label>';
+                  }
+                }else
+                {
+                  $starsToShow = $rate > 0 ? $rate : 0; // Si le taux est supérieur à 0, affiche le taux, sinon affiche 0
+                  for ($i = 5; $i >= 1; $i--) {
+                      $checked = $i > $starsToShow ? '' : 'checked'; // Si l'étoile doit être cochée (taux non nul), sinon vide
+                      echo '<input type="radio" id="star' . $i . $nbr . '" name="rating' . $nbr . '" value="' . $i . '" ' . $checked . ' />';
+                      echo '<label for="star' . $i . $nbr . '" title="' . $i . ' stars"></label>';
+                  }
+                }  
+              ?>
+            </div>
 
             <br><div class="button-container" >     
               <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>" onsubmit="return confirm('Do you want to delete this mission ?');">

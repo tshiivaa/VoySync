@@ -93,7 +93,7 @@ $rewards = $RewardC->listReward();
           </div>
           <ul class="menu_items submenu">
             <a href="HomePage.php" class="nav_link sublink">Back office</a>
-            <a href="FRMissionPage.php" class="nav_link sublink">Front office</a>
+            <a href="../Front/FRMissionPage.php" class="nav_link sublink">Front office</a>
           </ul>
         </li>
         <li class="item">
@@ -209,7 +209,7 @@ $rewards = $RewardC->listReward();
                 });
             }
         </script>
-        <script src="../js/script.js"></script>        
+        <script src="../../js/script.js"></script>        
 
         
 </body>

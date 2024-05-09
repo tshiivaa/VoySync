@@ -21,52 +21,7 @@ if( isset($_GET['id_m'])) {
     echo "modifierid parameter is missing.";
     exit;
 }
-if (isset($_POST['submitMission'])) {
-  $ReviewC = new ReviewC();
-  
-  $id_m = $_POST['id_m'];
-  $image = $_FILES['image'];
-  $imageName = $image['name'];
-  $imageTmpName = $image['tmp_name'];
-  $imageError = $image['error'];
 
-  if ($imageError === 0) {
-      $upload_image = '../images/missions/' . $imageName;
-      move_uploaded_file($imageTmpName, $upload_image);
-
-      $review = new Review( 
-          null,
-          null,
-          $upload_image,
-          $id_m
-      );
-
-      $ReviewC->addReviewSMS($review);
-      header('Location: FRMissionPage.php');
-      exit(); // Arrêter l'exécution ultérieure
-  } else {
-      // Gérer les erreurs d'upload d'image
-      die('Error uploading image.');
-  }
-}
-if (isset($_POST['submitFeedback'])) {
-  $ReviewC = new ReviewC();
-  // Récupérer les données du formulaire
-  $description = $_POST['description'];
-  $rate = $_POST['rating'];
-  $id_m = $_POST['id_m'];
-
-  $review = new Review( 
-    $description,
-    $rate,
-    null,
-    $id_m
-    );
-    $ReviewC->addReview($review);
-    $ReviewC->updateMissionWithReview($id_m);
-    header('Location: FRMissionPage.php');
-      exit(); // Arrêter l'exécution ultérieure
-  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -162,85 +117,18 @@ if (isset($_POST['submitFeedback'])) {
               <div class="row">
                 <div class="col-lg-6">
                   <div class="main-button">
-                    <a class="btn" id="mission" role="button">Faire la mission</a>
-                  </div>
-                </div>
-                <div class="col-lg-6">
-                  <div class="main-button">
-                    <a class="btn" id="feedback" role="button">Donner feedback</a>
+                    <a class="btn" href="HomePage.php" role="button">Retourner</a>          
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-
-  <!--------------------------------------------------------Faire la mission--------------------------------------------------------------------------->
-        <center>
-        <section id="do-mission" class="site-section bg-light" style="display: none;">
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-md-7">  
-              <h2>Faire de mission</h2>
-              <form  method="post" enctype="multipart/form-data">
-                <input type="hidden" name="id_m" value="<?php echo $mission['id_m'];?>" >
-                <label for="image">Image :</label>
-                <input type="file" id="image" name="image" accept="image/*" >
-                <button type="submit" name="submitMission" class="btn btn-primary">Valider</button>
-              </form>
-            </div>
-          </div>
-        </div>
-        </section>
-        </center>
-
-  <!---------------------------------------------------------feedback ------------------------------------------------------------------------------->
-        <center>
-        <section id="do-feedback" class="site-section bg-light" style="display: none;">
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-md-7">  
-              <h2>Feedback</h2>
-              <form  method="post" enctype="multipart/form-data">
-                <input type="hidden" name="id_m" value="<?php echo $mission['id_m'];?>" >
-                <label for="description">Commentaire:</label>
-                <textarea id="description" name="description" ></textarea><br>
-                <label for="rate">Evaluation:</label>  
-                <div class="rating">
-                  <input type="radio" id="star5" name="rating" value="5" />
-                  <label for="star5" title="5 stars"></label>
-                  <input type="radio" id="star4" name="rating" value="4" />
-                  <label for="star4" title="4 stars"></label>
-                  <input type="radio" id="star3" name="rating" value="3" />
-                  <label for="star3" title="3 stars"></label>
-                  <input type="radio" id="star2" name="rating" value="2" />
-                  <label for="star2" title="2 stars"></label>
-                  <input type="radio" id="star1" name="rating" value="1" />
-                  <label for="star1" title="1 star"></label>
-                </div><br>
-                <button type="submit" name="submitFeedback" class="btn btn-primary">Ajouter feedback</button>
-              </form>
-            </div>
-          </div>
-        </div>
-        </section>
-        </center>
       </div>
     </div>
   </div>
 </div>
 
-
-
-
-    <script>
-    document.getElementById('feedback').addEventListener('click', function() {
-      document.getElementById('do-feedback').style.display = 'block';
-    });
-    document.getElementById('mission').addEventListener('click', function() {
-      document.getElementById('do-mission').style.display = 'block';
-    });
-  </script>
     <script>
           const score =document.querySelector('.score');
           const ratings = document.querySelectorAll('.rating input');

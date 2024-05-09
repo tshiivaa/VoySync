@@ -1,26 +1,7 @@
-<!--
-       public function addReview($review)
-{
-    $sql = "INSERT INTO review (id_rev,description,rate,id_m)
-            VALUES (:id_rev, :description, :rate, :id_m)";
-            
-    $db = config::getConnexion();
-    try {
-        $query = $db->prepare($sql);
-        $query->execute([
-            'id_rev' => $review->getIdRev(),
-            'description' => $review->getDescription(),
-            'rate'=> $review->getRate(),
-            'id_m'=> $review->getIdM()
-        ]);
-    } catch (Exception $e) {
-        echo 'Error: ' . $e->getMessage();
-    }
-}
--->
+
 <?php
 require_once "../../config.php";
-require_once '../../vendor/autoload.php'; // Update the path to autoload.php
+require_once '../../vendor/autoload.php'; 
 use Twilio\Rest\Client;
 
 
@@ -50,20 +31,23 @@ class ReviewC
     }
 }
     public function listReviewWithMission()
-{
-    $sql = "SELECT r.*, m.title
-            FROM review r
-            LEFT JOIN mission m ON r.id_m = m.id_m;";
-    $db = config::getConnexion();
-    try {
-        $liste = $db->query($sql);
-        return $liste;
-    } catch (Exception $e) {
-        die('Error:' . $e->getMessage());
+    {
+        $sql = "SELECT r.*, m.title AS mission_name
+                FROM review r
+                LEFT JOIN mission m ON r.id_m = m.id_m
+                WHERE r.image IS NULL
+                ORDER BY mission_name";
+        $db = config::getConnexion();
+        try {
+            $liste = $db->query($sql);
+            return $liste;
+        } catch (Exception $e) {
+            die('Error:' . $e->getMessage());
+        }
     }
-}
+    
 
-public function listReview()
+    public function listReview()
     {
         $sql = "SELECT * FROM review;";
         $db = config::getConnexion();
@@ -75,10 +59,9 @@ public function listReview()
         }
     }
 
- 
-public function addReview($review)
+    public function addReview($review)
     {
-        $sql = "INSERT INTO review (id_rev, description, rate, id_m) VALUES (:id_rev, :description, :rate, :id_m)";
+        $sql = "INSERT INTO review (id_rev, description, rate, image, id_m) VALUES (:id_rev, :description, :rate, :image, :id_m)";
         $db = config::getConnexion();
         
         try {
@@ -87,6 +70,25 @@ public function addReview($review)
                 'id_rev' => $review->getIdRev(),
                 'description' => $review->getDescription(),
                 'rate'=> $review->getRate(),
+                'image'=> $review->getImage(),
+                'id_m'=> $review->getIdM()
+            ]);
+        }catch (Exception $e) {
+            echo 'Error: ' . $e->getMessage();
+        }
+    }
+    public function addReviewSMS($review)
+    {
+        $sql = "INSERT INTO review (id_rev, description, rate, image, id_m) VALUES (:id_rev, :description, :rate, :image, :id_m)";
+        $db = config::getConnexion();
+        
+        try {
+            $query = $db->prepare($sql);
+            $query->execute([
+                'id_rev' => $review->getIdRev(),
+                'description' => $review->getDescription(),
+                'rate'=> $review->getRate(),
+                'image'=> $review->getImage(),
                 'id_m'=> $review->getIdM()
             ]);
 
@@ -99,7 +101,7 @@ public function addReview($review)
                 ->create("+21655626765", // to (recipient phone number)
                     array(
                         "from" => "+18289701375", // your Twilio phone number
-                        "body" => "New review added!" // message body
+                        "body" => "La mission est bien validé .Vous avez reçu votre récomponse !" // message body
                     )
                 );
 

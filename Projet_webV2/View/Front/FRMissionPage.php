@@ -1,17 +1,4 @@
-<!-- <div class="col-lg-4">
-                <fieldset>
-                  <form id="search-form" name="searchForm" method="get" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-                    <div class="search-wrapper">
-                      <div class="input-holder">
-                          <input type="text" id="searchInput" name="searchQuery" placeholder="Rechercher par titre..."/>
-                          <button class="search-icon" type="submit" onclick="searchToggle(this, event);"><span></span></button>
-                      </div>
-                      <span class="close" onclick="searchToggle(this, event);"></span>
-                    </div>
-                  </form>
-                </fieldset>
-                
-              </div> -->
+
 <?php
 include '../../Controller/MissionC.php';
 include '../../Model/Mission.php';
@@ -19,6 +6,18 @@ include '../../Model/Mission.php';
 
 $MissionC = new MissionC();
 $missions = $MissionC->listMission();
+
+if (isset($_GET['searchQuery'])) {
+  $searchQuery = $_GET['searchQuery'];
+  $MissionC = new MissionC();
+  $missions = $MissionC->searchMissions($searchQuery);
+}
+
+if (isset($_GET['trie'])) {
+    $TrieQuery = $_GET['trie'];
+    $MissionC = new MissionC();
+    $missions = $MissionC->TrieMissions($TrieQuery);
+}
 
 ?>
 <!DOCTYPE html>
@@ -44,13 +43,7 @@ $missions = $MissionC->listMission();
     <link rel="stylesheet" href="../../CSS/search.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-    <!--
-  
-  
-    https://templatemo.com/tm-580-woox-travel
-  
-    -->
-  
+
   </head>
 
 <body>
@@ -148,23 +141,6 @@ $missions = $MissionC->listMission();
     </div>
   </div>
   
-<?php
-// include '../../Controller/MissionC.php'; // Include your controller
-if (isset($_GET['searchQuery'])) {
-  $searchQuery = $_GET['searchQuery'];
-  $MissionC = new MissionC();
-  $missions = $MissionC->searchMissions($searchQuery);
-  // Display search results as needed
-}
-
-// Get the search query from the URL
-if (isset($_GET['trie'])) {
-    $TrieQuery = $_GET['trie'];
-    $MissionC = new MissionC();
-    $missions = $MissionC->TrieMissions($TrieQuery);
-    // Display search results as needed
-}
-?>
 
         
         </div>
