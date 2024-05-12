@@ -1,0 +1,163 @@
+.main_body_f{
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+.sortable-list {
+  margin-left: 200px;
+  width: 800px;
+  padding: 25px;
+  background: #fff;
+  border-radius: 7px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.sortable-list .item {
+  list-style: none;
+  display: flex;
+  cursor: move;
+  background: #fff;
+  align-items: center;
+  border-radius: 5px;
+  padding: 10px 13px;
+  margin-bottom: 11px;
+  border: 1px solid #ccc;
+  justify-content: space-between;
+}
+.sortable-list .item:hover {
+  background-color: #f1bebe; 
+}
+.item .details {
+  display: flex;
+  align-items: center;
+  flex-direction: column; /* Ajout de cette ligne pour aligner les éléments en colonne */
+}
+
+.item .details i {
+  pointer-events: none;
+  margin-bottom: 8px; /* Ajout de cette ligne pour espacer l'icône de la date */
+}
+
+.item .details span {
+  font-size: 1.15rem;
+  color: #ac2828;
+}
+
+.item .details .date { /* Ajout de cette classe pour la date */
+  font-size: 0.9rem; /* Taille de la police réduite */
+  color: #503c3c; /* Couleur gris clair */
+}
+
+.item i {
+  color: #ac2828;
+  font-size: 2rem;
+}
+
+.item.dragging {
+  opacity: 0.6;
+}
+
+.item.dragging :where(.details, i) {
+  opacity: 0;
+}
+.modifierR-btn {
+  background-color:  #1e558d;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  height: 40px;
+  text-decoration: none;
+  font-size: 1rem;
+}
+.modifierR-btn:hover{ 
+  background-color: #163c62;
+}
+.alert{
+  background: #ffdb9b;
+  padding: 20px 40px;
+  min-width: 420px;
+  position: absolute;
+  right: 0;
+  top: 10px;
+  border-radius: 4px;
+  border-left: 8px solid #ffa502;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+.alert.showAlert{
+  opacity: 1;
+  pointer-events: auto;
+}
+.alert.show{
+  animation: show_slide 1s ease forwards;
+}
+@keyframes show_slide {
+  0%{
+    transform: translateX(100%);
+  }
+  40%{
+    transform: translateX(-10%);
+  }
+  80%{
+    transform: translateX(0%);
+  }
+  100%{
+    transform: translateX(-10px);
+  }
+}
+.alert.hide{
+  animation: hide_slide 1s ease forwards;
+}
+@keyframes hide_slide {
+  0%{
+    transform: translateX(-10px);
+  }
+  40%{
+    transform: translateX(0%);
+  }
+  80%{
+    transform: translateX(-10%);
+  }
+  100%{
+    transform: translateX(100%);
+  }
+}
+.alert {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 300px;
+  background-color: #ffd080;
+  border: 2px solid #ce8500;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+}
+
+.alert .fa-exclamation-circle {
+  color: #ce8500;
+  font-size: 30px;
+  margin-right: 10px;
+}
+
+.alert .msg {
+  font-size: 18px;
+  color: #ce8500;
+}
+
+.alert .close-btn {
+  float: right;
+  color: #ce8500;
+  cursor: pointer;
+}
+
+.alert .close-btn:hover {
+  color: #ffc766;
+}
+
+.show {
+  display: block;
+}

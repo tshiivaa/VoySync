@@ -125,6 +125,32 @@ class DocumentVoyageC
             echo 'Error: ' . $e->getMessage();
         }
     }
+<<<<<<< Updated upstream
     
+=======
+    function listDocumentWithDate()
+    {
+        $sql = "SELECT Type, DateExp FROM projetweb.documentvoyage ORDER BY ABS(DATEDIFF(DateExp, NOW()))";
+        $db = config::getConnexion();
+        try {
+            $liste = $db->query($sql);
+            return $liste;
+        } catch (Exception $e) {
+            die('Error:' . $e->getMessage());
+        }
+    } 
+    function checkDocumentDue()
+    {
+        $sql = "SELECT * FROM projetweb.documentvoyage WHERE DateExp = CURDATE()";
+        $db = config::getConnexion();
+        try {
+            $stmt = $db->query($sql);
+            $documentsDue = $stmt->fetchAll();
+            return $documentsDue;
+        } catch (Exception $e) {
+            die('Error:' . $e->getMessage());
+        }
+    }  
+>>>>>>> Stashed changes
 }
 ?>
