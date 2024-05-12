@@ -1,0 +1,478 @@
+/* EXPANDING CARDS*/
+.budget {
+  background-color: #fff;
+  color: #333;
+  padding: 1rem;
+  text-align: center;
+  border-radius: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+  /* Use shorthand for margin to center the element */
+  position: relative;
+  /* Move position property to the main.budget class */
+}
+
+.budget>div {
+  padding: 5px;
+}
+
+.budget>div:first-child {
+  flex-basis: 100%;
+  font-size: 2.25rem;
+  font-weight: 600;
+}
+
+.budget>div:nth-child(n + 2) {
+  flex-basis: 50%;
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+.budget h5 {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+section {
+  margin-bottom: 2rem;
+}
+
+#transactionList {
+  padding: 1rem;
+  border-radius: 10px;
+  color: #333;
+}
+
+#transactionList li {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 5px;
+  position: relative;
+}
+
+.addandtitle {
+  display: flex;
+  justify-content: space-between;
+}
+
+.add-btn {
+  margin-top: 10px;
+  background-color: #3d8955;
+  font-size: 1rem;
+  width: 100px;
+}
+
+.add-btn {
+  background-color: #368833;
+}
+
+.delete-btn:hover {
+  background-color: #893d3d;
+}
+
+.view-photo-btn:hover {
+  background-color: #1c4771;
+}
+
+.modifier-btn:hover {
+  background-color: #887033;
+}
+
+.actions {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  /* Arrange items vertically */
+  align-items: flex-end;
+  /* Align items to the end of the container */
+  padding-top: 10px;
+  /* Add padding to the top */
+}
+
+.delete-btn,
+.modifier-btn,
+.add-btn,
+.view-photo-btn {
+  background-color: var(--red-color);
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  height: 40px;
+  text-decoration: none;
+  margin-top: 5px;
+  font-size: 1rem;
+}
+
+.view-photo-btn {
+  background-color: var(--blue-color);
+  width: fit-content;
+  margin-left: 10px;
+}
+
+.modifier-btn {
+  background-color: var(--yellow-color);
+
+}
+
+.add-btn {
+  margin-top: 10px;
+  background-color: #3d8955;
+  width: 100px;
+}
+
+.expense-item {
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  background-color: var(--whiter_color);
+}
+
+
+.name {
+  flex: 1;
+}
+
+.name h4 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.name p {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.details {
+  flex: 2;
+}
+
+.details p {
+  margin: 0.5rem 0;
+  font-size: 0.8rem;
+}
+
+.details p span {
+  font-weight: 600;
+}
+
+/* Amount and Details section */
+.amount {
+  font-weight: 600;
+}
+
+
+/* Apply styles to delete button within the expense item */
+.expense-item .delete-btn {
+  margin-left: 10px;
+  /* Add space between details and delete button */
+}
+
+
+/* Form container */
+#transactionForm {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  color: #333;
+}
+
+#transactionFormSection {
+
+  color: #333;
+}
+
+/* Radio button container */
+.radioun {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-left: 25rem;
+  /* Adjust as needed */
+  border: 1px solid #fff;
+  border-radius: 10px;
+  background-color: #fff;
+  padding: 0 50px;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Radio button specific styling */
+#transactionForm input[type="radio"] {
+  appearance: none;
+  margin-right: 5px;
+  cursor: pointer;
+  border-radius: 50%;
+  border: 2px solid var(--blue-color);
+  margin: 0.75rem;
+  background-color: #eee;
+}
+
+#transactionForm input[type="radio"]:checked {
+  background-color: var(--blue-color);
+}
+
+/* Label styling */
+#transactionForm label {
+  display: grid;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 0 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+#transactionForm label span {
+  position: relative;
+  z-index: 1;
+  transition: color 0.3s ease;
+  margin-left: 1rem;
+}
+
+#transactionForm label::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+
+  transition: width 0.3s ease, height 0.3s ease, top 0.3s ease, left 0.3s ease;
+  z-index: 0;
+  transform: translate(-50%, -50%);
+}
+
+#transactionForm input[type="radio"]:checked+span {
+  color: var(--blue-color);
+}
+
+#transactionForm input[type="radio"]:checked+span::before {
+  transform: scale(3);
+}
+
+#transactionForm input[type="radio"]:checked+span::after {
+  width: 300%;
+  height: 300%;
+  top: -100%;
+  left: -100%;
+}
+
+/* Checkbox container */
+.option {
+  width: 800px;
+  /* Adjust as needed */
+  margin-left: 9rem;
+  /* Adjust as needed */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  background: #eee;
+  border-radius: 5px;
+  position: relative;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+}
+
+.option span {
+  width: 50%;
+  text-align: center;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.option::before {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: 0;
+  background-color: #fff;
+  height: calc(100% - 10px);
+  width: calc(50% - 10px);
+  transform: translateX(5px);
+  border-radius: inherit;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+  transition: all 200ms;
+}
+
+input#type:checked~.option::before {
+  left: 50%;
+}
+
+/* Adjust form layout */
+#transactionForm div:nth-child(-n + 2) {
+  flex-basis: 50%;
+  margin-right: 10000px;
+}
+
+#transactionForm div:nth-child(n + 3) {
+  flex-basis: calc(50% - 5px);
+}
+
+/* Adjust select and textarea styles */
+#transactionForm select,
+#transactionForm textarea {
+  height: auto;
+}
+
+/* Textarea specific styling */
+#transactionForm textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* General input, select, textarea, and button styles */
+#transactionForm input:not(#type),
+#transactionForm button,
+#transactionForm select,
+#transactionForm textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--whiter-color);
+  border-radius: 5px;
+  margin-bottom: 5px;
+  height: 42px;
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Button specific styling */
+#transactionForm button {
+  background-color: var(--blue-color);
+  color: var(--whiter_color);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+
+/* SLIDING CARDS */
+
+.sliding-cards {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  color: #333;
+}
+
+.card-container {
+  display: flex;
+  transition: transform 0.5s ease;
+  margin-bottom: 100px;
+}
+
+.card {
+  flex: 0 0 auto;
+  width: 300px;
+  /* Adjust the width of the cards as needed */
+  height: 150px;
+  /* Adjust the height of the cards as needed */
+  margin-right: 20px;
+  background-color: var(--whiter_color);
+  /* Background color */
+  padding: 1rem;
+  text-align: center;
+  border-radius: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+}
+
+.card:hover {
+  background-color: var(--grey-color-light);
+}
+
+.prev-btn,
+.next-btn {
+  /*make the position under the cards*/
+  position: absolute;
+  top: 48%;
+
+  transform: translateY(170%);
+  background-color: var(--yellow-color);
+  /* Use your custom color variable */
+  color: var(--whiter_color);
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+
+}
+
+.prev-btn {
+  left: 10px;
+}
+
+.next-btn {
+  right: 10px;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  margin-top: 100px;
+  border: 2px solid #ccc; /* Add border around the modal content */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add shadow for depth effect */
+}
+
+.modal-content-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.close-modal-btn {
+  cursor: pointer;
+  font-size: 24px;
+  color: #c65050;
+  border: 2px solid #ccc; /* Add border around the close button */
+  border-radius: 5px; 
+  border-color: #c65050;/* Make the close button round */
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 6px;
+}
+
+.close-modal-btn i {
+  font-size: 30px;
+}
+
+#modal-image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border: 2px solid #ccc; /* Add border around the photo */
+  border-radius: 5px; /* Add border radius to match the modal content */
+  max-width: 45%; /* Ensure the photo does not overflow */
+  height: auto;
+}

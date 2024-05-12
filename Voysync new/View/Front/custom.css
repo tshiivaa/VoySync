@@ -1,0 +1,22 @@
+.custom-btn {
+    background-color: #FBCD5AFF; /* Couleur de fond */
+    color: #FFFFFF; /* Couleur du texte */
+    border: none; /* Supprimer la bordure */
+    padding: 6px 10px; /* Rembourrage autour du texte */
+    font-size: 12px; /* Taille de la police */
+    cursor: pointer; /* Curseur au survol */
+    text-decoration: none; /* Supprimer le soulignement du texte */
+}
+
+.custom-btn:hover {
+    opacity: 0.8; /* Opacité au survol */
+}
+
+.custom-btn:focus {
+    outline: none; /* Supprimer la mise en évidence lors du focus */
+}
+
+/* Espacement entre les boutons */
+.custom-btn + .custom-btn {
+    margin-left: 10px;
+}
