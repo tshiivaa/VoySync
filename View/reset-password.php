@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require_once '../Controller_us/connexion.php';
+require_once '../Controller/connexion.php';
 
 // Vérifier si l'identifiant de l'utilisateur est passé en paramètre
 if (isset($_GET['user_id'])) {

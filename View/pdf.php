@@ -35,7 +35,7 @@
                 </thead>
                 <tbody>
                 <?php
-                require_once "../Controller_us/connexion.php";
+                require_once "../Controller/connexion.php";
 
                 // Assuming config::connexion() returns a PDO connection object
                 $conn = config::connexion();

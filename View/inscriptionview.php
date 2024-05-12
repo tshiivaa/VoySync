@@ -1,5 +1,5 @@
 <?php
-include '../Controller_us/inscriptioncontroller.php';
+include '../Controller/inscriptioncontroller.php';
 
 
 if (array_key_exists('save', $_POST)) {

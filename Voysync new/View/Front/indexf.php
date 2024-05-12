@@ -1,7 +1,7 @@
 <?php
-require_once "../../../Model_us/utilisateurs.php";
-require_once "../../../Controller_us/inscriptioncontroller.php";
-if( isset($_GET['id'])) {
+require_once "../../../Model/utilisateurs.php";
+require_once "../../../Controller/inscriptioncontroller.php";
+if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $utilisateurc = new utilisateurc();
     $utilisateurs = $utilisateurc->showUtilisateur($id);
@@ -68,12 +68,18 @@ if( isset($_GET['id'])) {
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav">
-                        <li><a id="accueil-link" href="indexf.php?id=<?php echo $utilisateurs['id']; ?>" class="active">Accueil</a></li>
+                        <li><a id="accueil-link" href="indexf.php?id=<?php echo $utilisateurs['id']; ?>" class="active">Accueil</a>
+                        </li>
                         <li><a id="about-link" href="about.php?id=<?php echo $utilisateurs['id']; ?>">À Propos</a></li>
-                        <li><a id="deals-link" href="deals.php?id=<?php echo $utilisateurs['id']; ?>">Nos Offres</a></li>
-                        <li><a id="contact-link" href="reservation.php?id=<?php echo $utilisateurs['id']; ?>">Contact</a></li>
+                        <li><a id="deals-link" href="deals.php?id=<?php echo $utilisateurs['id']; ?>">Nos Offres</a>
+                        </li>
+                        <li><a id="contact-link"
+                               href="reservation.php?id=<?php echo $utilisateurs['id']; ?>">Contact</a></li>
                         <li><a id="blog-link" href="reservation.php?id=<?php echo $utilisateurs['id']; ?>">Blog</a></li>
-                        <li><a id="depenses-link" href="Depenses_f.php?id=<?php echo $utilisateurs['id']; ?>">Dépenses</a></li>
+                        <li><a id="depenses-link"
+                               href="Depenses_f.php?id=<?php echo $utilisateurs['id']; ?>">Dépenses</a></li>
+                        <input type="submit" name="connect" value="Connexion" class="custom-btn" id="connect"/>
+
                     </ul>
                     <a class='menu-trigger'>
                         <span>Menu</span>
@@ -242,13 +248,13 @@ if( isset($_GET['id'])) {
         <nav>
             <div class="controls">
                 <label for="banner1"><span class="progressbar"><span class="progressbar-fill"></span></span><span
-                        class="text">1</span></label>
+                            class="text">1</span></label>
                 <label for="banner2"><span class="progressbar"><span class="progressbar-fill"></span></span><span
-                        class="text">2</span></label>
+                            class="text">2</span></label>
                 <label for="banner3"><span class="progressbar"><span class="progressbar-fill"></span></span><span
-                        class="text">3</span></label>
+                            class="text">3</span></label>
                 <label for="banner4"><span class="progressbar"><span class="progressbar-fill"></span></span><span
-                        class="text">4</span></label>
+                            class="text">4</span></label>
             </div>
         </nav>
     </div>
@@ -294,7 +300,7 @@ if( isset($_GET['id'])) {
                                             </ul>
                                             <div class="text-button">
                                                 <a href="about.html">Besoin d'indications ? <i
-                                                        class="bx bx-arrow-right"></i></a>
+                                                            class="bx bx-arrow-right"></i></a>
                                             </div>
                                         </div>
                                     </div>
@@ -326,7 +332,7 @@ if( isset($_GET['id'])) {
                                             </ul>
                                             <div class="text-button">
                                                 <a href="about.html">Besoin d'indications ? <i
-                                                        class="bx bx-arrow-right"></i></a>
+                                                            class="bx bx-arrow-right"></i></a>
                                             </div>
                                         </div>
                                     </div>
@@ -362,7 +368,7 @@ if( isset($_GET['id'])) {
                                             </ul>
                                             <div class="text-button">
                                                 <a href="about.html">Besoin d'indications ? <i
-                                                        class="bx bx-arrow-right"></i></a>
+                                                            class="bx bx-arrow-right"></i></a>
                                             </div>
                                         </div>
                                     </div>

@@ -1,5 +1,5 @@
 <?php
-require '../Controller_us/connexion.php';
+require '../Controller/connexion.php';
 require('fpdf/fpdf.php'); // Inclure la bibliothèque FPDF
 
 // Vérifier si 'user_id' est fourni dans l'URL

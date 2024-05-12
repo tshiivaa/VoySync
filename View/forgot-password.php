@@ -1,5 +1,5 @@
 <?php
-require_once '../Controller_us/connexion.php';
+require_once '../Controller/connexion.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Vérifier si l'email est soumis
