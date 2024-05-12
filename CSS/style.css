@@ -299,30 +299,6 @@ body.dark {
   margin-top: 60px;
 }
 .main_body_f {
-  padding: 20px;
+  padding:0px 70px;
   transition: margin-left 0.5s ease;
-  margin-top: 60px;
-}
-
-/* EXPANDING CARDS*/
-.expanding-flex-cards {
-  display: flex;
-  flex-wrap: nowrap;
-  overflow: auto;
-  justify-content: center;
-}
-
-.expanding-flex-cards>.expanding-flex-cards-item {
-  width: 100px;
-  height: 75vh;
-  position: relative;
-  background: transparent;
-  border-radius: 20px;
-  overflow: hidden;
-  margin-right: 15px;
-  margin-top: 50px;
-  margin-bottom: 50px;
-  padding: 20px 10px;
-  box-shadow: 0px 2px 11px #ffffff52;
-  transition: all .3s ease;
 }

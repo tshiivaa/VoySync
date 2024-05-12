@@ -197,8 +197,9 @@ section {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  margin-left: 25rem;
-  /* Adjust as needed */
+  margin-right: auto; /* Adjust to move the container to the right */
+  margin-left: auto; /* Adjust to move the container to the left */
+  width: 80%; /* Adjust the width as needed */
   border: 1px solid #fff;
   border-radius: 10px;
   background-color: #fff;
@@ -269,9 +270,7 @@ section {
 /* Checkbox container */
 .option {
   width: 800px;
-  /* Adjust as needed */
   margin-left: 9rem;
-  /* Adjust as needed */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -333,7 +332,8 @@ input#type:checked~.option::before {
 #transactionForm input:not(#type),
 #transactionForm button,
 #transactionForm select,
-#transactionForm textarea {
+#transactionForm textarea
+#transactionForm option {
   width: 100%;
   padding: 10px;
   border: 1px solid var(--whiter-color);
@@ -423,6 +423,7 @@ input#type:checked~.option::before {
   right: 10px;
 }
 
+/* Modal Overlay */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -431,19 +432,23 @@ input#type:checked~.option::before {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.7);
   display: none;
-  justify-content: center;
-  align-items: center;
 }
 
+/* Modal Content */
 .modal-content {
   background-color: #fff;
   padding: 20px;
   border-radius: 5px;
-  margin-top: 100px;
-  border: 2px solid #ccc; /* Add border around the modal content */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add shadow for depth effect */
+  border: 2px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  width: 50%; /* Adjust the width as needed */
+  max-width: 500px; /* Limit the maximum width */
+  max-height: 85%; /* Limit the maximum height */
+  overflow-y: auto; /* Add scroll if content overflows vertically */
+  margin: 100px auto 0; /* Center horizontally and adjust top margin */
 }
 
+/* Modal Content Header */
 .modal-content-header {
   display: flex;
   justify-content: space-between;
@@ -451,28 +456,25 @@ input#type:checked~.option::before {
   margin-bottom: 10px;
 }
 
+/* Close Button */
 .close-modal-btn {
   cursor: pointer;
   font-size: 24px;
   color: #c65050;
-  border: 2px solid #ccc; /* Add border around the close button */
-  border-radius: 5px; 
-  border-color: #c65050;/* Make the close button round */
-  padding-left: 5px;
-  padding-right: 5px;
-  padding-top: 6px;
+  border: 2px solid #c65050;
+  border-radius: 10%; /* Make the close button round */
+  padding: 6px;
 }
 
 .close-modal-btn i {
   font-size: 30px;
 }
 
+/* Modal Image */
 #modal-image {
   display: block;
-  margin-left: auto;
-  margin-right: auto;
-  border: 2px solid #ccc; /* Add border around the photo */
-  border-radius: 5px; /* Add border radius to match the modal content */
-  max-width: 45%; /* Ensure the photo does not overflow */
-  height: auto;
+  margin: auto; /* Center the image horizontally */
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  max-width: 100%; /* Ensure the photo does not overflow */
 }

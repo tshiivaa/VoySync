@@ -1,55 +1,40 @@
-/* Import Google Font - Poppins */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
-}
-/* Variables */
-:root {
-  --white-color: #f4f3f2;
-  --blue-color: #1e558d;
-  --grey-color: #707070;
-  --grey-color-light: #aaa;
-  --yellow-color: #fbcd5a;
-}
-
-/* Global */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
-}
-
-
-body.dark {
-  background-color: #333;
-  --white-color: #333;
-  --blue-color: #1c4771;
-  --grey-color: #c9cddb;
-  --yellow-color: #887033;
-}
-body{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  padding: 0 10px;
-  background-color: #e7f2fd;
-  transition: background-color 0.5s ease;
-}
 ::selection{
   color: #fff;
   background: var(--blue-color);
 }
+.headerdevise {
+  font-size: 15px;
+  font-weight:normal;
+  text-align: center;
+  color: #333; /* You can adjust the color to your preference */
+  border-bottom: 2px solid #ccc; /* Optional: Adds a border at the bottom */
+  padding-bottom: 10px; /* Optional: Adds some space between the text and the border */
+}
+.headerdevise h4{
+  padding: 10px;
+  padding-top: 20px;
+}
+.nour p {
+  font-size: 18px; /* Taille de police plus grande */
+  font-weight: normal;
+  text-align: center;
+  color: #555; /* Couleur de texte légèrement plus foncée */
+  margin: 20px 0; /* Marge supérieure et inférieure pour séparer les paragraphes */
+}
+
+.nour p:first-of-type {
+  margin-top: 0; /* Supprime la marge supérieure du premier paragraphe */
+}
+
+
 .wrapper{
   width: 370px;
   padding: 30px;
   border-radius: 7px;
   background: #fff;
   box-shadow: 7px 7px 20px rgba(0, 0, 0, 0.05);
+  margin-left: 37%;
+  margin-top: 20px;
 }
 .wrapper header{
   font-size: 28px;
@@ -93,9 +78,6 @@ form .drop-list{
   border-radius: 5px;
   justify-content: center;
   border: 1px solid #999;
-}
-.select-box img{
-  max-width: 21px;
 }
 .select-box select{
   width: auto;
