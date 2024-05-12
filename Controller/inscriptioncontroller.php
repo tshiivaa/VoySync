@@ -121,10 +121,10 @@ class utilisateurc
 
                     // Redirection en fonction du rôle avec l'ID dans l'URL
                     if ($role == 'Admin') {
-                        header("Location: ../back/index.html?id=$id");
+                        header("Location: ../Back/indexb.html?id=$id");
                         exit();
                     } elseif ($role == 'Client') {
-                        header("Location: ../Voysync new/View/Front/indexf.php?id=$id");
+                        header("Location: ../Front/indexf.php?id=$id");
                         exit();
                     } else {
                         // Si le rôle n'est ni "Admin" ni "Client", vous pouvez rediriger vers une page par défaut ou afficher un message d'erreur.
@@ -137,6 +137,7 @@ class utilisateurc
             }
         }
     }
+
     function showUtilisateur($id)
     {
         $sql = "SELECT * FROM utilisateurs WHERE id = :id";
