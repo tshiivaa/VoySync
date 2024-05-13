@@ -1,12 +1,14 @@
 <?php
+require_once "../../Model/utilisateurs.php";
 require_once "../../Controller/inscriptioncontroller.php";
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $utilisateurc = new utilisateurc();
-    $utilisateurs1 = $utilisateurc->showUtilisateur($id);
+    $utilisateurs = $utilisateurc->showUtilisateur($id);
 
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -68,18 +70,12 @@ if (isset($_GET['id'])) {
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav">
-                        <li><a id="accueil-link" href="indexf.php?id=<?php echo $utilisateurs1['id']; ?>" class="active">Accueil</a>
-                        </li>
-                        <li><a id="about-link" href="about.php?id=<?php echo $utilisateurs1['id']; ?>">À Propos</a></li>
-                        <li><a id="deals-link" href="deals.php?id=<?php echo $utilisateurs1['id']; ?>">Nos Offres</a>
-                        </li>
-                        <li><a id="contact-link"
-                               href="reservation.php?id=<?php echo $utilisateurs1['id']; ?>">Contact</a></li>
-                        <li><a id="blog-link" href="reservation.php?id=<?php echo $utilisateurs1['id']; ?>">Blog</a></li>
-                        <li><a id="depenses-link"
-                               href="Depenses_f.php?id=<?php echo $utilisateurs1['id']; ?>">Dépenses</a></li>
-                        <input type="submit" name="connect" value="Connexion" class="custom-btn" id="connect"/>
-
+                        <li><a id="accueil-link" href="indexf.php?id=<?php echo $utilisateurs['id']; ?>" class="active">Accueil</a></li>
+                        <li><a id="about-link" href="about.php?id=<?php echo $utilisateurs['id']; ?>">À Propos</a></li>
+                        <li><a id="deals-link" href="deals.php?id=<?php echo $utilisateurs['id']; ?>">Nos Offres</a></li>
+                        <li><a id="mission-link" href="FRMissionPage.php?id=<?php echo $utilisateurs['id']; ?>">Missions</a></li>
+                        <li><a id="blog-link" href="reservation.php?id=<?php echo $utilisateurs['id']; ?>">Blog</a></li>
+                        <li><a id="depenses-link" href="Depenses_f.php?id=<?php echo $utilisateurs['id']; ?>">Dépenses</a></li>
                     </ul>
                     <a class='menu-trigger'>
                         <span>Menu</span>

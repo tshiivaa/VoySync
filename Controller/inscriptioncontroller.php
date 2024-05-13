@@ -8,7 +8,7 @@
 <body>
 <?php
 require 'connexion.php';
-require 'C:\wamp64\www\VoySync\Model\utilisateurs.php';
+//require '../../Model/utilisateurs.php';
 $emailErr = "";
 $dateErr = "";
 $passwordErr = "";
