@@ -7,12 +7,11 @@ if( isset($_GET['id_m'])) {
     $id_m = $_GET['id_m'];
     $MissionC = new MissionC();
     $mission= $MissionC->showMission($id_m);
-    if(!$mission  || !isset($mission['title']) || !isset($mission['description']) || !isset($mission['place']) || !isset($mission['gift_point'])){
+    if(!$mission  || !isset($mission['title']) || !isset($mission['description']) || !isset($mission['place']) || !isset($mission['gift_point'])|| !isset($mission['latitude'])|| !isset($mission['longitude'])){
       echo "mission post not found.";
         exit;
     }
   } else {
-    // Handle the case where modifierid is not provided
     echo "modifierid parameter is missing.";
     exit;
 }
@@ -20,11 +19,16 @@ $valid = 0;
 if(isset($_POST['title']) &&
     isset($_POST['description']) &&
     isset($_POST['place']) &&
-    isset($_POST['gift_point'])) {
+    isset($_POST['gift_point'])&&
+    isset($_POST['latitude'])&&
+    isset($_POST['longitude'])
+    ) {
         if(!empty($_POST['title'])&&
         !empty($_POST['description'])&&
         !empty($_POST['place'])&&
-        !empty($_POST['gift_point'])) 
+        !empty($_POST['gift_point'])&&
+        !empty($_POST['latitude'])&&
+        !empty($_POST['longitude'])) 
       {
         $img = $_FILES['imageM'];
 
@@ -37,7 +41,7 @@ if(isset($_POST['title']) &&
         if (in_array($file_extension, $extension)) {
             $upload_image = '../images/missions' . $imagefilename;
             move_uploaded_file($imagefiletemp, $upload_image);
-            $valid = 1; // Form validation passed
+            $valid = 1; 
         }
     } else {
         $error = "Missing information";
@@ -53,8 +57,9 @@ if(isset($_POST['title']) &&
       $_POST["gift_point"],
       null,
       null,
-      null
-       // Utiliser le chemin de l'image comme valeur
+      null,
+      $latitude,
+      $longitude
   );
   $MissionC->updateMission($mission,$id_m);
 
@@ -71,8 +76,10 @@ header('Location: MissionPage.php');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <title>Voysync</title>
-    <link rel="stylesheet" href="../../CSS/style.css" type="text/css">
-    <link rel="stylesheet" href="../../CSS/styleTab.css" type="text/css">
+    <link rel="stylesheet" href="../../CSS/styleA.css" type="text/css">
+    <link rel="stylesheet" href="../../CSS/styleTabA.css" type="text/css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 
 </head>
 <body>
@@ -189,11 +196,11 @@ header('Location: MissionPage.php');
     <div class="tabs">
 			 <input type="radio" name="tabs" id="tab1"  >
 			 <label for="tab1">
-				  <a  href="MissionPage.php" class="icon home"></a><span>Home</span>
+				  <a  href="HomePage.php" class="icon home"></a><span>Home</span>
 			 </label>
 			 <input type="radio" name="tabs" id="tab2" checked>
 			 <label for="tab2">
-				  <a href="MissionPage.php" class="icon missionimg"></a><span>Mission</span>
+				  <a href="MissionPage.php" class="icon missionimg" checked></a><span>Mission</span>
 			 </label>
 			 <input type="radio" name="tabs" id="tab3">
 			 <label for="tab3">
@@ -204,7 +211,7 @@ header('Location: MissionPage.php');
     <div id="Missions" class="tabcontent">
       <div class="container">
         <h2> Update mission</h2>
-        <form  method="post" enctype="multipart/form-data">
+        <form id="missionForm" method="post" enctype="multipart/form-data">
             
             <label for="title">Titre:</label><br>
             <input type="text" id="title" name="title" value=<?php echo $mission['title'];?> ><br>
@@ -214,6 +221,10 @@ header('Location: MissionPage.php');
 
             <label for="imageM">Image :</label>
             <input type="file" id="imageM" name="imageM" accept="image/*" ><br>
+            
+            <div id="map" style="height: 400px;"></div><br>
+            Latitude: <input type="text" id="latitude" name="latitude" value=<?php echo $mission['latitude'];?> readonly><br>
+            Longitude: <input type="text" id="longitude" name="longitude" value=<?php echo $mission['latitude'];?> readonly><br>
             
             <label for="place">Lieu :</label> 
             <select class="form-select" id="place" name="place" >
@@ -502,7 +513,37 @@ header('Location: MissionPage.php');
                 });
             }
         </script>
-        <script src="../js/script.js"></script>        
 
-        
+        <script>
+            // Initialize the map
+            var map = L.map('map').setView([<?php echo $mission['latitude']; ?>, <?php echo $mission['longitude']; ?>], 13);
+
+            // Add a tile layer
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+            }).addTo(map);
+
+            // Add a marker with a draggable option
+            var marker = L.marker([<?php echo $mission['latitude']; ?>, <?php echo $mission['longitude']; ?>], { draggable: true }).addTo(map);
+
+            // Function to update the latitude and longitude fields
+            function updateLatLng(latlng) {
+                document.getElementById('latitude').value = latlng.lat;
+                document.getElementById('longitude').value = latlng.lng;
+            }
+
+            // Event listener for click on the map
+            map.on('click', function(e) {
+                marker.setLatLng(e.latlng); // Update marker position
+                updateLatLng(e.latlng); // Update input fields
+            });
+
+            // Event listener for marker dragend event
+            marker.on('dragend', function(e) {
+                updateLatLng(marker.getLatLng()); // Update input fields
+            });
+        </script>
+
+        <script src="../../js/script.js"></script>
+
 </body>

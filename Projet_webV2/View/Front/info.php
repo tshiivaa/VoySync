@@ -85,7 +85,7 @@ if (isset($_POST['submitFeedback'])) {
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   
     <!-- Fichiers CSS supplémentaires -->
-    <link rel="stylesheet" href="../../CSS/templatemo-woox-travel.css">
+    <link rel="stylesheet" href="../../CSS/templatemo-woox-travelA.css">
     <link rel="stylesheet" href="../../CSS/owl.css">
     <link rel="stylesheet" href="../../CSS/animate.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />

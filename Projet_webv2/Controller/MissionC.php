@@ -1,6 +1,7 @@
+
 <?php
-require_once "C:/xampp/htdocs/Projet_webV2/config.php";
-require_once "C:/xampp/htdocs/Projet_webV2/vendor/autoload.php";
+require_once "config.php";
+require_once "../../vendor/autoload.php";
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -242,6 +243,7 @@ class MissionC
             $this->generatePDF();
         }
     }
+    
     
  // MissionC.php
     public function getAllMissionsCoordinates() {

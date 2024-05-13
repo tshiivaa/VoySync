@@ -71,8 +71,8 @@ header('Location: RewardPage.php');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <title>Voysync</title>
-    <link rel="stylesheet" href="../../CSS/style.css" type="text/css">
-    <link rel="stylesheet" href="../../CSS/styleTab.css" type="text/css">
+    <link rel="stylesheet" href="../../CSS/styleA.css" type="text/css">
+    <link rel="stylesheet" href="../../CSS/styleTabA.css" type="text/css">
 
 </head>
 <body>
@@ -502,7 +502,7 @@ header('Location: RewardPage.php');
                 });
             }
         </script>
-        <script src="../js/script.js"></script>        
+        <script src="../../js/script.js"></script>        
 
         
 </body>

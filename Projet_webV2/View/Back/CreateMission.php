@@ -56,8 +56,8 @@ if (isset($_POST['submit'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <title>Voysync</title>
-    <link rel="stylesheet" href="../../CSS/style.css" type="text/css">
-    <link rel="stylesheet" href="../../CSS/styleTab.css" type="text/css">
+    <link rel="stylesheet" href="../../CSS/styleA.css" type="text/css">
+    <link rel="stylesheet" href="../../CSS/styleTabA.css" type="text/css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 
@@ -192,7 +192,7 @@ if (isset($_POST['submit'])) {
     <div id="Missions" class="tabcontent">
     <div class="container">
       <h2>Ajouter mission</h2>
-      <form id="missionForm" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+      <form id="missionForm" method="post" enctype="multipart/form-data" >
             
             <label for="title">Titre:</label>
             <input type="text" id="title" name="title"  >
@@ -536,7 +536,7 @@ if (isset($_POST['submit'])) {
         });
 </script>
         
-        <script src="../js/script.js"></script>
+        <script src="../../js/script.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 

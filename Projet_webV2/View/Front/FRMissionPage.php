@@ -6,6 +6,8 @@ include '../../Model/Mission.php';
 
 $MissionC = new MissionC();
 $missions = $MissionC->listMission();
+$missionsCoordinates = $MissionC->getAllMissionsCoordinates();
+
 
 if (isset($_GET['searchQuery'])) {
   $searchQuery = $_GET['searchQuery'];
@@ -37,12 +39,13 @@ if (isset($_GET['trie'])) {
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   
     <!-- Fichiers CSS supplémentaires -->
-    <link rel="stylesheet" href="../../CSS/templatemo-woox-travel.css">
+    <link rel="stylesheet" href="../../CSS/templatemo-woox-travelA.css">
     <link rel="stylesheet" href="../../CSS/owl.css">
     <link rel="stylesheet" href="../../CSS/animate.css">
-    <link rel="stylesheet" href="../../CSS/search.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 
   </head>
 
@@ -74,12 +77,12 @@ if (isset($_GET['trie'])) {
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav">
-                      <li><a href="indexf.html" class="active">Accueil</a></li>
+                      <li><a href="indexf.html" >Accueil</a></li>
                       <li><a href="about.html">À Propos</a></li>
                       <li><a href="deals.html">Nos Offres</a></li>
                       <li><a href="reservation.html">Contact</a></li>
                       <li><a href="reservation.html">Blog</a></li>
-                      <li><a href="FRMissionPage.php">Missions</a></li>
+                      <li><a href="FRMissionPage.php" class="active">Missions</a></li>
                       <li><a href="../Back/MissionPage.php">Dépenses</a></li>
                     </ul>  
                     <a class='menu-trigger'>
@@ -116,8 +119,8 @@ if (isset($_GET['trie'])) {
               <div class="col-lg-5">
                   <fieldset>
                       <form id="trie-form" name="trieForm" method="get" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-                          <select name="trie" class="form-select" aria-label="Default select example" id="chooseLocation" onchange="this.form.submit()">
-                              <option selected disabled>trie</option>
+                          <select name="trie" class="form-select"  id="chooseLocation" onchange="this.form.submit()">
+                              <option selected disabled>Trier par ..</option>
                               <option value="title">Titre</option>
                               <option value="gift_point">Gift point</option>
                               <option value="place">Lieu</option>
@@ -125,28 +128,21 @@ if (isset($_GET['trie'])) {
                       </form>
                   </fieldset>
               </div>
-              <div class="col-lg-5">
-                <fieldset>
-                  <form id="search-form" name="searchForm" method="get" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-                      <input type="text" id="searchInput" name="searchQuery" placeholder="Rechercher par titre..."/>
-                      <button  type="submit" >Rechercher</button>
-                  </form>
-                </fieldset>
-                
+              <div class="col-lg-3">
+                <form  name="searchForm" method="get" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                <input type="text"  name="searchQuery" placeholder="Type to search" />
               </div>
+              <div class="col-lg-2">
+                <button class="btn">Chercher</button>
+              </div>
+                </form>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  
-
-        
-        </div>
-      </div>
-    </div>
-  </div>
+ 
   <div class="amazing-deals">
     <div class="container">
       <div class="row">
@@ -216,6 +212,7 @@ if (isset($_GET['trie'])) {
           }
           ?>
         </div>
+        
 
         <div class="col-lg-12">
           <ul class="page-numbers">
@@ -225,6 +222,10 @@ if (isset($_GET['trie'])) {
             <li><a href="#">3</a></li>
             <li><a href="#"><i class="fa fa-arrow-right"></i></a></li>
           </ul>
+        </div>
+        <div>
+          <h2>Localisation des missions</h2>
+          <div id="map" style="height: 400px;"></div><br>
         </div>
       </div>
     </div>
@@ -269,44 +270,41 @@ if (isset($_GET['trie'])) {
   <script src="../../js/tabs.js"></script>
   <script src="../../js/popup.js"></script>
   <script src="../../js/custom.js"></script>
-<!--
   <script>
-function searchMissions() {
-    var searchQuery = document.getElementById('searchInput').value;
-    $.ajax({
-        type: 'GET',
-        url: '../../Controller/MissionC.php',
-        data: { action: 'searchMission', searchQuery: searchQuery },
-        dataType: 'html',  // Change the data type back to HTML
-        success: function(response) {
-          console.log('AJAX Response:', response);
-            var searchResultsContainer = document.getElementById('searchResults');
-            console.log(searchResultsContainer.innerHTML)
-            searchResultsContainer.innerHTML = response;  // Insert the HTML directly into the container
-        },
-        error: function(xhr, status, error) {
-            console.error(error);
-        }
-    });
-}
+      var map = L.map('map').setView([34.8333, 9.5], 6.2); // Réglage initial de la carte sur la Tunisie
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map); // Ajout de la couche de tuiles OpenStreetMap
 
-</script>
---> 
-<script>
-  function searchToggle(obj, evt){
-      var container = $(obj).closest('.search-wrapper');
-          if(!container.hasClass('active')){
-              container.addClass('active');
-              evt.preventDefault();
-          }
-          else if(container.hasClass('active') && $(obj).closest('.input-holder').length == 0){
-              container.removeClass('active');
-              // clear input
-              container.find('.search-input').val('');
-          }
-  }
-</script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      // Récupérer les coordonnées de toutes les missions
+      var missionsCoordinates = <?php echo json_encode($missionsCoordinates); ?>;
+
+      missionsCoordinates.forEach(function(coordinate) {
+          var marker = L.marker([coordinate.latitude, coordinate.longitude]).addTo(map)
+              .bindPopup(coordinate.title); // Exemple de pop-up avec l'ID de la mission
+
+          // Événement de clic sur le marqueur
+          marker.on('dblclick', function() {
+              // Redirection vers la page des détails de la mission
+              window.location.href = 'info.php?id_m=' + coordinate.id_m;
+          });
+      });
+
+
+  </script>
+  <script>
+    function searchToggle(obj, evt){
+        var container = $(obj).closest('.search-wrapper');
+            if(!container.hasClass('active')){
+                container.addClass('active');
+                evt.preventDefault();
+            }
+            else if(container.hasClass('active') && $(obj).closest('.input-holder').length == 0){
+                container.removeClass('active');
+                // clear input
+                container.find('.search-input').val('');
+            }
+    }
+  </script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
   </body>
 
