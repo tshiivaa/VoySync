@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['email'])) {
         // Extraction des données du formulaire
         $email = $_POST['email'];
-        $conn = config::connexion();
+        $conn = configU::connexion();
 
         // Préparation de la requête SQL pour vérifier si l'email existe dans la base de données
         $stmt = $conn->prepare("SELECT * FROM `utilisateurs` WHERE `email` = :email");

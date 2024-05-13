@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $new_password = $_POST['new_password'];
 
         // Mettre à jour le mot de passe dans la base de données
-        $conn = config::connexion(); // Connexion à la base de données
+        $conn = configU::connexion(); // Connexion à la base de données
 
         $stmt = $conn->prepare("UPDATE `utilisateurs` SET `password` = :password WHERE `id` = :user_id");
         $stmt->bindParam(':password', $new_password);
