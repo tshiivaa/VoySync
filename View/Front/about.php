@@ -1,5 +1,5 @@
 <?php
-require_once "../../Model/utilisateurs.php";
+//require_once "../../Model/utilisateurs.php";
 require_once "../../Controller/inscriptioncontroller.php";
 if( isset($_GET['id'])) {
     $id = $_GET['id'];
