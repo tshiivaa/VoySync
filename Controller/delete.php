@@ -1,6 +1,6 @@
 <?php
 require "connexion.php";
-$conn = config::connexion();
+$conn = configU::connexion();
 
 $id = $_GET["id"];
 

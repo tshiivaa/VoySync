@@ -169,7 +169,7 @@ require "connexion.php";
         </thead>
         <tbody>
         <?php
-        $conn = config::connexion();
+        $conn = configU::connexion();
         $sql = "SELECT * FROM `utilisateurs`";
         $stmt = $conn->prepare($sql);
         $stmt->execute();

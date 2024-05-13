@@ -1,6 +1,6 @@
 <?php
 require "connexion.php";
-$conn = config::connexion();
+$conn = configU::connexion();
 $id = $_GET["id"];
 
 if (isset($_POST["submit"])) {
@@ -70,7 +70,7 @@ if (isset($_POST["submit"])) {
 
 
     <?php
-    $conn = config::connexion();
+    $conn = configU::connexion();
 
     $sql = "SELECT * FROM `utilisateurs` WHERE id = :id LIMIT 1";
     $stmt = $conn->prepare($sql);

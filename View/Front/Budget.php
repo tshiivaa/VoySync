@@ -1,64 +1,86 @@
 <?php
 include '../../Controller/DepenseC.php';
-
 $depenseC = new DepenseC();
 $resultats = $depenseC->TotalB();
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  // Check if "Ajouter" radio button is checked
-  if (isset($_POST['action']) && $_POST['action'] == 'add') {
-    // Addition
-    $type = isset($_POST['type']) && $_POST['type'] == 'on' ? 'income' : 'expense';
-    $amount = $_POST['Montant'] * ($type === 'expense' ? -1 : 1);
-
-    $depense = new Depense(
-      NULL,
-      $amount,
-      $_POST['Categorie'],
-      $_POST['Date'],
-      $_POST['Currency'],
-      $_POST['Lieu'],
-      $_POST['Nom']
-    );
-    $depenseC->addDepense($depense);
-
-    // Redirect after addition
-    header("Location: " . $_SERVER['PHP_SELF']);
-    exit();
-  }
-  // Check if "Modifier" radio button is checked
-  elseif (isset($_POST['action']) && $_POST['action'] == 'modify') {
-    // Modification
-    if (isset($_POST['id'])) {
-      $id = $_POST['id'];
-      $depense = new Depense(
-        $id,
-        $_POST['Montant'],
-        $_POST['Categorie'],
-        $_POST['Date'],
-        $_POST['Currency'],
-        $_POST['Lieu'],
-        $_POST['Nom']
-      );
-      $rowCount = $depenseC->updateDepense($depense, $id);
-      if ($rowCount > 0) {
-        // Redirect after modification
-        header("Location: " . $_SERVER['PHP_SELF']);
-        exit();
-      } else {
-        echo "Failed to update expense item.";
+require_once "../../Controller/inscriptioncontroller.php";
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $utilisateurc = new utilisateurc();
+    $utilisateurs = $utilisateurc->showUtilisateur($id);}
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+      // Check if "Ajouter" radio button is checked
+      if (isset($_POST['action']) && $_POST['action'] == 'add') {
+          // Addition
+          $type = isset($_POST['type']) && $_POST['type'] == 'on' ? 'income' : 'expense';
+          $amount = $_POST['Montant'] * ($type === 'expense' ? -1 : 1);
+  
+          // Extract user_id from URL
+          if (isset($_GET['id'])) {
+              $user_id = $_GET['id'];
+  
+              // Create Depense object with user_id included
+              $depense = new Depense(
+                  NULL,
+                  $amount,
+                  $_POST['Categorie'],
+                  $_POST['Date'],
+                  $_POST['Currency'],
+                  $_POST['Lieu'],
+                  $_POST['Nom'],
+                  $user_id
+              );
+              $depenseC->addDepense($depense);
+  
+              // Redirect after addition
+              header("Location: " . $_SERVER['PHP_SELF'] . "?id=" . $user_id);
+              exit();
+          } else {
+              // Handle error, user_id not found in URL
+              echo "User ID not found in URL";
+          }
       }
-    } else {
-      // Handle the case when no ID is provided for modification
-      echo "Failed to update expense item: No ID provided.";
-    }
-  } else {
-    // Handle the case when neither "Ajouter" nor "Modifier" is selected
-    echo "Invalid action selected.";
+      // Check if "Modifier" radio button is checked
+      elseif (isset($_POST['action']) && $_POST['action'] == 'modify') {
+          // Modification
+          if (isset($_POST['id'])) {
+              $user_id = $_GET['id'];
+              $id = $_POST['id'];
+              $depense = new Depense(
+                  $id,
+                  $_POST['Montant'],
+                  $_POST['Categorie'],
+                  $_POST['Date'],
+                  $_POST['Currency'],
+                  $_POST['Lieu'],
+                  $_POST['Nom'],
+                  $user_id
+              );
+              $rowCount = $depenseC->updateDepense($depense, $id);
+              if ($rowCount > 0) {
+                  // Redirect after modification
+                  header("Location: " . $_SERVER['PHP_SELF'] . "?id=" . $user_id);
+                  exit();
+              } else {
+                  echo "Failed to update expense item.";
+              }
+          } else {
+              // Handle the case when no ID is provided for modification
+              echo "Failed to update expense item: No ID provided.";
+          }
+      } else {
+          // Handle the case when neither "Ajouter" nor "Modifier" is selected
+          echo "Invalid action selected.";
+      }
+      exit();
   }
-  exit();
+  if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $depenseC = new DepenseC();
+    $listeDepense = $depenseC->showDepense($id);
+
+    // Now, $userDepenses contains the list of expenses specific to the user
+    // You can iterate through $userDepenses to display them
 }
-$listeDepense = $depenseC->listDepenses();
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -83,6 +105,7 @@ $listeDepense = $depenseC->listDepenses();
   <link rel="stylesheet" href="../../CSS/expanding.css">
   <link rel="stylesheet" href="../../CSS/style.css">
   <link rel="stylesheet" href="../../CSS/budget.css">
+  <link rel="stylesheet" href="../../CSS/custom.css">
   <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 
@@ -101,7 +124,7 @@ $listeDepense = $depenseC->listDepenses();
       </div>
     </div>
   </div>
-  <!-- ***** Preloader End ***** -->
+   <!--***** Preloader End ***** -->
 
   <!-- ***** Header Area Start ***** -->
   <header class="header-area header-sticky">
@@ -116,13 +139,19 @@ $listeDepense = $depenseC->listDepenses();
             <!-- ***** Logo End ***** -->
             <!-- ***** Menu Start ***** -->
             <ul class="nav">
-              <li><a href="indexf.html" class="active">Accueil</a></li>
-              <li><a href="about.html">À Propos</a></li>
-              <li><a href="deals.html">Nos Offres</a></li>
-              <li><a href="reservation.html">Contact</a></li>
-              <li><a href="reservation.html">Blog</a></li>
-              <li><a href="Depenses_f.html">Dépenses</a></li>
-            </ul>
+                        <li><a id="accueil-link" href="indexf.php?id=<?php echo $utilisateurs['id']; ?>" class="active">Accueil</a>
+                        </li>
+                        <li><a id="about-link" href="about.php?id=<?php echo $utilisateurs['id']; ?>">À Propos</a></li>
+                        <li><a id="deals-link" href="deals.php?id=<?php echo $utilisateurs['id']; ?>">Nos Offres</a>
+                        </li>
+                        <li><a id="contact-link"
+                               href="reservation.php?id=<?php echo $utilisateurs['id']; ?>">Contact</a></li>
+                        <li><a id="blog-link" href="reservation.php?id=<?php echo $utilisateurs['id']; ?>">Blog</a></li>
+                        <li><a id="depenses-link"
+                               href="Depenses_f.php?id=<?php echo $utilisateurs['id']; ?>">Dépenses</a></li>
+                        <input type="submit" name="connect" value="Connexion" class="custom-btn" id="connect"/>
+
+                    </ul>
             <a class='menu-trigger'>
               <span>Menu</span>
             </a>
@@ -212,7 +241,7 @@ $listeDepense = $depenseC->listDepenses();
 
     <section id="transactionFormSection">
       <h2 style="margin: 20px;">Ajout dépense</h2> <!-- Initial header -->
-      <form id="transactionForm" method="POST">
+      <form id="transactionForm" method="POST" action="budget.php?id=<?php echo $id; ?>">
         <div class="radioun" style="display: none;">
           <label for="add">
             <input type="radio" name="action" value="add" id="add" checked>

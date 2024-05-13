@@ -9,7 +9,7 @@ if (isset($_POST["submit"])) {
     $role = $_POST['role'];
 
     try {
-        $conn = config::connexion();
+        $conn = configU::connexion();
 
         // Prepare the SQL statement
         $stmt = $conn->prepare("INSERT INTO `utilisateurs`(`id`, `email`, `password`, `date_nais`, `phone`, `role`) VALUES (NULL, :email, :password, :date_nais, :phone, :role)");

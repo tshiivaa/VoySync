@@ -1,10 +1,9 @@
 <?php
-require_once "../../Model/utilisateurs.php";
 require_once "../../Controller/inscriptioncontroller.php";
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $utilisateurc = new utilisateurc();
-    $utilisateurs = $utilisateurc->showUtilisateur($id);
+    $utilisateurs1 = $utilisateurc->showUtilisateur($id);
 
 }
 ?>
@@ -30,6 +29,7 @@ if (isset($_GET['id'])) {
     <link rel="stylesheet" href="../../CSS/animate.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../CSS/nour.css">
     <link href="../../CSS/custom.css" rel="stylesheet">
     <!--
 
@@ -68,16 +68,16 @@ if (isset($_GET['id'])) {
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav">
-                        <li><a id="accueil-link" href="indexf.php?id=<?php echo $utilisateurs['id']; ?>" class="active">Accueil</a>
+                        <li><a id="accueil-link" href="indexf.php?id=<?php echo $utilisateurs1['id']; ?>" class="active">Accueil</a>
                         </li>
-                        <li><a id="about-link" href="about.php?id=<?php echo $utilisateurs['id']; ?>">À Propos</a></li>
-                        <li><a id="deals-link" href="deals.php?id=<?php echo $utilisateurs['id']; ?>">Nos Offres</a>
+                        <li><a id="about-link" href="about.php?id=<?php echo $utilisateurs1['id']; ?>">À Propos</a></li>
+                        <li><a id="deals-link" href="deals.php?id=<?php echo $utilisateurs1['id']; ?>">Nos Offres</a>
                         </li>
                         <li><a id="contact-link"
-                               href="reservation.php?id=<?php echo $utilisateurs['id']; ?>">Contact</a></li>
-                        <li><a id="blog-link" href="reservation.php?id=<?php echo $utilisateurs['id']; ?>">Blog</a></li>
+                               href="reservation.php?id=<?php echo $utilisateurs1['id']; ?>">Contact</a></li>
+                        <li><a id="blog-link" href="reservation.php?id=<?php echo $utilisateurs1['id']; ?>">Blog</a></li>
                         <li><a id="depenses-link"
-                               href="Depenses_f.php?id=<?php echo $utilisateurs['id']; ?>">Dépenses</a></li>
+                               href="Depenses_f.php?id=<?php echo $utilisateurs1['id']; ?>">Dépenses</a></li>
                         <input type="submit" name="connect" value="Connexion" class="custom-btn" id="connect"/>
 
                     </ul>
@@ -405,95 +405,50 @@ if (isset($_GET['id'])) {
         </div>
     </div>
 </div>
-<div class="visit-country">
+<!--Nour PARTIE -->
+<div class="cities-town">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-5">
-                <div class="section-heading">
-                    <h2>BLOG</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore.</p>
-                </div>
+      <div class="row">
+        <div class="slider-content">
+          <div class="row">
+            <div class="col-lg-12">
+              <h2>Votre <em>Pochette de voyage</em> vituelle!</h2>
             </div>
+            <div class="col-lg-12">
+              <div class="owl-cites-town owl-carousel">
+                <div class="item">
+                  <div class="thumb">
+                    <img src="../images/budget2.jpg" alt="">
+                    <h4 style="text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);">Gestion budgets</h4>
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="thumb">
+                    <img src="../images/doc2.jpg" alt="">
+                    <h4 style="text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);">Gestion des documents</h4>
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="thumb">
+                    <img src="../images/notif2.jpg" alt="">
+                    <h4 style="text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);">Systeme de rappels</h4>
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="thumb">
+                    <img src="../images/devise2.jpg" alt="">
+                    <h4 style="text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);">Convertisseur de devise LIVE</h4>
+                  </div>
+                </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <H1>BENT EL MANAI</H1>
-        <!-- ***** BENT EL MANAI ***** -->
+      </div>
     </div>
-</div>
-<div class="visit-country">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-5">
-                <div class="section-heading">
-                    <h2>ITINERAIRE INTELEGENT</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore.</p>
-                </div>
-            </div>
-        </div>
-        <H1>WELD LIMAM</H1>
-        <!-- ***** WELD LIMAM ***** -->
-        <div class="plan">
-            <div class="inner">
-          <span class="pricing">
-            <span>
-              98 DT <small>/ Ans</small>
-            </span>
-          </span>
-                <p class="title">Premium</p>
-                <p class="info"></p>
-                <ul class="features">
-                    <li>
-              <span class="icon">
-                <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M0 0h24v24H0z" fill="none"></path>
-                  <path fill="currentColor" d="M10 15.172l9.192-9.193 1.415 1.414L10 18l-6.364-6.364 1.414-1.414z">
-                  </path>
-                </svg>
-              </span>
-                        <span>Itineraire <strong>Inteligent</strong></span>
-                    </li>
-                    <li>
-              <span class="icon">
-                <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M0 0h24v24H0z" fill="none"></path>
-                  <path fill="currentColor" d="M10 15.172l9.192-9.193 1.415 1.414L10 18l-6.364-6.364 1.414-1.414z">
-                  </path>
-                </svg>
-              </span>
-                        <span>Mission <strong>Remunuree</strong></span>
-                    </li>
-                    <li>
-              <span class="icon">
-                <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M0 0h24v24H0z" fill="none"></path>
-                  <path fill="currentColor" d="M10 15.172l9.192-9.193 1.415 1.414L10 18l-6.364-6.364 1.414-1.414z">
-                  </path>
-                </svg>
-              </span>
-                        <span>Faza mtaa nour</span>
-                    </li>
-                    <li>
-              <span class="icon">
-                <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M0 0h24v24H0z" fill="none"></path>
-                  <path fill="currentColor" d="M10 15.172l9.192-9.193 1.415 1.414L10 18l-6.364-6.364 1.414-1.414z">
-                  </path>
-                </svg>
-              </span>
-                        <span>Newsletter</span>
-                    </li>
-                </ul>
-                <div class="action">
-                    <a class="button" href="#">
-                        Abonnez vous
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
+  </div>
+<!--Nour PARTIE end -->
 <div class="call-to-action">
     <div class="container">
         <div class="row">

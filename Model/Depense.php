@@ -1,4 +1,4 @@
-<?php 
+<?php
 class Depense {
     private $IDdep;
     private $Categorie;
@@ -7,14 +7,26 @@ class Depense {
     private $Date;
     private $Montant;
     private $Nom;
+    private $user_id; // Foreign key
 
-    public function __construct($IDdep,$Montant,$Categorie,$Date,$Currency,$Lieu,$Nom ){        $this->setIDdep($IDdep);
+    public function __construct($IDdep, $Montant, $Categorie, $Date, $Currency, $Lieu, $Nom, $user_id) {
+        $this->setIDdep($IDdep);
         $this->setCategorie($Categorie);
         $this->setCurrency($Currency);
         $this->setLieu($Lieu);
         $this->setDate($Date);
         $this->setMontant($Montant);
         $this->setNom($Nom);
+        $this->setUserID($user_id);
+    }
+
+    // Getters and setters for user_id
+    public function getUserID() {
+        return $this->user_id;
+    }
+
+    public function setUserID($user_id) {
+        $this->user_id = $user_id;
     }
 
     public function getIDdep() {

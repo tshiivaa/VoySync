@@ -1,6 +1,6 @@
 <?php 
-include "C:\wamp64\www\Voysync_nour\Model\DocumentVoyage.php";
-include "C:\wamp64\www\Voysync_nour\Controller\DepenseC.php";
+include "C:\wamp64\www\Voysync\Model\DocumentVoyage.php";
+include "C:\wamp64\www\Voysync\Controller\DepenseC.php";
 class DocumentVoyageC
 {
     public function listDocumentVoyages()
@@ -32,7 +32,8 @@ class DocumentVoyageC
     function addDocumentVoyage($documentvoyage)
     {
         $sql = "INSERT INTO projetweb.documentvoyage 
-        VALUES (:NumSerie, :Type, :DateExp, :LieuSto, :Photodoc)";
+                (NumSerie, Type, DateExp, LieuSto, Photodoc, user_id) 
+                VALUES (:NumSerie, :Type, :DateExp, :LieuSto, :Photodoc, :user_id)";
         $db = config::getConnexion();
         try {
             $query = $db->prepare($sql);
@@ -41,12 +42,14 @@ class DocumentVoyageC
                 'Type' => $documentvoyage->getType(),
                 'DateExp' => $documentvoyage->getDateExp(),
                 'LieuSto' => $documentvoyage->getLieuSto(),
-                'Photodoc' => $documentvoyage->getPhotodoc()
+                'Photodoc' => $documentvoyage->getPhotodoc(),
+                'user_id' => $documentvoyage->getUserID() // Add user_id parameter
             ]);
         } catch (Exception $e) {
             echo 'Error: ' . $e->getMessage();
         }
     }
+    
 
     function updateDocumentVoyage($documentvoyage, $NumSerie)
     {
@@ -77,22 +80,22 @@ class DocumentVoyageC
     }
     
 
-
-    function showDocumentVoyage($NumSerie)
-    {
-        $sql = "SELECT * FROM projetweb.documentvoyage WHERE NumSerie = :NumSerie";
+    public function showDocumentVoyage($user_id) {
+        $sql = "SELECT * FROM projetweb.documentvoyage WHERE user_id = :user_id";
         $db = config::getConnexion();
         try {
             $query = $db->prepare($sql);
-            $query->execute(['NumSerie' => $NumSerie]);
-
-            $documentvoyage = $query->fetch();
-            return $documentvoyage;
+            $query->execute(['user_id' => $user_id]);
+            $result = $query->fetchAll();
+            var_dump($result); // Inspect the result
+            return $result;
         } catch (Exception $e) {
-            die('Error: ' . $e->getMessage());
+            echo 'Error: ' . $e->getMessage();
+            return []; // Return an empty array to prevent the function from returning boolean false
         }
     }
-
+    
+    
     function addDocumentVoyageWithDepense($documentvoyage, $depense)
     {
         $db = config::getConnexion();
@@ -125,9 +128,6 @@ class DocumentVoyageC
             echo 'Error: ' . $e->getMessage();
         }
     }
-<<<<<<< Updated upstream
-    
-=======
     function listDocumentWithDate()
     {
         $sql = "SELECT Type, DateExp FROM projetweb.documentvoyage ORDER BY ABS(DATEDIFF(DateExp, NOW()))";
@@ -151,6 +151,5 @@ class DocumentVoyageC
             die('Error:' . $e->getMessage());
         }
     }  
->>>>>>> Stashed changes
 }
 ?>

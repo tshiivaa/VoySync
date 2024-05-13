@@ -1,6 +1,6 @@
 <?php
 include 'config.php';
-include "C:\wamp64\www\Voysync_nour\Model\Depense.php";
+include 'C:\wamp64\www\VoySync\Model\Depense.php';
 
 
 class DepenseC
@@ -35,24 +35,25 @@ class DepenseC
 
     function addDepense($depense)
     {
-        $sql = "INSERT INTO `depense` (Montant, Categorie, Date, Currency, Lieu, Nom)
-                VALUES (:Montant, :Categorie, :Date, :Currency, :Lieu, :Nom)";
+        $sql = "INSERT INTO `depense` (`IDdep`, `Categorie`, `Currency`, `Lieu`, `Date`, `Montant`, `Nom`, `user_id`) 
+                VALUES (NULL, :Categorie, :Currency, :Lieu, :Date, :Montant, :Nom, :user_id)";
         $db = config::getConnexion();
         try {
             $query = $db->prepare($sql);
             $query->execute([
-                'Montant' => $depense->getMontant(),
                 'Categorie' => $depense->getCategorie(),
-                'Date' => $depense->getDate(),
                 'Currency' => $depense->getCurrency(),
                 'Lieu' => $depense->getLieu(),
-                'Nom' => $depense->getNom()
+                'Date' => $depense->getDate(),
+                'Montant' => $depense->getMontant(),
+                'Nom' => $depense->getNom(),
+                'user_id' => $depense->getUserID(), // Add the user_id parameter
             ]);
         } catch (Exception $e) {
             echo 'Error: ' . $e->getMessage();
         }
     }
-
+     
     function updateDepense($depense, $id)
     {
         try {
@@ -88,20 +89,20 @@ class DepenseC
 
     function showDepense($id)
     {
-        $sql = "SELECT * FROM `depense` WHERE IDdep = :Id";
+        $sql = "SELECT * FROM `depense` WHERE user_id = :user_id";
         $db = config::getConnexion();
         try {
             $query = $db->prepare($sql);
-            $query->execute(['Id' => $id]);
-
-            $depense = $query->fetch();
-            return $depense;
+            $query->execute(['user_id' => $id]);
+    
+            // Fetch all rows (expenses) specific to the user
+            $depenses = $query->fetchAll();
+            return $depenses;
         } catch (Exception $e) {
             die('Error: ' . $e->getMessage());
         }
     }
-
-
+    
   // Function to retrieve a list of all unique locations
   public function listUniqueLocations()
   {

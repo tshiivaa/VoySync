@@ -1,17 +1,12 @@
-<?php 
-include 'C:\wamp64\www\Voysync_nour\Controller\DocumentVoyageC.php';
+<?php
 require_once "../../Controller/inscriptioncontroller.php";
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $utilisateurc = new utilisateurc();
-    $utilisateurs = $utilisateurc->showUtilisateur($id);}
-$documentC = new DocumentVoyageC();
-if (isset($_GET['id'])) {
-  $id = $_GET['id'];
-  $documentList = $documentC->showDocumentVoyage($id);
+    $utilisateurs = $utilisateurc->showUtilisateur($id);
+
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -33,10 +28,17 @@ if (isset($_GET['id'])) {
   <link rel="stylesheet" href="../../CSS/templatemo-woox-travel.css">
   <link rel="stylesheet" href="../../CSS/owl.css">
   <link rel="stylesheet" href="../../CSS/animate.css">
+  <link rel="stylesheet" href="../../CSS/expanding.css">
   <link rel="stylesheet" href="../../CSS/style.css">
-  <link rel="stylesheet" href="../../CSS/budget.css">
+  <link rel="stylesheet" href="../../CSS/devise.css">
   <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <!--
+
+
+  https://templatemo.com/tm-580-woox-travel
+
+  -->
 
 </head>
 
@@ -68,12 +70,12 @@ if (isset($_GET['id'])) {
             <!-- ***** Logo End ***** -->
             <!-- ***** Menu Start ***** -->
             <ul class="nav">
-              <li><a href="indexf.html" class="active">Accueil</a></li>
+              <li><a href="indexf.html" >Accueil</a></li>
               <li><a href="about.html">À Propos</a></li>
               <li><a href="deals.html">Nos Offres</a></li>
               <li><a href="reservation.html">Contact</a></li>
               <li><a href="reservation.html">Blog</a></li>
-              <li><a href="Depenses_f.html">Dépenses</a></li>
+              <li><a href="Depenses_f.html"class="active">Dépenses</a></li>
             </ul>
             <a class='menu-trigger'>
               <span>Menu</span>
@@ -85,54 +87,55 @@ if (isset($_GET['id'])) {
     </div>
   </header>
   <!-- ***** Header Area End ***** -->
-  <!-- ***** Main Banner Area End ***** -->
-  <button class="back-button"style="margin-top:90px; margin-left:20px;" onclick="goBack()">
-      <i class='bx bx-arrow-back'></i> <!-- Replace bx-arrow-back with the Boxicons class you want to use -->
-    </button>
- <div class="main_body_f">
- <section id="documentList">
-    <div class="addandtitle">
-        <h2 style="padding: 10px;">Liste des documents de voyage</h2>
-        <!-- Add button for adding documents -->
-        <button id="addDocumentBtn" class="add-btn">Ajouter</button>
-    </div>
-    <div class="document-list" action="budget.php?id=<?php echo $id; ?>">
-        <?php foreach ($documentList as $document): ?>
-            <div class="expense-item">
-                <div class="name">
-                    <h4><?= $document['Type'] ?></h4>
-                    <!-- You can display other details as needed -->
-                    <p><?= date('M d, Y', strtotime($document['DateExp'])) ?></p>
-                </div>
-                <div class="details">
-                    <!-- Display other details like type, lieuSto, etc. -->
-                    <p>Numero de serie: <span class="NumSerie"><?= $document['NumSerie'] ?></span></p>
-                    <p>Lieu de stockage: <span class="lieuSto"><?= $document['LieuSto'] ?></span></p>
-                    <!-- Add more details here -->
-                </div>
-                <div class="actions">
-                    <!-- Modify button -->
-                    <button type="submit" id="ModDocumentBtn" class="modifier-btn">Modifier</button>
-                    <!-- Delete button -->
-                    <a class="delete-btn" href="deleteDo.php?id=<?= $document['NumSerie'] ?>" onclick="return confirmDelete(event)">Supprimer</a>
-                 <!-- Affich button -->
-            <button class="view-photo-btn" onclick="viewPhoto('<?= base64_encode($document['Photodoc']) ?>')">Voir la photo</button>
-          </div>
-            </div>
-        <?php endforeach; ?>
-    </div>
-    <!-- Modal for viewing the photo -->
-    <div id="modal-overlay" class="modal-overlay">
-  <div class="modal-content">
-    <section class="modal-content-header">
-      <h3>Voici le document de voyage</h3>
-      <span class="close-modal-btn" onclick="closeModal()">
-        <i class='bx bx-x'></i>
-      </span>
-    </section>
-    <img id="modal-image" src="" alt="Photo">
-</div>
 
+  <!-- ***** Main Banner Area Start ***** -->
+  <div class="headerdevise" style="margin-top: 70px;">
+    <h4>Bienvenue dans votre pochette de voyage virtuelle!</h4>
+  </div>
+  <div class="nour">
+    <p>Découvrez comment simplifier votre voyage avec notre suite d'outils de voyage intelligents.</p>
+  </div>
+
+  <div class="main_body_f">
+    <div class="expanding-flex-cards">
+      <div class="expanding-flex-cards-item active" data-page="budget.php?id=<?php echo $utilisateurs['id']; ?>">
+        <img src="../images/budget.jpg" alt="" class="expanding-flex-cards-item-img">
+
+        <div class="expanding-flex-cards-item-footer">
+          <div class="expanding-flex-cards-icon">1</div>
+          <div class="expanding-flex-cards-title">Votre budget</div>
+        </div>
+      </div>
+      <div class="expanding-flex-cards-item" data-page="Document.php?id=<?php echo $utilisateurs['id']; ?>">
+        <img src="../images/doc.jpg" alt="" class="expanding-flex-cards-item-img">
+
+        <div class="expanding-flex-cards-item-footer">
+          <div class="expanding-flex-cards-icon">2</div>
+          <div class="expanding-flex-cards-title">Vos documents de voyage</div>
+        </div>
+      </div>
+      <div class="expanding-flex-cards-item" data-page="Rappels.php">
+        <img src="../images/notif.jpg" alt="" class="expanding-flex-cards-item-img">
+
+        <div class="expanding-flex-cards-item-footer">
+          <div class="expanding-flex-cards-icon">3</div>
+          <div class="expanding-flex-cards-title">Vos rappels</div>
+        </div>
+      </div>
+      <div class="expanding-flex-cards-item" data-page="Devise.php">
+        <img src="../images/devise.jpg" alt="" class="expanding-flex-cards-item-img">
+
+        <div class="expanding-flex-cards-item-footer">
+          <div class="expanding-flex-cards-icon">4</div>
+          <div class="expanding-flex-cards-title">Vos Devises</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="nour">
+    <p>Que vous soyez un voyageur chevronné ou que vous prépariez votre premier voyage, notre pochette de voyage
+      virtuelle est là pour vous aider à organiser, économiser et rester informé à chaque étape de votre périple.</p>
+  </div>
   <div class="call-to-action">
     <div class="container">
       <div class="row">
@@ -167,11 +170,13 @@ if (isset($_GET['id'])) {
 
   <script src="../../js/isotope.min.js"></script>
   <script src="../../js/owl-carousel.js"></script>
+  <script src="../../js/wow.js"></script>
   <script src="../../js/tabs.js"></script>
   <script src="../../js/popup.js"></script>
   <script src="../../js/custom.js"></script>
-  <script src="C:\wamp64\www\Voysync_nour\js\script.js"></script>
-  <script src="../../js/document.js"></script>
+  <script src="../../js/expand.js"></script>
+
+
 
 </body>
 

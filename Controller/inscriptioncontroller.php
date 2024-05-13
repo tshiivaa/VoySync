@@ -8,7 +8,7 @@
 <body>
 <?php
 require 'connexion.php';
-
+require 'C:\wamp64\www\VoySync\Model\utilisateurs.php';
 $emailErr = "";
 $dateErr = "";
 $passwordErr = "";
@@ -66,14 +66,14 @@ class utilisateurc
 
             /*if (isset($_POST['email']) && $GLOBALS['validForm']) {
                 $sql = "INSERT INTO utilisateurs (email, date_nais, password, phone) VALUES (:email, :date_nais, :password, :phone)";
-                $stmt = config::connexion()->prepare($sql);
+                $stmt = configU::connexion()->prepare($sql);
                 $utilisateur = new utilisateurs($_POST["email"], $_POST["date_nais"], $_POST["password"], $_POST["phone"]);
                 $stmt->execute([':email' => $utilisateur->getEmail(), ':date_nais' => $utilisateur->getDateNaissance(), ':password' => $utilisateur->getPassword(), ':phone' => $utilisateur->getPhone()]);
                 $stmt = null;
             }*/
             if (isset($_POST['email']) && $GLOBALS['validForm']) {
                 $sql = "INSERT INTO utilisateurs (email, date_nais, password, phone) VALUES (:email, :date_nais, :password, :phone) ON DUPLICATE KEY UPDATE date_nais = VALUES(date_nais), password = VALUES(password), phone = VALUES(phone)";
-                $stmt = config::connexion()->prepare($sql);
+                $stmt = configU::connexion()->prepare($sql);
                 $utilisateur = new utilisateurs($_POST["email"], $_POST["date_nais"], $_POST["password"], $_POST["phone"]);
                 $stmt->execute([':email' => $utilisateur->getEmail(), ':date_nais' => $utilisateur->getDateNaissance(), ':password' => $utilisateur->getPassword(), ':phone' => $utilisateur->getPhone()]);
                 $stmt = null;
@@ -110,7 +110,7 @@ class utilisateurc
             }
             if ($GLOBALS['validForm']) {
                 $sql = "SELECT id, email, password, role FROM utilisateurs WHERE email = :email AND password = :password";
-                $stmt = config::connexion()->prepare($sql);
+                $stmt = configU::connexion()->prepare($sql);
                 $stmt->execute([':email' => $_POST["email"], ':password' => $_POST["password"]]);
                 $user = $stmt->fetch();
 
@@ -141,7 +141,7 @@ class utilisateurc
     function showUtilisateur($id)
     {
         $sql = "SELECT * FROM utilisateurs WHERE id = :id";
-        $db = config::connexion();
+        $db = configU::connexion();
         try {
             $query = $db->prepare($sql);
             $query->execute(['id' => $id]);
