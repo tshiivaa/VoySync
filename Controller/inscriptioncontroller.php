@@ -8,8 +8,8 @@
 <body>
 <?php
 require 'connexion.php';
-//require '../../Model/utilisateurs.php';
-include "C:\Users\INFOKOM\Documents\github\VoySync\Model\utilisateurs.php";
+require '../../Model/utilisateurs.php';
+//include "C:\Users\INFOKOM\Documents\github\VoySync\Model\utilisateurs.php";
 $emailErr = "";
 $dateErr = "";
 $passwordErr = "";

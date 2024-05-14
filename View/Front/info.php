@@ -1,4 +1,5 @@
 <?php
+
 include '../../Controller/MissionC.php';
 include '../../Controller/ReviewC.php';
 include '../../Model/Mission.php';
@@ -22,6 +23,15 @@ if( isset($_GET['id_m'])) {
     exit;
 }
 if (isset($_POST['submitMission'])) {
+  
+  require_once "../../Controller/inscriptioncontroller.php";
+  if (isset($_GET['id'])) {
+      $id = $_GET['id'];
+      $utilisateurc = new utilisateurc();
+      $utilisateurs = $utilisateurc->showUtilisateur($id);
+
+  }
+
   $ReviewC = new ReviewC();
   
   $id_m = $_POST['id_m'];
@@ -43,18 +53,20 @@ if (isset($_POST['submitMission'])) {
 
       $ReviewC->addReviewSMS($review);
       header('Location: FRMissionPage.php');
-      exit(); // Arrêter l'exécution ultérieure
+      exit();
   } else {
       // Gérer les erreurs d'upload d'image
       die('Error uploading image.');
   }
 }
 if (isset($_POST['submitFeedback'])) {
+  
   $ReviewC = new ReviewC();
   // Récupérer les données du formulaire
   $description = $_POST['description'];
   $rate = $_POST['rating'];
   $id_m = $_POST['id_m'];
+  $id = $_POST['id'];
 
   $review = new Review( 
     $description,
@@ -64,10 +76,14 @@ if (isset($_POST['submitFeedback'])) {
     );
     $ReviewC->addReview($review);
     $ReviewC->updateMissionWithReview($id_m);
+    if (ob_get_length() > 0) {
+      ob_end_clean(); // Clear the output buffer
+    }
     header('Location: FRMissionPage.php');
-      exit(); // Arrêter l'exécution ultérieure
+    exit();
   }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -118,14 +134,14 @@ if (isset($_POST['submitFeedback'])) {
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav">
-                      <li><a href="indexf.html" class="active">Accueil</a></li>
-                      <li><a href="about.html">À Propos</a></li>
-                      <li><a href="deals.html">Nos Offres</a></li>
-                      <li><a href="reservation.html">Contact</a></li>
-                      <li><a href="reservation.html">Blog</a></li>
-                      <li><a href="FRMissionPage.php">Missions</a></li>
-                      <li><a href="../Back/MissionPage.php">Dépenses</a></li>
-                    </ul>  
+                        <li><a id="accueil-link" href="indexf.php?id=<?php echo $utilisateurs['id']; ?>" class="active">Accueil</a></li>
+                        <li><a id="about-link" href="about.php?id=<?php echo $utilisateurs['id']; ?>">À Propos</a></li>
+                        <li><a id="deals-link" href="deals.php?id=<?php echo $utilisateurs['id']; ?>">Nos Offres</a></li>
+                        <li><a id="mission-link" href="FRMissionPage.php?id=<?php echo $id; ?>">Missions</a></li>
+                        <li><a id="blog-link" href="reservation.php?id=<?php echo $utilisateurs['id']; ?>">Blog</a></li>
+                        <li><a id="depenses-link" href="Depenses_f.php?id=<?php echo $utilisateurs['id']; ?>">Dépenses</a></li>
+                        <input type="submit" name="connect" value="Connexion" class="btn solid" id="connect" style="background-color:#FBCD5AFF;"/>
+                    </ul>
                     <a class='menu-trigger'>
                         <span>Menu</span>
                     </a>
@@ -186,7 +202,7 @@ if (isset($_POST['submitFeedback'])) {
                 <input type="hidden" name="id_m" value="<?php echo $mission['id_m'];?>" >
                 <label for="image">Image :</label>
                 <input type="file" id="image" name="image" accept="image/*" >
-                <button type="submit" name="submitMission" class="btn btn-primary">Valider</button>
+                <button type="submit"  name="submitMission" class="btn btn-primary">Valider</button>
               </form>
             </div>
           </div>
@@ -202,6 +218,8 @@ if (isset($_POST['submitFeedback'])) {
             <div class="col-md-7">  
               <h2>Feedback</h2>
               <form  method="post" enctype="multipart/form-data">
+              <input type="hidden" name="id" value="<?php echo $utilisateurs['id']; ?>" >
+
                 <input type="hidden" name="id_m" value="<?php echo $mission['id_m'];?>" >
                 <label for="description">Commentaire:</label>
                 <textarea id="description" name="description" ></textarea><br>
@@ -218,7 +236,7 @@ if (isset($_POST['submitFeedback'])) {
                   <input type="radio" id="star1" name="rating" value="1" />
                   <label for="star1" title="1 star"></label>
                 </div><br>
-                <button type="submit" name="submitFeedback" class="btn btn-primary">Ajouter feedback</button>
+                <button type="submit"  name="submitFeedback" class="btn btn-primary">Ajouter feedback</button>
               </form>
             </div>
           </div>

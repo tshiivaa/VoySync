@@ -1,4 +1,13 @@
+<?php
+//require_once "../../Model/utilisateurs.php";
+require_once "../../Controller/inscriptioncontroller.php";
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $utilisateurc = new utilisateurc();
+    $utilisateurs = $utilisateurc->showUtilisateur($id);
 
+}
+?>
 <?php
 include '../../Controller/MissionC.php';
 include '../../Model/Mission.php';
@@ -77,14 +86,14 @@ if (isset($_GET['trie'])) {
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav">
-                      <li><a href="indexf.html" >Accueil</a></li>
-                      <li><a href="about.html">À Propos</a></li>
-                      <li><a href="deals.html">Nos Offres</a></li>
-                      <li><a href="reservation.html">Contact</a></li>
-                      <li><a href="reservation.html">Blog</a></li>
-                      <li><a href="FRMissionPage.php" class="active">Missions</a></li>
-                      <li><a href="../Back/MissionPage.php">Dépenses</a></li>
-                    </ul>  
+                        <li><a id="accueil-link" href="indexf.php?id=<?php echo $utilisateurs['id']; ?>" class="active">Accueil</a></li>
+                        <li><a id="about-link" href="about.php?id=<?php echo $utilisateurs['id']; ?>">À Propos</a></li>
+                        <li><a id="deals-link" href="deals.php?id=<?php echo $utilisateurs['id']; ?>">Nos Offres</a></li>
+                        <li><a id="mission-link" href="FRMissionPage.php?id=<?php echo $utilisateurs['id']; ?>">Missions</a></li>
+                        <li><a id="blog-link" href="reservation.php?id=<?php echo $utilisateurs['id']; ?>">Blog</a></li>
+                        <li><a id="depenses-link" href="Depenses_f.php?id=<?php echo $utilisateurs['id']; ?>">Dépenses</a></li>
+                        <input type="submit" name="connect" value="Connexion" class="btn solid" id="connect" style="background-color:#FBCD5AFF;"/>
+                    </ul> 
                     <a class='menu-trigger'>
                         <span>Menu</span>
                     </a>
@@ -100,9 +109,9 @@ if (isset($_GET['trie'])) {
     <div class="container">
       <div class="row">
         <div class="col-lg-12">
-          <h4>Discover Our Weekly Offers</h4>
-          <h2>Amazing Prices &amp; More</h2>
-          <div class="border-button"><a href="about.html">Discover More</a></div>
+        <h4>Découvrez nos offres quotidiennes</h4>
+          <h2>Mission incroyable &amp; plus</h2>
+          <div class="border-button"><a href="about.html">Découvrir plus</a></div>
         </div>
       </div>
     </div>
@@ -114,15 +123,15 @@ if (isset($_GET['trie'])) {
           <div id="search-form">
             <div class="row">
               <div class="col-lg-2">
-                <h4>Sort Deals By:</h4>
+                <h4>Trier Mission par :</h4>
               </div>
               <div class="col-lg-5">
                   <fieldset>
                       <form id="trie-form" name="trieForm" method="get" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                           <select name="trie" class="form-select"  id="chooseLocation" onchange="this.form.submit()">
-                              <option selected disabled>Trier par ..</option>
+                              <option selected disabled>....</option>
                               <option value="title">Titre</option>
-                              <option value="gift_point">Gift point</option>
+                              <option value="gift_point">Point cadeaux</option>
                               <option value="place">Lieu</option>
                           </select>
                       </form>
@@ -148,7 +157,7 @@ if (isset($_GET['trie'])) {
       <div class="row">
         <div class="col-lg-6 offset-lg-3">
           <div class="section-heading text-center">
-            <h2>Best Weekly Offers In Each City</h2>
+          <h2>Meilleurs offres quotidiennes</h2>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p>
           </div>
         </div>
@@ -200,7 +209,7 @@ if (isset($_GET['trie'])) {
                     </div>
                     <p class ="description"><strong><?php echo $mission['description']; ?></strong></p>
                     <div class="main-button">
-                        <a class="btn" href="info.php?id_m=<?= $mission['id_m']; ?>" role="button">Plus d'info</a>
+                        <a class="btn" href="info.php?id_m=<?= $mission['id_m']; ?>?id=<?php echo $utilisateurs['id']; ?>" role="button">Plus d'info</a>
                     </div>
                   </div>
                 </div>
@@ -235,12 +244,12 @@ if (isset($_GET['trie'])) {
     <div class="container">
       <div class="row">
         <div class="col-lg-8">
-          <h2>Are You Looking To Travel ?</h2>
-          <h4>Make A Reservation By Clicking The Button</h4>
+        <h2>Cherchez-vous à voyager ?</h2>
+          <h4>Faites une réservation en cliquant sur le bouton</h4>
         </div>
         <div class="col-lg-4">
           <div class="border-button">
-            <a href="reservation.html">Book Yours Now</a>
+            <a href="reservation.html">Réservez maintenant</a>
           </div>
         </div>
       </div>
