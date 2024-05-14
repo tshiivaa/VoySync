@@ -106,8 +106,11 @@ if (isset($_GET['id'])) {
   <link rel="stylesheet" href="../../CSS/style.css">
   <link rel="stylesheet" href="../../CSS/budget.css">
   <link rel="stylesheet" href="../../CSS/custom.css">
+  <link rel="stylesheet" href="../../CSS/rappel.css">
   <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    
 
 </head>
 
@@ -139,7 +142,7 @@ if (isset($_GET['id'])) {
             <!-- ***** Logo End ***** -->
             <!-- ***** Menu Start ***** -->
             <ul class="nav">
-                        <li><a id="accueil-link" href="indexf.php?id=<?php echo $utilisateurs['id']; ?>" class="active">Accueil</a>
+                        <li><a id="accueil-link" href="indexf.php?id=<?php echo $utilisateurs['id']; ?>" >Accueil</a>
                         </li>
                         <li><a id="about-link" href="about.php?id=<?php echo $utilisateurs['id']; ?>">À Propos</a></li>
                         <li><a id="deals-link" href="deals.php?id=<?php echo $utilisateurs['id']; ?>">Nos Offres</a>
@@ -147,8 +150,10 @@ if (isset($_GET['id'])) {
                         <li><a id="contact-link"
                                href="reservation.php?id=<?php echo $utilisateurs['id']; ?>">Contact</a></li>
                         <li><a id="blog-link" href="reservation.php?id=<?php echo $utilisateurs['id']; ?>">Blog</a></li>
+                        <li><a id="mission-link" href="FRMissionPage.php?id=<?php echo $utilisateurs['id']; ?>">Missions</a></li>
+                
                         <li><a id="depenses-link"
-                               href="Depenses_f.php?id=<?php echo $utilisateurs['id']; ?>">Dépenses</a></li>
+                               href="Depenses_f.php?id=<?php echo $utilisateurs['id']; ?>"class="active">Dépenses</a></li>
                         <input type="submit" name="connect" value="Connexion" class="custom-btn" id="connect"/>
 
                     </ul>
@@ -164,6 +169,25 @@ if (isset($_GET['id'])) {
   <!-- ***** Header Area End ***** -->
 
   <!-- ***** Main Banner Area Start ***** -->
+  <style>
+.parallax {
+  /* The image used */
+  background-image: url("https://i0.wp.com/travelexperta.com/wp-content/uploads/2018/01/sponsor-image.jpg");
+
+  /* Set a specific height */
+  min-height: 600px;
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+</style>
+
+
+<!-- Container element -->
+<div class="parallax"></div>
   <button class="back-button" onclick="goBack()">
     <i class='bx bx-arrow-back' style="margin-top:90px; margin-left:20px;"></i>
     <!-- Replace bx-arrow-back with the Boxicons class you want to use -->
@@ -188,7 +212,6 @@ if (isset($_GET['id'])) {
       <button class="prev-btn">Prev</button>
       <button class="next-btn">Next</button>
     </section>
-    <h1 style="text-align:left; margin-bottom: 20px;">Budget de __</h1>
     <div class="budget">
       <div>
         <h5>Votre Solde</h5>
@@ -352,7 +375,7 @@ if (isset($_GET['id'])) {
   <script src="../../js/expand.js"></script>
   <script src="../../js/script.js"></script>
   <script src="../../js/budget.js"></script>
-
+  <script src="../../js/rappel.js"></script>
 
 </body>
 

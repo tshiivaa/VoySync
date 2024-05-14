@@ -6,7 +6,11 @@ if (isset($_GET['id'])) {
     $utilisateurs = $utilisateurc->showUtilisateur($id);
 
 }
+include '../../Controller/DocumentVoyageC.php';
+
+$documentC = new DocumentVoyageC();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -31,6 +35,7 @@ if (isset($_GET['id'])) {
   <link rel="stylesheet" href="../../CSS/expanding.css">
   <link rel="stylesheet" href="../../CSS/style.css">
   <link rel="stylesheet" href="../../CSS/devise.css">
+  <link rel="stylesheet" href="../../CSS/rappel.css">
   <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
   <!--
@@ -75,6 +80,7 @@ if (isset($_GET['id'])) {
               <li><a href="deals.html">Nos Offres</a></li>
               <li><a href="reservation.html">Contact</a></li>
               <li><a href="reservation.html">Blog</a></li>
+              <li><a id="mission-link" href="FRMissionPage.php">Missions</a></li>
               <li><a href="Depenses_f.html"class="active">Dépenses</a></li>
             </ul>
             <a class='menu-trigger'>
@@ -132,6 +138,19 @@ if (isset($_GET['id'])) {
       </div>
     </div>
   </div>
+  <?php
+$documents = $documentC->checkDocumentDue();
+if (!is_null($documents) && count($documents) > 0) {
+    echo '<div class="alert">';
+    echo '<span class="fas fa-exclamation-circle"></span>';
+    echo '<span class="msg">Vos documents expirés:';
+    foreach ($documents as $document) {
+        echo ' ' . $document['Type'] . ',';
+    }
+    echo '<div class="close-btn"><span class="fas fa-times"></span></div>';
+    echo '</div>';
+}
+?>
   <div class="nour">
     <p>Que vous soyez un voyageur chevronné ou que vous prépariez votre premier voyage, notre pochette de voyage
       virtuelle est là pour vous aider à organiser, économiser et rester informé à chaque étape de votre périple.</p>
@@ -175,7 +194,7 @@ if (isset($_GET['id'])) {
   <script src="../../js/popup.js"></script>
   <script src="../../js/custom.js"></script>
   <script src="../../js/expand.js"></script>
-
+  <script src="../../js/rappel.js"></script>
 
 
 </body>

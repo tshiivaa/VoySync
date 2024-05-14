@@ -2,7 +2,6 @@
 include '../../Controller/DocumentVoyageC.php';
 
 $documentC = new DocumentVoyageC();
-$document = $documentC->checkDocumentDue();
 $listeDocuments = $documentC->listDocumentWithDate(); // Correction du nom de la méthode
 ?>
 
@@ -47,7 +46,13 @@ $listeDocuments = $documentC->listDocumentWithDate(); // Correction du nom de la
     </div>
 </div>
 <!-- ***** Preloader End ***** -->
-
+<style>
+    .main_body_f{
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+</style>
 <!-- ***** Header Area Start ***** -->
 <header class="header-area header-sticky">
     <div class="container">
@@ -66,7 +71,8 @@ $listeDocuments = $documentC->listDocumentWithDate(); // Correction du nom de la
                         <li><a href="deals.html">Nos Offres</a></li>
                         <li><a href="reservation.html">Contact</a></li>
                         <li><a href="reservation.html">Blog</a></li>
-                        <li><a href="Depenses_f.html" class="active">Dépenses</a></li>
+                        <li><a id="mission-link" href="FRMissionPage.php">Missions</a></li>
+                        <li><a href="Depenses_f.php" class="active">Dépenses</a></li>
                     </ul>
                     <a class='menu-trigger'>
                         <span>Menu</span>
@@ -80,19 +86,48 @@ $listeDocuments = $documentC->listDocumentWithDate(); // Correction du nom de la
 <!-- ***** Header Area End ***** -->
 
 <!-- ***** Main Banner Area Start ***** -->
+<style>
+.parallax {
+  /* The image used */
+  background-image: url("https://motif-blog-assets.motifphotos.com/motif-blog/wp-content/uploads/2019/11/iCloud-1-1024x611.jpg?x98050");
+
+  /* Set a specific height */
+  min-height: 600px;
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+</style>
+
+
+<!-- Container element -->
+<div class="parallax"></div>
 <div class="headerdevise" style="margin-top: 70px;">
     <h4>Vos Rappels</h4>
 </div>
 <div class="nour">
     <p>Vous pouvez maintenant voir vos rappels et renouveler vos documents de voyage</p>
 </div>
-<div class="alert">
-        <span class="fas fa-exclamation-circle"></span>
-        <span class="msg">Warning: This is a warning alert!</span>
-        <div class="close-btn">
-            <span class="fas fa-times"></span>
-        </div>
-    </div>
+
+<?php
+$documents = $documentC->checkDocumentDue();
+if (!is_null($documents) && count($documents) > 0) {
+    echo '<div class="alert">';
+    echo '<span class="fas fa-exclamation-circle"></span>';
+    echo '<span class="msg">Vos documents expirés:';
+    foreach ($documents as $document) {
+        echo ' ' . $document['Type'] . ',';
+    }
+    echo '<div class="close-btn"><span class="fas fa-times"></span></div>';
+    echo '</div>';
+}
+?>
+
+
+
 <div class="main_body_f">
     <ul class="sortable-list">
         <?php foreach ($listeDocuments as $document) { ?>
@@ -150,21 +185,6 @@ $listeDocuments = $documentC->listDocumentWithDate(); // Correction du nom de la
 <script src="../../js/custom.js"></script>
 <script src="../../js/rappel.js" defer></script>
 
-<script>
-    $(document).ready(function () {
-        <?php
-        // Check if there are documents due and show alert if any
-        if (!empty($document)) {
-            echo "$('.alert').addClass('show');";
-        }
-        ?>
-
-        $('.close-btn').click(function () {
-            $('.alert').removeClass("show");
-            $('.alert').addClass("hide");
-        });
-    });
-</script>
 
 </body>
 

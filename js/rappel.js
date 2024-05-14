@@ -39,4 +39,22 @@ document.addEventListener("DOMContentLoaded", function() {
       });
     });
   });
- 
+   // JavaScript to handle alert functionality
+   $(document).ready(function() {
+    // Show alert initially if there's a document
+    if ($('.alert').length > 0) {
+        $('.alert').addClass("show");
+        $('.alert').removeClass("hide");
+        $('.alert').addClass("showAlert");
+        setTimeout(function() {
+            $('.alert').removeClass("show");
+            $('.alert').addClass("hide");
+        }, 50000);
+    }
+
+    // Click event for closing the alert
+    $('.close-btn').click(function() {
+        $('.alert').removeClass("show");
+        $('.alert').addClass("hide");
+    });
+});

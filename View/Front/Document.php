@@ -1,18 +1,8 @@
-<?php 
+<?php
 include 'C:\wamp64\www\Voysync_nour\Controller\DocumentVoyageC.php';
-require_once "../../Controller/inscriptioncontroller.php";
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
-    $utilisateurc = new utilisateurc();
-    $utilisateurs = $utilisateurc->showUtilisateur($id);}
 $documentC = new DocumentVoyageC();
-if (isset($_GET['id'])) {
-  $id = $_GET['id'];
-  $documentList = $documentC->showDocumentVoyage($id);
-}
+$documentList = $documentC->listDocumentVoyages();
 ?>
-
-
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -35,8 +25,10 @@ if (isset($_GET['id'])) {
   <link rel="stylesheet" href="../../CSS/animate.css">
   <link rel="stylesheet" href="../../CSS/style.css">
   <link rel="stylesheet" href="../../CSS/budget.css">
+  <link rel="stylesheet" href="../../CSS/rappel.css">
   <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
 
 </head>
 
@@ -68,12 +60,13 @@ if (isset($_GET['id'])) {
             <!-- ***** Logo End ***** -->
             <!-- ***** Menu Start ***** -->
             <ul class="nav">
-              <li><a href="indexf.html" class="active">Accueil</a></li>
+              <li><a href="indexf.html">Accueil</a></li>
               <li><a href="about.html">À Propos</a></li>
               <li><a href="deals.html">Nos Offres</a></li>
               <li><a href="reservation.html">Contact</a></li>
               <li><a href="reservation.html">Blog</a></li>
-              <li><a href="Depenses_f.html">Dépenses</a></li>
+              <li><a id="mission-link" href="FRMissionPage.php">Missions</a></li>
+              <li><a href="Depenses_f.html" class="active">Dépenses</a></li>
             </ul>
             <a class='menu-trigger'>
               <span>Menu</span>
@@ -86,53 +79,76 @@ if (isset($_GET['id'])) {
   </header>
   <!-- ***** Header Area End ***** -->
   <!-- ***** Main Banner Area End ***** -->
-  <button class="back-button"style="margin-top:90px; margin-left:20px;" onclick="goBack()">
-      <i class='bx bx-arrow-back'></i> <!-- Replace bx-arrow-back with the Boxicons class you want to use -->
-    </button>
- <div class="main_body_f">
- <section id="documentList">
-    <div class="addandtitle">
-        <h2 style="padding: 10px;">Liste des documents de voyage</h2>
+  <style>
+    .parallax {
+      /* The image used */
+      background-image: url("../images/DOCIMG.jpg");
+
+      /* Set a specific height */
+      min-height: 500px;
+
+      /* Create the parallax scrolling effect */
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+  </style>
+
+  <!-- Container element -->
+  <div class="parallax"></div>
+  <h1 style=" text-align: center; padding-top: 20px;">Vos documents de voyage</h1>
+  <button class="back-button" style="margin-top:90px; margin-left:20px;" onclick="goBack()">
+    <i class='bx bx-arrow-back'></i> <!-- Replace bx-arrow-back with the Boxicons class you want to use -->
+  </button>
+  <div class="main_body_f">
+    <section id="documentList">
+      <div class="addandtitle">
+        <h3 style="padding: 10px;">Liste des documents de voyage</h3>
         <!-- Add button for adding documents -->
         <button id="addDocumentBtn" class="add-btn">Ajouter</button>
-    </div>
-    <div class="document-list" action="budget.php?id=<?php echo $id; ?>">
+      </div>
+      <div class="document-list">
         <?php foreach ($documentList as $document): ?>
-            <div class="expense-item">
-                <div class="name">
-                    <h4><?= $document['Type'] ?></h4>
-                    <!-- You can display other details as needed -->
-                    <p><?= date('M d, Y', strtotime($document['DateExp'])) ?></p>
-                </div>
-                <div class="details">
-                    <!-- Display other details like type, lieuSto, etc. -->
-                    <p>Numero de serie: <span class="NumSerie"><?= $document['NumSerie'] ?></span></p>
-                    <p>Lieu de stockage: <span class="lieuSto"><?= $document['LieuSto'] ?></span></p>
-                    <!-- Add more details here -->
-                </div>
-                <div class="actions">
-                    <!-- Modify button -->
-                    <button type="submit" id="ModDocumentBtn" class="modifier-btn">Modifier</button>
-                    <!-- Delete button -->
-                    <a class="delete-btn" href="deleteDo.php?id=<?= $document['NumSerie'] ?>" onclick="return confirmDelete(event)">Supprimer</a>
-                 <!-- Affich button -->
-            <button class="view-photo-btn" onclick="viewPhoto('<?= base64_encode($document['Photodoc']) ?>')">Voir la photo</button>
-          </div>
+          <div class="expense-item">
+            <div class="name">
+              <h4><?= $document['Type'] ?></h4>
+              <!-- You can display other details as needed -->
+              <p><?= date('M d, Y', strtotime($document['DateExp'])) ?></p>
             </div>
+            <div class="details">
+              <!-- Display other details like type, lieuSto, etc. -->
+              <p>Numero de serie: <span class="NumSerie"><?= $document['NumSerie'] ?></span></p>
+              <p>Lieu de stockage: <span class="lieuSto"><?= $document['LieuSto'] ?></span></p>
+              <!-- Add more details here -->
+            </div>
+            <div class="actions">
+              <!-- Modify button -->
+              <button type="submit" id="ModDocumentBtn" class="modifier-btn">Modifier</button>
+              <!-- Delete button -->
+              <a class="delete-btn" href="deleteDo.php?id=<?= $document['NumSerie'] ?>"
+                onclick="return confirmDelete(event)">Supprimer</a>
+              <!-- Affich button -->
+              <button class="view-photo-btn" onclick="viewPhoto('<?= base64_encode($document['Photodoc']) ?>')">Voir la
+                photo</button>
+            </div>
+          </div>
         <?php endforeach; ?>
-    </div>
+      </div>
+    </section>
     <!-- Modal for viewing the photo -->
     <div id="modal-overlay" class="modal-overlay">
-  <div class="modal-content">
-    <section class="modal-content-header">
-      <h3>Voici le document de voyage</h3>
-      <span class="close-modal-btn" onclick="closeModal()">
-        <i class='bx bx-x'></i>
-      </span>
-    </section>
-    <img id="modal-image" src="" alt="Photo">
-</div>
-
+      <div class="modal-content">
+        <section class="modal-content-header">
+          <h3>Voici le document de voyage</h3>
+          <span class="close-modal-btn" onclick="closeModal()">
+            <i class='bx bx-x'></i>
+          </span>
+        </section>
+        <img id="modal-image" src="" alt="Photo">
+      </div>
+    </div>
+  </div>
   <div class="call-to-action">
     <div class="container">
       <div class="row">
@@ -159,7 +175,6 @@ if (isset($_GET['id'])) {
     </div>
   </footer>
 
-
   <!-- Scripts -->
   <!-- JavaScript principal de Bootstrap -->
   <script src="../vendor/jquery/jquery.min.js"></script>
@@ -172,7 +187,15 @@ if (isset($_GET['id'])) {
   <script src="../../js/custom.js"></script>
   <script src="C:\wamp64\www\Voysync_nour\js\script.js"></script>
   <script src="../../js/document.js"></script>
-
+  <script src="../../js/rappel.js"></script>
+  <script>
+    window.addEventListener('scroll', function () {
+      var scrolled = window.scrollY;
+      var skewImage = document.getElementById('skewImage');
+      var skewAmount = -5 + (scrolled / 100); // Adjust this value based on how much you want the skew to change with scrolling
+      skewImage.style.transform = 'skewY(' + skewAmount + 'deg)';
+    });
+  </script>
 </body>
 
 </html>

@@ -68,7 +68,9 @@
               <li><a href="deals.html">Nos Offres</a></li>
               <li><a href="reservation.html">Contact</a></li>
               <li><a href="reservation.html">Blog</a></li>
-              <li><a href="Depenses_f.html">Dépenses</a></li>
+              <li><a id="mission-link" href="FRMissionPage.php">Missions</a></li>
+              <li><a href="Depenses_f.php">Dépenses</a></li>
+              
             </ul>
             <a class='menu-trigger'>
               <span>Menu</span>
@@ -82,6 +84,25 @@
   <!-- ***** Header Area End ***** -->
 
   <!-- ***** Main Banner Area Start ***** -->
+  <style>
+.parallax {
+  /* The image used */
+  background-image: url("../images/deviseIMG.jpg");
+
+  /* Set a specific height */
+  min-height: 600px;
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+</style>
+
+
+<!-- Container element -->
+<div class="parallax"></div>
   <button class="back-button" style="margin-top:90px; margin-left:20px;" onclick="goBack()">
     <i class='bx bx-arrow-back'></i> <!-- Replace bx-arrow-back with the Boxicons class you want to use -->
   </button>

@@ -79,23 +79,23 @@ class DocumentVoyageC
         }
     }
     
-
-    public function showDocumentVoyage($user_id) {
-        $sql = "SELECT * FROM projetweb.documentvoyage WHERE user_id = :user_id";
-        $db = config::getConnexion();
-        try {
-            $query = $db->prepare($sql);
-            $query->execute(['user_id' => $user_id]);
-            $result = $query->fetchAll();
-            var_dump($result); // Inspect the result
-            return $result;
-        } catch (Exception $e) {
-            echo 'Error: ' . $e->getMessage();
-            return []; // Return an empty array to prevent the function from returning boolean false
-        }
+    public function showDocumentVoyage($id)
+{
+    $sql = "SELECT * FROM `documentvoyage` WHERE user_id = :user_id";
+    $db = config::getConnexion();
+    try {
+        $query = $db->prepare($sql);
+        $query->execute(['user_id' => $id]);
+        // Fetch all rows (documents) specific to the user
+        $documents = $query->fetchAll();
+        return $documents;
+    } catch (Exception $e) {
+        // Proper error handling
+        echo 'Error: ' . $e->getMessage();
+        return false;
     }
-    
-    
+}
+
     function addDocumentVoyageWithDepense($documentvoyage, $depense)
     {
         $db = config::getConnexion();
