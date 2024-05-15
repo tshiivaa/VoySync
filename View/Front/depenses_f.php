@@ -112,7 +112,7 @@ $documentC = new DocumentVoyageC();
           <div class="expanding-flex-cards-title">Votre budget</div>
         </div>
       </div>
-      <div class="expanding-flex-cards-item" data-page="Document.php?id=<?php echo $utilisateurs['id']; ?>">
+      <div class="expanding-flex-cards-item" data-page="captcha.php?id=<?php echo $utilisateurs['id']; ?>">
         <img src="../images/doc.jpg" alt="" class="expanding-flex-cards-item-img">
 
         <div class="expanding-flex-cards-item-footer">
