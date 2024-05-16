@@ -92,18 +92,14 @@ if (isset($_POST['submit'])) {
           </div>
         </li>
         <li class="item">
-          <div href="#" class="nav_link submenu_item">
-            <span class="navlink_icon">
-              <i class='bx bx-wallet'></i>
-            </span>
-            <span class="navlink">Pochette de voyage</span>
-            <i class="bx bx-chevron-right arrow-left"></i>
-          </div>
-          <ul class="menu_items submenu">
-            <a href="Depenses_back.html" class="nav_link sublink">Back office</a>
-            <a href="Depenses_front.html" class="nav_link sublink">Front office</a>
-          </ul>
-        </li>
+                <div href="Depenses_back.php" class="nav_link submenu_item">
+                   <span class="navlink_icon">
+                   <i class='bx bx-wallet'></i>
+                      </span>
+                    <span class="navlink">Pochette de voyage</span>
+                    <i class="bx bx-chevron-right arrow-left"></i>
+                </div>
+            </li>
         <li class="item">
           <a href="#" class="nav_link">
             <span class="navlink_icon">
