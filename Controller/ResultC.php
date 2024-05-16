@@ -1,5 +1,4 @@
 <?php
-include_once '../Model/Vol.php';
 include_once '../config.php';
 
 // Check if depart and arrive parameters are set
