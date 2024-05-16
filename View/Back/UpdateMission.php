@@ -149,7 +149,6 @@ header('Location: MissionPage.php');
           </div>
           <ul class="menu_items submenu">
             <a href="HomePage.php" class="nav_link sublink">Back office</a>
-            <a href="FRMissionPage.php" class="nav_link sublink">Front office</a>
           </ul>
         </li>
         <li class="item">
