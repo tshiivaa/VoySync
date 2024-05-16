@@ -126,20 +126,20 @@ if (isset($_POST['submitFeedback'])) {
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <nav class="main-nav">
+            <nav class="main-nav">
                     <!-- ***** Logo Start ***** -->
-                    <a href="indexf.html" class="logo">
-                        <img src="../imagesFront/logo.png" alt="">
+                    <a href="indexf.php" class="logo">
+                        <img src="../../View/images/logo.png" alt="">
                     </a>
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav">
-                        <li><a id="accueil-link" href="indexf.php?id=<?php echo $utilisateurs['id']; ?>" class="active">Accueil</a></li>
-                        <li><a id="about-link" href="about.php?id=<?php echo $utilisateurs['id']; ?>">À Propos</a></li>
-                        <li><a id="deals-link" href="deals.php?id=<?php echo $utilisateurs['id']; ?>">Nos Offres</a></li>
-                        <li><a id="mission-link" href="FRMissionPage.php?id=<?php echo $id; ?>">Missions</a></li>
-                        <li><a id="blog-link" href="reservation.php?id=<?php echo $utilisateurs['id']; ?>">Blog</a></li>
-                        <li><a id="depenses-link" href="Depenses_f.php?id=<?php echo $utilisateurs['id']; ?>">Dépenses</a></li>
+                        <li><a id="accueil-link" href="indexf.php" class="active">Accueil</a></li>
+                        <li><a href="ListLogementFront copy 2.php">Logements</a></li>
+                        <li><a href="ListVolFront copy.php">Vols</a></li>
+                        <li><a id="mission-link" href="FRMissionPage.php">Missions</a></li>
+                        <li><a id="blog-link" href="blog.php">Blog</a></li>
+                        <li><a id="depenses-link" href="depenses_f.php">Dépenses</a></li>
                         <input type="submit" name="connect" value="Connexion" class="btn solid" id="connect" style="background-color:#FBCD5AFF;"/>
                     </ul>
                     <a class='menu-trigger'>

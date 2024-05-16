@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <title>Voysync</title>
-    <link rel="stylesheet" href="http://localhost/mariem\gestiongBlog\CSS\style.css" type="text/css">
+    <link rel="stylesheet" href="../../CSS/style.css" type="text/css">
     <style>
         body {
             font-family: 'Montserrat', sans-serif;
@@ -130,92 +130,82 @@
             <i class="bi bi-grid"></i>
             <i class='bx bx-sun' id="darkLight"></i>
             <i class='bx bx-bell'></i>
-            <img src="../images/profile.jpg" alt="" class="profile">
+            <img src="../images/profile2.jpg" alt="" class="profile">
         </div>
     </nav>
     <nav class="sidebar">
         <div class="menu_content">
-            <div class="menu_title menu_dahsboard"></div>
-            <li class="item">
-                <div href="index.html" class="nav_link submenu_item">
-                    <span class="navlink_icon">
-                        <i class="bx bx-home-alt"></i>
-                    </span>
-                    <span class="navlink">Home</span>
-                </div>
-            </li>
-            <li class="item">
-                <div href="Depenses_back.php" class="nav_link submenu_item">
-                   <span class="navlink_icon">
-                   <i class='bx bx-wallet'></i>
-                      </span>
-                    <span class="navlink">Pochette de voyage</span>
-                    <i class="bx bx-chevron-right arrow-left"></i>
-                </div>
-            </li>
-            <li class="item">
-                <a href="#" class="nav_link">
-                    <span class="navlink_icon">
-                        <i class="bx bxs-magic-wand"></i>
-                    </span>
-                    <span class="navlink">Itineraire magique</span>
-                </a>
-            </li>
-            <li class="item">
-                <a href="#" class="nav_link">
-                    <span class="navlink_icon">
-                        <i class='bx bxs-chat'></i>
-                    </span>
-                    <span class="navlink">Blog</span>
-                </a>
-            </li>
-            <li class="item">
-                <a href="#" class="nav_link">
-                    <span class="navlink_icon">
-                        <i class='bx bx-map-alt'></i>
-                    </span>
-                    <span class="navlink">Missions</span>
-                </a>
-            </li>
-            <li class="item">
-                <a href="#" class="nav_link">
-                    <span class="navlink_icon">
-                        <i class='bx bxs-user-account'></i>
-                    </span>
-                    <span class="navlink">Compte</span>
-                </a>
-            </li>
-            <li class="item">
-                <div href="#" class="nav_link submenu_item">
-                    <span class="navlink_icon">
-                        <i class='bx bx-wallet'></i>
-                    </span>
-                    <span class="navlink">Offre</span>
-                    <i class="bx bx-chevron-right arrow-left"></i>
-                </div>
-                <ul class="menu_items submenu">
-                </ul>
-            </li>
-            </ul>
             <ul class="menu_items">
-                <div class="menu_title menu_setting"></div>
+                <div class="menu_title menu_dahsboard"></div>
                 <li class="item">
-                    <a href="#" class="nav_link">
-                        <span class="navlink_icon">
-                            <i class="bx bx-medal"></i>
-                        </span>
-                        <span class="navlink">Award</span>
+                    <div href="index.html" class="nav_link submenu_item">
+                <span class="navlink_icon">
+                <i class="bx bx-home-alt"></i>
+                </span>
+                        <span class="navlink">Home</span>
+                    </div>
+                </li>
+                <li class="item">
+                    <a href="Depenses_back.php" class="nav_link">
+                <span class="navlink_icon">
+                <i class='bx bx-wallet'></i>
+                </span>
+                        <span class="navlink">Pochette de voyage</span>
                     </a>
                 </li>
                 <li class="item">
-                    <a href="#" class="nav_link">
+                    <div href="#" class="nav_link submenu_item">
                         <span class="navlink_icon">
-                            <i class="bx bx-cog"></i>
+                            <i class="bx bxs-magic-wand"></i>
                         </span>
-                        <span class="navlink">Setting</span>
+                        <span class="navlink">Itineraire magique</span>
+                        <i class="bx bx-chevron-right arrow-left"></i>
+                    </div>
+                    <ul class="menu_items submenu">
+                        <a href="backofficeDestination.php" class="nav_link sublink">Destinations</a>
+                        <a href="backofficeTransport.php" class="nav_link sublink">Transport</a>
+                    </ul>
+                </li>
+                <li class="item">
+                    <a href="afficherBlogBack.php" class="nav_link">
+                <span class="navlink_icon">
+                <i class='bx bxs-chat'></i>
+                </span>
+                        <span class="navlink">Blog</span>
                     </a>
+                </li>
+                <li class="item">
+                    <a href="HomePage.php" class="nav_link">
+                <span class="navlink_icon">
+                <i class='bx bx-map-alt'></i>
+                </span>
+                        <span class="navlink">Missions</span>
+                    </a>
+                </li>
+                <li class="item">
+                    <a href="../../Controller/index.php" class="nav_link">
+                <span class="navlink_icon">
+                <i class='bx bxs-user-account'></i>
+                </span>
+                        <span class="navlink">Compte</span>
+                    </a>
+                </li>
+                <li class="item">
+                    <div href="#" class="nav_link submenu_item">
+                        <span class="navlink_icon">
+                        <i class='bx bx-wallet'></i>
+                        </span>
+                        <span class="navlink">Offre</span>
+                        <i class="bx bx-chevron-right arrow-left"></i>
+                    </div>
+                    <ul class="menu_items submenu">
+                        <a href="ListLogement.php" class="nav_link sublink">Logement</a>
+                        <a href="ListVol.php" class="nav_link sublink">Vol</a>
+                        <a href="ListReservation.php" class="nav_link sublink">Reservation</a>
+                    </ul>
                 </li>
             </ul>
+
             <div class="bottom_content">
                 <div class="bottom expand_sidebar">
                     <span> Expand</span>
@@ -276,7 +266,7 @@
             }
         </script>
     </div>
-    <script src="http://localhost/mariem\gestiongBlog\js\script.js"></script>
+    <script src="../../js/script.js"></script>
 </body>
 
 </html>

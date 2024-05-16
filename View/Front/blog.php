@@ -26,10 +26,14 @@
       text-align: center;
       margin-bottom: 20px;
       font-family: 'Montserrat', sans-serif;
+      background-image: url('../images/about-content-bg.jpg');
+      background-size: cover;
+      background-position: center;
+      padding: 100px 0;
     }
 
     .header h1 {
-      font-size: 2rem;
+      font-size: 5rem;
       color: #333;
     }
 
@@ -37,6 +41,7 @@
       font-size: 1.2rem;
       color: #555;
     }
+
 
     body {
       font-family: 'Montserrat', sans-serif;
@@ -300,6 +305,7 @@
     .search_bar {
       margin-top: 13px;
       text-align: center;
+      margin-left: -180px;
 
     }
 
@@ -350,46 +356,32 @@
 </head>
 
 <body>
-  <!-- ***** Preloader Start ***** -->
-  <div id="js-preloader" class="js-preloader">
-    <div class="preloader-inner">
-      <span class="dot"></span>
-      <div class="dots">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </div>
-  </div>
   <!-- ***** Preloader End ***** -->
   <header class="header-area header-sticky">
     <div class="container2">
       <div class="row">
         <div class="col-12">
-          <nav class="main-nav">
-            <!-- ***** Logo Start ***** -->
-            <a href="indexf.html" class="logo">
-              <img src="../../View/images/logo.png" alt="">
-            </a>
-            <!-- ***** Logo End ***** -->
-            <div class="search_bar">
-              <input type="text" id="searchInput" placeholder="Rechercher par titre...">
-            </div>
-
-            <!-- ***** Menu Start ***** -->
-            <ul class="nav">
-              <li><a href="indexf.html" class="active">Accueil</a></li>
-              <li><a href="about.html">À Propos</a></li>
-              <li><a href="deals.html">Nos Offres</a></li>
-              <li><a href="reservation.html">Contact</a></li>
-              <li><a href="blog.php">Blog</a></li>
-              <li><a href="Depenses_front.html">Dépenses</a></li>
-            </ul>
-            <a class='menu-trigger'>
-              <span>Menu</span>
-            </a>
-            <!-- ***** Menu End ***** -->
-          </nav>
+        <nav class="main-nav">
+                    <!-- ***** Logo Start ***** -->
+                    <a href="indexf.php" class="logo">
+                        <img src="../../View/images/logo.png" alt="">
+                    </a>
+                    <!-- ***** Logo End ***** -->
+                    <!-- ***** Menu Start ***** -->
+                    <ul class="nav">
+                        <li><a id="accueil-link" href="indexf.php" class="active">Accueil</a></li>
+                        <li><a href="ListLogementFront copy 2.php">Logements</a></li>
+                        <li><a href="ListVolFront copy.php">Vols</a></li>
+                        <li><a id="mission-link" href="FRMissionPage.php">Missions</a></li>
+                        <li><a id="blog-link" href="blog.php">Blog</a></li>
+                        <li><a id="depenses-link" href="depenses_f.php">Dépenses</a></li>
+                        <input type="submit" name="connect" value="Connexion" class="btn solid" id="connect" style="background-color:#FBCD5AFF;"/>
+                    </ul>
+                    <a class='menu-trigger'>
+                        <span>Menu</span>
+                    </a>
+                    <!-- ***** Menu End ***** -->
+                </nav>
         </div>
       </div>
     </div>

@@ -7,7 +7,7 @@ class Configuration
         if (!isset(self::$pdo)) {
             try {
                 self::$pdo = new PDO(
-                    'mysql:host=localhost;dbname=voysync',
+                    'mysql:host=localhost;dbname=projetweb',
                     'root',
                     '',
                     [

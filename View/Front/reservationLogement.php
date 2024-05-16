@@ -60,23 +60,22 @@ $logement_id = isset($_GET['logement_id']) ? $_GET['logement_id'] : null;
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <nav class="main-nav">
+            <nav class="main-nav">
                     <!-- ***** Logo Start ***** -->
-                    <a href="indexf.html" class="logo">
-                        <img src="../images/logo.png" alt="">
+                    <a href="indexf.php" class="logo">
+                        <img src="../../View/images/logo.png" alt="">
                     </a>
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav">
-                    <li><a href="indexf.html" class="active">Accueil</a></li>
-                    <li><a href="about.html">À Propos</a></li>
-                    <!-- <li><a href="deals.html">Nos Offres</a></li> -->
-                    <li><a href="ListLogementFront copy 2.php">Logements</a></li>
-                    <li><a href="ListVolFront copy.php">Vols</a></li>
-                    <li><a href="reservation.html">Contact</a></li>
-                    <li><a href="reservation.html">Blog</a></li>
-                    <li><a href="Depenses_front.html">Dépenses</a></li>
-                    </ul>  
+                        <li><a id="accueil-link" href="indexf.php" class="active">Accueil</a></li>
+                        <li><a href="ListLogementFront copy 2.php">Logements</a></li>
+                        <li><a href="ListVolFront copy.php">Vols</a></li>
+                        <li><a id="mission-link" href="FRMissionPage.php">Missions</a></li>
+                        <li><a id="blog-link" href="blog.php">Blog</a></li>
+                        <li><a id="depenses-link" href="depenses_f.php">Dépenses</a></li>
+                        <input type="submit" name="connect" value="Connexion" class="btn solid" id="connect" style="background-color:#FBCD5AFF;"/>
+                    </ul>
                     <a class='menu-trigger'>
                         <span>Menu</span>
                     </a>

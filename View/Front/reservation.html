@@ -50,27 +50,27 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <nav class="main-nav">
-                    <!-- ***** Logo Start ***** -->
-                    <a href="indexf.html" class="logo">
-                        <img src="assets/images/logo.png" alt="">
-                    </a>
-                    <!-- ***** Logo End ***** -->
-                    <!-- ***** Menu Start ***** -->
-                    <ul class="nav">
-                      <li><a href="indexf.html" class="active">Accueil</a></li>
-                      <li><a href="about.html">À Propos</a></li>
-                      <li><a href="deals.html">Nos Offres</a></li>
-                      <li><a href="reservation.html">Contact</a></li>
-                      <li><a href="reservation.html">Blog</a></li>
-                      <li><a href="Depenses_front.html">Dépenses</a></li>
-                        <input type="submit" name="connect" value="Connexion" class="btn solid" id="connect" style="background-color:#FBCD5AFF;"/>
-                    </ul> 
-                    <a class='menu-trigger'>
-                        <span>Menu</span>
-                    </a>
-                    <!-- ***** Menu End ***** -->
-                </nav>
+              <nav class="main-nav">
+                <!-- ***** Logo Start ***** -->
+                <a href="indexf.php?id=<?php echo $utilisateurs['id']; ?>" class="logo">
+                    <img src="../../View/images/logo.png" alt="">
+                </a>
+                <!-- ***** Logo End ***** -->
+                <!-- ***** Menu Start ***** -->
+                <ul class="nav">
+                    <li><a id="accueil-link" href="indexf.php?id=<?php echo $utilisateurs['id']; ?>" class="active">Accueil</a></li>
+                    <li><a href="ListLogementFront copy 2.php?id=<?php echo $utilisateurs['id']; ?>">Logements</a></li>
+                    <li><a href="ListVolFront copy.php?id=<?php echo $utilisateurs['id']; ?>">Vols</a></li>
+                    <li><a id="mission-link" href="FRMissionPage.php?id=<?php echo $utilisateurs['id']; ?>">Missions</a></li>
+                    <li><a id="blog-link" href="blog.php?id=<?php echo $utilisateurs['id']; ?>">Blog</a></li>
+                    <li><a id="depenses-link" href="depenses_f.php?id=<?php echo $utilisateurs['id']; ?>">Dépenses</a></li>
+                    <input type="submit" name="connect" value="Connexion" class="btn solid" id="connect" style="background-color:#FBCD5AFF;"/>
+                </ul>
+                <a class='menu-trigger'>
+                    <span>Menu</span>
+                </a>
+                <!-- ***** Menu End ***** -->
+            </nav>
             </div>
         </div>
     </div>

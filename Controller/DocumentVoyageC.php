@@ -1,6 +1,6 @@
 <?php 
-include "C:\wamp64\www\Voysync\Model\DocumentVoyage.php";
-include "C:\wamp64\www\Voysync\Controller\DepenseC.php";
+include "../../Model/DocumentVoyage.php";
+include "DepenseC.php";
 class DocumentVoyageC
 {
     public function listDocumentVoyages()

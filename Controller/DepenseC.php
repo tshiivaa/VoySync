@@ -1,6 +1,6 @@
 <?php
 include 'config.php';
-include 'C:\wamp64\www\VoySync\Model\Depense.php';
+include '../../Model/Depense.php';
 
 
 class DepenseC
