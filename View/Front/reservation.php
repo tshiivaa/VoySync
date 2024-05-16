@@ -7,255 +7,111 @@ if( isset($_GET['id'])) {
     $utilisateurs = $utilisateurc->showUtilisateur($id);
 
 }
+
+
+include_once '../../Controller/ReservationC.php';
+
+$controller = new ReservationController();
+$data = $controller->getReservationData();
+
+/*$vol_id = isset($_GET['vol_id']) ? $_GET['vol_id'] : null;
+$date = isset($_GET['date']) ? $_GET['date'] : null;
+$destination = isset($_GET['destination']) ? $_GET['destination'] : null;
+
+
+$destinations = $data['destinations'];
+$dates = $data['dates'];
+$max_guests = $data['max_guests'];*/
+$vol_id = isset($_GET['vol_id']) ? htmlspecialchars($_GET['vol_id']) : null;
+$date_reservation = isset($_GET['date_reservation']) ? htmlspecialchars($_GET['date_reservation']) : null;
+$destination = isset($_GET['destination']) ? htmlspecialchars($_GET['destination']) : null;
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
-          rel="stylesheet">
+    rel="stylesheet">
 
-    <title>Voysync - Explorez le monde</title>
+  <title>Voysync - Explorez le monde</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Fichiers CSS supplémentaires -->
-    <link rel="stylesheet" href="../../CSS/templatemo-woox-travel.css">
-    <link rel="stylesheet" href="../../CSS/owl.css">
-    <link rel="stylesheet" href="../../CSS/animate.css">
-    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
-    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-    <!--
+  <!-- Bootstrap core CSS -->
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 
-    https://templatemo.com/tm-580-woox-travel
+  <!-- Fichiers CSS supplémentaires -->
+  <link rel="stylesheet" href="../../CSS/templatemo-woox-travel.css">
+  <link rel="stylesheet" href="../../CSS/owl.css">
+  <link rel="stylesheet" href="../../CSS/animate.css">
+  <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <!--
 
-    -->
 
+  https://templatemo.com/tm-580-woox-travel
+
+  -->
 </head>
-
 <body>
+    <header>
+        <!-- Logo et navigation -->
+        <a href="indexf.html" class="logo">
+            <img src="../images/logo.png" alt="">
+        </a>
+    </header>
 
-<!-- ***** Preloader Start ***** -->
-<div id="js-preloader" class="js-preloader">
-    <div class="preloader-inner">
-        <span class="dot"></span>
-        <div class="dots">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    </div>
-</div>
+    <div class="reservation-form">
+        <div class="container">
+        // Formulaire de réservation
+        <form id="reservation-form" method="post" action="ListLogementFrontTries.php"> <!-- Action modifiée -->
+            <!-- Valeurs cachées à passer lors de la redirection -->
+            <input type="hidden" name="vol_id" value="<?= htmlspecialchars($vol_id) ?>">
+            <input type="hidden" name="date_reservation" value="<?= htmlspecialchars($date_reservation) ?>">
+            <input type="hidden" name="destination" value="<?= htmlspecialchars($destination) ?>">
 
-<!-- ***** Preloader End ***** -->
-
-<!-- ***** Header Area Start ***** -->
-<header class="header-area header-sticky">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <nav class="main-nav">
-                    <!-- ***** Logo Start ***** -->
-                    <a href="indexf.html" class="logo">
-                        <img src="assets/images/logo.png" alt="">
-                    </a>
-                    <!-- ***** Logo End ***** -->
-                    <!-- ***** Menu Start ***** -->
-                    <ul class="nav">
-                        <li><a id="accueil-link" href="indexf.php?id=<?php echo $utilisateurs['id']; ?>" class="active">Accueil</a></li>
-                        <li><a id="about-link" href="about.php?id=<?php echo $utilisateurs['id']; ?>">À Propos</a></li>
-                        <li><a id="deals-link" href="deals.php?id=<?php echo $utilisateurs['id']; ?>">Nos Offres</a></li>
-                        <li><a id="contact-link" href="reservation.php?id=<?php echo $utilisateurs['id']; ?>">Contact</a></li>
-                        <li><a id="blog-link" href="reservation.php?id=<?php echo $utilisateurs['id']; ?>">Blog</a></li>
-                        <li><a id="depenses-link" href="Depenses_f.php?id=<?php echo $utilisateurs['id']; ?>">Dépenses</a></li>
-                        <input type="submit" name="connect" value="Connexion" class="btn solid" id="connect" style="background-color:#FBCD5AFF;"/>
-                    </ul>
-                    <a class='menu-trigger'>
-                        <span>Menu</span>
-                    </a>
-                    <!-- ***** Menu End ***** -->
-                </nav>
-            </div>
-        </div>
-    </div>
-</header>
-<!-- ***** Header Area End ***** -->
-
-<div class="second-page-heading">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <h4>Book Prefered Deal Here</h4>
-                <h2>Make Your Reservation</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt uttersi
-                    labore et dolore magna aliqua is ipsum suspendisse ultrices gravida</p>
-                <div class="main-button"><a href="about.html">Discover More</a></div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="more-info reservation-info">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-4 col-sm-6">
-                <div class="info-item">
-                    <i class="fa fa-phone"></i>
-                    <h4>Make a Phone Call</h4>
-                    <a href="#">+123 456 789 (0)</a>
+            <div class="row">
+                <div class="col-lg-12">
+                    <h4>Faites votre <em>réservation</em> ici</h4>
+                </div>
+                <div class="col-lg-6">
+                    <fieldset>
+                        <label pour="Name">Nom</label>
+                        <input type="text" name="Name" placeholder="Ex. John Doe" required>
+                    </fieldset>
+                </div>
+                <div class="col-lg-6">
+                    <fieldset>
+                        <label pour="Number">Téléphone</label>
+                        <input type="text" name="Number" placeholder="Ex. 216(votre numero)" required>
+                    </fieldset>
+                </div>
+                <div class="col-lg-6">
+                    <fieldset>
+                        <label pour="mail">Adresse email</label>
+                        <input type="text" name="mail" placeholder="Ex. abs@gmail.com" required>
+                    </fieldset>
+                </div>
+                <div class="col-lg-6">
+                    <fieldset>
+                        <label pour="Capacite">Capacité</label>
+                        <input type="text" name="Capacite" placeholder="Ex. 1 personne ou +" required>
+                    </fieldset>
+                </div>
+                <div class="col-lg-12">
+                    <fieldset>
+                        <button type="submit" class="main-button">Réserver un logement maintenant</button>
+                    </fieldset>
                 </div>
             </div>
-            <div class="col-lg-4 col-sm-6">
-                <div class="info-item">
-                    <i class="fa fa-envelope"></i>
-                    <h4>Contact Us via Email</h4>
-                    <a href="#">company@email.com</a>
-                </div>
-            </div>
-            <div class="col-lg-4 col-sm-6">
-                <div class="info-item">
-                    <i class="fa fa-map-marker"></i>
-                    <h4>Visit Our Offices</h4>
-                    <a href="#">24th Street North Avenue London, UK</a>
+        </form>
+
                 </div>
             </div>
         </div>
     </div>
-</div>
-
-<div class="reservation-form">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div id="map">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12469.776493332698!2d-80.14036379941481!3d25.907788681148624!2m3!1f357.26927939317244!2f20.870722720054623!3f0!3m2!1i1024!2i768!4f35!3m3!1m2!1s0x88d9add4b4ac788f%3A0xe77469d09480fcdb!2sSunny%20Isles%20Beach!5e1!3m2!1sen!2sth!4v1642869952544!5m2!1sen!2sth"
-                            width="100%" height="450px" frameborder="0"
-                            style="border:0; border-top-left-radius: 23px; border-top-right-radius: 23px;"
-                            allowfullscreen=""></iframe>
-                </div>
-            </div>
-            <div class="col-lg-12">
-                <form id="reservation-form" name="gs" method="submit" role="search" action="#">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <h4>Make Your <em>Reservation</em> Through This <em>Form</em></h4>
-                        </div>
-                        <div class="col-lg-6">
-                            <fieldset>
-                                <label for="Name" class="form-label">Your Name</label>
-                                <input type="text" name="Name" class="Name" placeholder="Ex. John Smithee"
-                                       autocomplete="on" required>
-                            </fieldset>
-                        </div>
-                        <div class="col-lg-6">
-                            <fieldset>
-                                <label for="Number" class="form-label">Your Phone Number</label>
-                                <input type="text" name="Number" class="Number" placeholder="Ex. +xxx xxx xxx"
-                                       autocomplete="on" required>
-                            </fieldset>
-                        </div>
-                        <div class="col-lg-6">
-                            <fieldset>
-                                <label for="chooseGuests" class="form-label">Number Of Guests</label>
-                                <select name="Guests" class="form-select" aria-label="Default select example"
-                                        id="chooseGuests" onChange="this.form.click()">
-                                    <option selected>ex. 3 or 4 or 5</option>
-                                    <option type="checkbox" name="option1" value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4+">4+</option>
-                                </select>
-                            </fieldset>
-                        </div>
-                        <div class="col-lg-6">
-                            <fieldset>
-                                <label for="Number" class="form-label">Check In Date</label>
-                                <input type="date" name="date" class="date" required>
-                            </fieldset>
-                        </div>
-                        <div class="col-lg-12">
-                            <fieldset>
-                                <label for="chooseDestination" class="form-label">Choose Your Destination</label>
-                                <select name="Destination" class="form-select" aria-label="Default select example"
-                                        id="chooseCategory" onChange="this.form.click()">
-                                    <option selected>ex. Switzerland, Lausanne</option>
-                                    <option value="Italy, Roma">Italy, Roma</option>
-                                    <option value="France, Paris">France, Paris</option>
-                                    <option value="Engaland, London">Engaland, London</option>
-                                    <option value="Switzerland, Lausanne">Switzerland, Lausanne</option>
-                                </select>
-                            </fieldset>
-                        </div>
-                        <div class="col-lg-12">
-                            <fieldset>
-                                <button class="main-button">Make Your Reservation Now</button>
-                            </fieldset>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <p>Copyright © 2036 <a href="#">WoOx Travel</a> Company. All rights reserved.
-                    <br>Design: <a href="https://templatemo.com" target="_blank"
-                                   title="free CSS templates">TemplateMo</a></p>
-            </div>
-        </div>
-    </div>
-</footer>
-
-
-<!-- Scripts -->
-<!-- Bootstrap core JavaScript -->
-<script src="../vendor/jquery/jquery.min.js"></script>
-<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
-
-<script src="../../js/isotope.min.js"></script>
-<script src="../../js/owl-carousel.js"></script>
-<script src="../../js/wow.js"></script>
-<script src="../../js/tabs.js"></script>
-<script src="../../js/popup.js"></script>
-<script src="../../js/custom.js"></script>
-
-
-<script>
-    $(".option").click(function () {
-        $(".option").removeClass("active");
-        $(this).addClass("active");
-    });
-</script>
-<script>
-    var loggedIn = true; // Remplacez par votre logique de connexion
-
-    function toggleButton() {
-        var button = document.getElementById('connect');
-        if (loggedIn) {
-            button.value = 'Déconnexion';
-        } else {
-            button.value = 'Connexion';
-        }
-
-        button.onclick = function () {
-            // Redirection en fonction de l'état de connexion
-            var redirectUrl = loggedIn ? 'inscriptionview.php' : 'inscriptionview.php';
-            window.location.href = redirectUrl;
-        };
-    }
-
-    window.onload = toggleButton;
-</script>
-
 </body>
-
 </html>
