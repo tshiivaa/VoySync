@@ -5,9 +5,8 @@ include '../model/Logement.php';
 $logementC = new LogementC();
 $s = 0;
 
-// Check if all form fields are set
+// Check if all required form fields are set
 if (
-    //isset($_POST['IDlogement']) &&
     isset($_POST['Nom']) &&
     isset($_POST['Type']) &&
     isset($_POST['Adresse']) &&
@@ -16,7 +15,7 @@ if (
     isset($_POST['Capacite']) &&
     isset($_POST['Evaluation']) &&
     isset($_POST['Disponibilite']) &&
-    isset($_POST['IDvol'])
+    isset($_POST['IDvol']) 
 ) {
     if(isset($_FILES['File'])) {
         $file = $_FILES['File'];
@@ -60,13 +59,8 @@ if (
                         $_POST['IDvol'],
                         $fileNameNew // Pass the file name to the Logement constructor
                     );
-                    
-                    try {
-                                $logementC->updateLogement($logement, $_POST['IDlogement']);
-                                $s = 1; // Set flag for successful update
-                            } catch (Exception $e) {
-                                echo 'Error updating logement: ' . $e->getMessage();
-                            }
+
+                    $s = 1;
                 } else {
                     echo "Your file is too big!";
                 }
@@ -80,35 +74,10 @@ if (
         echo "No file uploaded!";
     }
 }
-//     // Create a new instance of the Logement class and set its properties
-//     $logement = new Logement(
-//         //$_POST['IDlogement'],  // IDlogement
-//         $_POST['Nom'],
-//         $_POST['Type'],
-//         $_POST['Adresse'],
-//         $_POST['Prix'],
-//         $_POST['Description'],
-//         $_POST['Capacite'],
-//         $_POST['Evaluation'],
-//         $_POST['Disponibilite'],
-//         $_POST['IDvol']
-//     );
-//     try {
-//         $logementC->updateLogement($logement, $_POST['IDlogement']);
-//         $s = 1; // Set flag for successful update
-//     } catch (Exception $e) {
-//         echo 'Error updating logement: ' . $e->getMessage();
-//     }
-//     // Update the logement using the LogementController
-// }
 
-// Fetch the logement details to prepopulate the form
-$logementDetails = null; // Initialize to null
-if (isset($_GET['IDlogement'])) {
-    $IDlogement = $_GET['IDlogement'];
-    $logementDetails = $logementC->showLogement($IDlogement);
-}
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -122,7 +91,7 @@ if (isset($_GET['IDlogement'])) {
     <link rel="stylesheet" href="http://localhost/Projet2.0/CSS/expanding.css" type="text/css">
     <style>
         .main_body {
-            margin-top: 170px;
+            margin-top: 250px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -163,21 +132,70 @@ if (isset($_GET['IDlogement'])) {
             text-decoration: none; /* Remove underline */
             font-weight: bold; /* Make text bold */
         }
-       /* Add this CSS to your existing styles */
-        input[type="file"] {
-            width: 100%; /* Set the width to 100% to fill the container */
-            padding: 8px; /* Adjust the padding as needed */
-            box-sizing: border-box; /* Ensure padding and border are included in the width */
-        }
-
         input[type="submit"]:hover {
             background-color: #145a8c;
             text-decoration: none;
         }
     </style>
+    <!-- JavaScript for form validation -->
+    <script>
+/*function validateForm() {
+    console.log("Form validation function called");
+    //var idlogement = document.getElementById("idlogement").value;
+    var nom = document.getElementById("nom").value;
+    var type = document.getElementById("type").value;
+    var adresse = document.getElementById("adresse").value;
+    var prix = document.getElementById("prix").value;
+    var description = document.getElementById("description").value;
+    var capacite = document.getElementById("capacite").value;
+    var evaluation = document.getElementById("evaluation").value;
+    var disponibilite = document.getElementById("disponibilite").value;
+
+    //console.log("IDLogement:", idlogement);
+    console.log("Nom:", nom);
+    console.log("Type:", type);
+    console.log("Adresse:", adresse);
+    console.log("Prix:", prix);
+    console.log("Description:", description);
+    console.log("Capacite:", capacite);
+    console.log("Evaluation:", evaluation);
+    console.log("Disponibilite:", disponibilite);
+
+    // Check if any field is empty
+    if ( nom == "" || type == "" || adresse == "" || prix == "" || description == "" || capacite == "" || evaluation == "" || disponibilite == "") {
+        alert("Veuillez remplir tous les champs");
+        return false;
+    }
+
+    if (isNaN(prix)) {
+        alert("Le prix doit être un nombre");
+        return false;
+    }
+
+    if (isNaN(capacite) || capacite < 1 || capacite > 20) {
+        alert("La capacité doit être un nombre entre 1 et 20");
+        return false;
+    }
+
+    if (isNaN(evaluation) || evaluation < 1 || evaluation > 5) {
+        alert("L'évaluation doit être un nombre entre 1 et 5");
+        return false;
+    }
+
+    // Additional validation for description length
+    if (description.length > 100) {
+        alert("La description ne peut pas dépasser 100 caractères");
+        return false;
+    }
+
+    return true; // Submit the form if all validations pass
+}*/
+</script>
+
+
 </head>
 <body>
-<nav class="navbar">
+    <nav class="navbar">
         <div class="logo_item">
         <i class="bx bx-menu" id="sidebarOpen"></i>
         <img src="images/logo.png" alt="">Voysync
@@ -296,60 +314,65 @@ if (isset($_GET['IDlogement'])) {
         </div>
     </nav>
     <div class="main_body">
-    <h2>Modifier un logement</h2>
-    <form method="POST" action="UpdateLogement.php" enctype="multipart/form-data">
+    <h2>Ajouter un logement</h2>
+    <!-- <form method="POST" action="" onsubmit="return validateForm()"> -->
+    <form method="POST" action="" enctype="multipart/form-data">
 
-    <!-- Hidden input field to pass IDlogement -->
-    <input type="hidden" id="IDlogement" name="IDlogement" value="<?= isset($logementDetails['IDlogement']) ? $logementDetails['IDlogement'] : ''; ?>" required>
+         <!-- <label for="idlogement">IDLogement:</label><br> -->
+        <!-- <input type="number" id="idlogement" name="idlogement" placeholder="L'ID doit etre un nombre" required><br> -->
 
-            <!-- Fields prefilled with existing data -->
-            <label for="Nom">Nom :</label><br>
-            <input type="text" id="Nom" name="Nom" placeholder="Entrer le nom du logement" required value="<?= isset($logementDetails['Nom']) ? $logementDetails['Nom'] : ''; ?>"><br>
-            
-            <label for="Type">Type :</label><br>
-            <select id="Type" name="Type" required>
-                <option value="hotel"<?= isset($logementDetails['Type']) && $logementDetails['Type'] == 'hotel' ? ' selected' : ''; ?>>Hôtel</option>
-                <option value="maison d hote"<?= isset($logementDetails['Type']) && $logementDetails['Type'] == 'maison d hote' ? ' selected' : ''; ?>>Maison d'hôte</option>
-                <option value="villa"<?= isset($logementDetails['Type']) && $logementDetails['Type'] == 'villa' ? ' selected' : ''; ?>>Villa</option>
-                <option value="appartement"<?= isset($logementDetails['Type']) && $logementDetails['Type'] == 'appartement' ? ' selected' : ''; ?>>Appartement</option>
-            </select><br>
-            
-            <label for="Adresse">Adresse :</label><br>
-            <input type="text" id="Adresse" placeholder="Adresse du logement" required name="Adresse" value="<?= isset($logementDetails['Adresse']) ? $logementDetails['Adresse'] : ''; ?>"><br>
-            
-            <label for="Prix">Prix par nuitée (Dt) :</label><br>
-            <input type="number" id="Prix" placeholder="Prix par nuitée" required name="Prix" value="<?= isset($logementDetails['Prix']) ? $logementDetails['Prix'] : ''; ?>"><br>
-            
-            <label for="Description">Description :</label><br>
-            <textarea id="Description" name="Description" required placeholder="Description du logement"><?= isset($logementDetails['Description']) ? $logementDetails['Description'] : ''; ?></textarea><br>
-            
-            <label for="Capacite">Capacité :</label><br>
-            <input type="number" id="Capacite" name="Capacite" placeholder="Capacité du logement" required value="<?= isset($logementDetails['Capacite']) ? $logementDetails['Capacite'] : ''; ?>"><br>
-            
-            <label for="Evaluation">Evaluation :</label><br>
-            <input type="number" id="Evaluation" name="Evaluation" min="0" max="5" required value="<?= isset($logementDetails['Evaluation']) ? $logementDetails['Evaluation'] : ''; ?>"><br>
-            
-            <label for="Disponibilite">Disponibilité :</label><br>
-            <select id="Disponibilite" name="Disponibilite" required>
-                <option value="disponible" <?= isset($logementDetails['Disponibilite']) && $logementDetails['Disponibilite'] == 'disponible' ? ' selected' : ''; ?>>Disponible</option>
-                <option value="non disponible" <?= isset($logementDetails['Disponibilite']) && $logementDetails['Disponibilite'] == 'non disponible' ? ' selected' : ''; ?>>Non disponible</option>
-            </select><br><br>
+        <label for="Nom">Nom:</label><br>
+        <input type="text" id="Nom" name="Nom" placeholder="Entrer Le nom de l'offre" required><br>
+        
+        <label for="Type">Type:</label><br>
+        <select id="Type" name="Type" required>
+            <option value="hotel">Hôtel</option>
+            <option value="maison d hote">Maison d'hôte</option>
+            <option value="villa">Villa</option>
+            <option value="appartement">Appartement</option>
+        </select>
+        
+        <label for="Adresse">Adresse:</label><br>
+        <input type="text" id="Adresse" name="Adresse" placeholder="Entrer Le pays" required><br>
+        
+        <label for="Prix">Prix de la nuitée (Dt):</label><br>
+        <input type="number" id="Prix" name="Prix" placeholder="Prix par personne" required><br>
+        
+        <label for="Description">Description:</label><br>
+        <textarea id="Description" name="Description" placeholder="Entrer plus d'informations sur l'offre" required></textarea><br>
+        
+        <label for="Capacite">Capacité:</label><br>
+        <input type="number" id="Capacite" name="Capacite" placeholder="La capacite est entre 1 et 20" required><br>
+        
+        <label for="Evaluation">Evaluation:</label><br>
+        <input type="number" id="Evaluation" name="Evaluation" min="0" max="5" placeholder="Noter sur 5 étoiles" required><br>
+        
+        <label for="Disponibilite">Disponibilité:</label><br>
+        <select id="Disponibilite" name="Disponibilite" required>
+            <option value="disponible">Disponible</option>
+            <option value="non disponible">Non disponible</option>
+        </select>
 
-            <label for="IDvol"></label>
-            <input type="hidden" id="IDvol" name="IDvol" placeholder="IDvol" required value="<?= isset($logementDetails['IDvol']) ? $logementDetails['IDvol'] : ''; ?>">
+        <label for="IDvol">IDvol:</label><br>
+        <input type="text" id="IDvol" name="IDvol" placeholder="Entrer un IDvol existant" required><br><br>
 
-            <label for="File">File :</label>
-            <input type="file" id="File" name="File" accept="image/*">
-            
-            <input type="submit" value="Modifier">
-        </form>
+        <!-- Ajouter ce champ pour le téléchargement de l'image -->
+        <label for="File">File :</label>
+        <input type="File" id="File" name="File" accept="File/*" required><br><br>
 
+        
+        <input type="submit" value="Ajouter">
+    </form>
 
-        <?php if ($s == 1): ?>
-            <script>alert('Logement modifié avec succès');</script>
-            <script>window.location.href='ListLogement.php';</script>
-        <?php endif; ?>
-    </div>
+     
+    <?php if($s==1)
+    {
+        $logementC->addLogement($logement);
+        echo "<script>alert('Vous avez ajouté un logement');</script>";
+        echo "<script>window.location.href='ListLogement.php'</script>";
+    }
+    ?>     
+</div>
   <script src="http://localhost/Projet2.0/js/script.js"></script>
 </body>
 </html>

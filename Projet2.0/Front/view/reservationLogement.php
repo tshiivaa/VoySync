@@ -1,21 +1,17 @@
 <?php
 include_once '../controller/ReservationC.php';
 
-$controller = new ReservationController();
-$data = $controller->getReservationData();
+//$controller = new ReservationController();
+// $data = $controller->getReservationData();
 
-/*$vol_id = isset($_GET['vol_id']) ? $_GET['vol_id'] : null;
-$date = isset($_GET['date']) ? $_GET['date'] : null;
-$destination = isset($_GET['destination']) ? $_GET['destination'] : null;
+// $vol_id = isset($_GET['vol_id']) ? htmlspecialchars($_GET['vol_id']) : null;
+// $date_reservation = isset($_GET['date_reservation']) ? htmlspecialchars($_GET['date_reservation']) : null;
+// $destination = isset($_GET['destination']) ? htmlspecialchars($_GET['destination']) : null;
+require_once '../controller/LogementC.php';
+$logementC = new LogementC();
+$logements = $logementC->listLogement();
 
-
-$destinations = $data['destinations'];
-$dates = $data['dates'];
-$max_guests = $data['max_guests'];*/
-$vol_id = isset($_GET['vol_id']) ? htmlspecialchars($_GET['vol_id']) : null;
-$date_reservation = isset($_GET['date_reservation']) ? htmlspecialchars($_GET['date_reservation']) : null;
-$destination = isset($_GET['destination']) ? htmlspecialchars($_GET['destination']) : null;
-
+$logement_id = isset($_GET['logement_id']) ? $_GET['logement_id'] : null;
 ?>
 
 <!DOCTYPE html>
@@ -133,12 +129,15 @@ $destination = isset($_GET['destination']) ? htmlspecialchars($_GET['destination
   </div>
     <div class="reservation-form">
         <div class="container">
-        <form id="reservation-form" method="post" action="ListLogementFrontTries.php"> <!-- Action modifiée -->
-            <!-- Valeurs cachées à passer lors de la redirection -->
-            <input type="hidden" name="vol_id" value="<?= htmlspecialchars($vol_id) ?>">
-            <input type="hidden" name="date_reservation" value="<?= htmlspecialchars($date_reservation) ?>">
-            <input type="hidden" name="destination" value="<?= htmlspecialchars($destination) ?>">
-
+        <form id="reservation-form" method="post" action="create_reservation_Logement.php" onsubmit="return confirmReservation()"> <!-- Action modifiée -->
+        <?php foreach ($logements as $logement): ?>
+          <?php if ($logement['IDlogement'] == $logement_id): ?>
+              <input type="hidden" name="vol_id" value="<?= $logement['IDvol'] ?>">
+              <input type="hidden" name="logement_id" value="<?= $logement['IDlogement'] ?>">
+              <input type="hidden" name="Destination" value="<?= $logement['Adresse'] ?>">
+              <input type="hidden" name="Guests" value="<?= $logement['Capacite'] ?>">
+          <?php endif; ?>
+        <?php endforeach; ?>
             <div class="row">
                 <div class="col-lg-12">
                     <h4>Faites votre <em>réservation</em> ici</h4>
@@ -163,8 +162,8 @@ $destination = isset($_GET['destination']) ? htmlspecialchars($_GET['destination
                 </div>
                 <div class="col-lg-6">
                     <fieldset>
-                        <label pour="Capacite">Capacité</label>
-                        <input type="text" name="Capacite" placeholder="Ex. 1 personne ou +" required>
+                        <label pour="date_reservation">Date de reservation</label>
+                        <input type="date" name="date_reservation" required>
                     </fieldset>
                 </div>
                 <div class="col-lg-12">
@@ -173,6 +172,7 @@ $destination = isset($_GET['destination']) ? htmlspecialchars($_GET['destination
                     </fieldset>
                 </div>
             </div>
+            
         </form>
 
                 </div>
@@ -208,5 +208,10 @@ $destination = isset($_GET['destination']) ? htmlspecialchars($_GET['destination
       $(this).addClass("active"); 
     });
   </script>
+  <script>
+function confirmReservation() {
+  return confirm("En cliquant sur OK, vous recevrez un e-mail de confirmation à votre adresse e-mail ainsi qu'un SMS sur votre téléphone. Souhaitez-vous continuer?");
+}
+</script>
 </body>
 </html>

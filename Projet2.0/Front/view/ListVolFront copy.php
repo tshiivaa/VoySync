@@ -2,6 +2,12 @@
 require_once '../controller/VolC.php';
 $volC = new VolC();
 $vols = $volC->listVols();
+
+if (isset($_GET['Arrive'])) {
+  $Arrive = $_GET['Arrive'];
+  $volC = new VolC();
+  $vol = $volC->searchMissions($Arrive);
+}
 ?>
 
 <!DOCTYPE html>
@@ -34,6 +40,29 @@ $vols = $volC->listVols();
     https://templatemo.com/tm-580-woox-travel
   
     -->
+    <!-- <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          var form = document.getElementById("search-form");
+
+          // Ajoutez un écouteur d'événements au formulaire lorsqu'il est soumis
+          form.addEventListener("submit", function(event) {
+              // Empêche le formulaire de se soumettre normalement
+              event.preventDefault();
+
+              // Sélectionnez les éléments de formulaire
+              var chooseLocation = document.getElementById("chooseLocation");
+              var choosePrice = document.getElementById("choosePrice");
+
+              // Récupérez les valeurs sélectionnées dans les menus déroulants
+              var selectedLocation = chooseLocation.value;
+              var selectedPrice = choosePrice.value;
+
+              // Redirigez vers une nouvelle page avec les valeurs sélectionnées en tant que paramètres GET
+              window.location.href = "/Projet2.0/Front/view/ListVolFront copy.php?location=" + selectedLocation + "&price=" + selectedPrice;
+          });
+      });
+    </script> -->
+
 </head>
 
 <body>
@@ -87,9 +116,9 @@ $vols = $volC->listVols();
     <div class="container">
       <div class="row">
         <div class="col-lg-12">
-          <h4>Discover Our Weekly Offers</h4>
-          <h2>Amazing Prices &amp; More</h2>
-          <div class="border-button"><a href="about.html">Discover More</a></div>
+        <h4>Découvrez nos offres hebdomadaires</h4>
+          <h2>Des prix incroyables et plus</h2>
+          <!-- <div class="border-button"><a href="about.html">Discover More</a></div> -->
         </div>
       </div>
     </div>
@@ -102,39 +131,41 @@ $vols = $volC->listVols();
           <form id="search-form" name="gs" method="submit" role="search" action="#">
             <div class="row">
               <div class="col-lg-2">
-                <h4>Sort Deals By:</h4>
+                <h4>Trier les offres</h4>
               </div>
               <div class="col-lg-4">
                   <fieldset>
                       <select name="Location" class="form-select" aria-label="Default select example" id="chooseLocation" onChange="this.form.click()">
                           <option selected>Destinations</option>
-                          <option type="checkbox" name="option1" value="Italy">Italy</option>
+                          <option type="checkbox" name="option1" value="Italie">Italie</option>
+                          <option value="Tunisie">Tunisie</option>
                           <option value="France">France</option>
-                          <option value="Switzerland">Switzerland</option>
-                          <option value="Thailand">Thailand</option>
-                          <option value="Australia">Australia</option>
-                          <option value="India">India</option>
-                          <option value="Indonesia">Indonesia</option>
-                          <option value="Malaysia">Malaysia</option>
-                          <option value="Singapore">Singapore</option>
+                          <option value="Suisse">Suisse</option>
+                          <option value="Thaïlande">Thaïlande</option>
+                          <option value="Australie">Australie</option>
+                          <option value="Inde">Inde</option>
+                          <option value="Indonésie">Indonésie</option>
+                          <option value="Malaisie">Malaisie</option>
+                          <option value="Singapour">Singapour</option>
                       </select>
                   </fieldset>
               </div>
               <div class="col-lg-4">
                   <fieldset>
                       <select name="Price" class="form-select" aria-label="Default select example" id="choosePrice" onChange="this.form.click()">
-                          <option selected>Price Range</option>
-                          <option value="100">$100 - $250</option>
-                          <option value="250">$250 - $500</option>
-                          <option value="500">$500 - $1,000</option>
-                          <option value="1000">$1,000 - $2,500</option>
-                          <option value="2500+">$2,500+</option>
+                        <option selected>Gamme de prix</option>
+                          <option value="100">00Dt - 100Dt</option>
+                          <option value="100">100Dt - 250Dt</option>
+                          <option value="250">250Dt - 500Dt</option>
+                          <option value="500">500Dt - 1,000Dt</option>
+                          <option value="1000">1,000Dt - 2,500Dt</option>
+                          <option value="2500+">2,500Dt+</option>
                       </select>
                   </fieldset>
               </div>
               <div class="col-lg-2">                        
                   <fieldset>
-                      <button class="border-button">Search Results</button>
+                      <button class="border-button">Résultats de la recherche</button>
                   </fieldset>
               </div>
             </div>
@@ -169,7 +200,7 @@ $vols = $volC->listVols();
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="image">
-                                <img src="/Projet2.0/Front/view/images/bizerteV.jpg" alt="">
+                            <img src="../../Back/view/uploads/<?= $vol['File']; ?>" alt="Image du vol">
                             </div>
                         </div>
                         <div class="col-lg-6 align-self-center">
@@ -190,9 +221,12 @@ $vols = $volC->listVols();
                                 </div>
                                 <div class="main-button">
                                     <!-- Redirection vers reservation.php avec des paramètres GET -->
-                                    <a href="reservation.php?vol_id=<?= $vol['IDvol']; ?>&date_reservation=<?= urlencode($vol['DateArrive']); ?>&destination=<?= urlencode($vol['Arrive']); ?>">Réserver logement correspondant</a>
+                                    <!-- <a href="reservation.php?vol_id=<?= $vol['IDvol']; ?>&date_reservation=<?= urlencode($vol['DateArrive']); ?>&destination=<?= urlencode($vol['Arrive']); ?>">Réserver logement correspondant</a> -->
+                                    <a href="reservation copy 2.php?vol_id=<?= $vol['IDvol']; ?>&date_reservation=<?= urlencode($vol['DateArrive']); ?>&destination=<?= urlencode($vol['Arrive']); ?>">Réserver logement correspondant</a>
                                 </div>
-
+                                <div class="main-button">
+                                        <a href="reservationLogement.php?vol_id=<?= $vol['IDvol'] ?>">Réserver</a>
+                                    </div>
 
                             </div>
                         </div>

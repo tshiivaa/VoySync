@@ -28,7 +28,7 @@ class VolC
         }
     }
 
-    public function addVol($vol)
+    /*public function addVol($vol)
     {
         $sql = "INSERT INTO vol (IDvol, Compagnie, Num_vol, Depart, Arrive, DateDepart, DateArrive, DureeOffre, Prix, Classe, Evaluation)  
                 VALUES (:IDvol, :Compagnie, :Num_vol, :Depart, :Arrive, :DateDepart, :DateArrive, :DureeOffre, :Prix, :Classe, :Evaluation)";
@@ -51,13 +51,38 @@ class VolC
         } catch (Exception $e) {
             throw new Exception('Error adding vol: ' . $e->getMessage());
         }
+    }*/
+    public function addVol($vol)
+    {
+        $sql = "INSERT INTO vol (Compagnie, Num_vol, Depart, Arrive, DateDepart, DateArrive, DureeOffre, Prix, Classe, Evaluation, File)
+                VALUES (:Compagnie, :Num_vol, :Depart, :Arrive, :DateDepart, :DateArrive, :DureeOffre, :Prix, :Classe, :Evaluation, :File)";
+        $db = config::getConnexion();
+        try {
+            $query = $db->prepare($sql);
+            $query->execute([
+                'Compagnie' => $vol->getCompagnie(),
+                'Num_vol' => $vol->getNum_vol(),
+                'Depart' => $vol->getDepart(),
+                'Arrive' => $vol->getArrive(),
+                'DateDepart' => $vol->getDateDepart(),
+                'DateArrive' => $vol->getDateArrive(),
+                'DureeOffre' => $vol->getDureeOffre(),
+                'Prix' => $vol->getPrix(),
+                'Classe' => $vol->getClasse(),
+                'Evaluation' => $vol->getEvaluation(),
+                'File' =>$vol->getFile()
+            ]);
+        } catch (Exception $e) {
+            throw new Exception('Error adding vol: ' . $e->getMessage());
+        }
     }
+
 
     public function updateVol($vol, $IDvol)
     {
         $sql = "UPDATE vol SET Compagnie = :Compagnie, Num_vol = :Num_vol, Depart = :Depart, Arrive = :Arrive, 
                 DateDepart = :DateDepart, DateArrive = :DateArrive, DureeOffre = :DureeOffre, Prix = :Prix, 
-                Classe = :Classe, Evaluation = :Evaluation WHERE IDvol = :IDvol";
+                Classe = :Classe, Evaluation = :Evaluation, File = :File WHERE IDvol = :IDvol";
         $db = config::getConnexion();
         try {
             $query = $db->prepare($sql);
@@ -72,7 +97,8 @@ class VolC
                 'DureeOffre' => $vol->getDureeOffre(),
                 'Prix' => $vol->getPrix(),
                 'Classe' => $vol->getClasse(),
-                'Evaluation' => $vol->getEvaluation()
+                'Evaluation' => $vol->getEvaluation(),
+                'File' =>$vol->getFile()
             ]);
         } catch (Exception $e) {
             throw new Exception('Error updating vol: ' . $e->getMessage());
@@ -93,5 +119,16 @@ class VolC
             throw new Exception('Error fetching vol details: ' . $e->getMessage());
         }
     }
+
+    // public function searchMissions($searchQuery) {
+    //     $sql = "SELECT * FROM vol WHERE Arrive = '" . $searchQuery . "'";
+    //     $db = config::getConnexion();
+    //     try {
+    //         $liste = $db->query($sql);
+    //         return $liste;
+    //     } catch (Exception $e) {
+    //         die('Error:' . $e->getMessage());
+    //     }
+    // }
 }
 ?>

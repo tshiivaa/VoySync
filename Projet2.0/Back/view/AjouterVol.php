@@ -19,25 +19,71 @@ if (
     isset($_POST['Classe']) &&
     isset($_POST['Evaluation'])
 ) {
-    // Create a new instance of the Vol class and set its properties
-    $vol = new Vol(
-        //$_POST['IDvol'],           // IDvol
-        $_POST['Compagnie'],      // Compagnie
-        $_POST['Num_vol'],        // Num_vol
-        $_POST['Depart'],         // Depart
-        $_POST['Arrive'],         // Arrive
-        $_POST['DateDepart'],     // DateDepart
-        $_POST['DateArrive'],     // DateArrive
-        $_POST['DureeOffre'],     // DureeOffre
-        $_POST['Prix'],           // Prix
-        $_POST['Classe'],         // Classe
-        $_POST['Evaluation']      // Evaluation
-    );
-    
+  if(isset($_FILES['File'])) {
+    $file = $_FILES['File'];
 
-    // Set the flag to indicate that the data is valid
-    $s = 1;
+    // File details
+    $fileName = $_FILES['File']['name'];
+    $fileTmpName = $_FILES['File']['tmp_name'];
+    $fileSize = $_FILES['File']['size'];
+    $fileError = $_FILES['File']['error'];
+    $fileType = $_FILES['File']['type'];
+
+    // Allowed file extensions
+    $allowed = array('jpg', 'jpeg', 'png', 'pdf');
+
+    // Get the file extension
+    $fileExt = explode('.', $fileName);
+    $fileActualExt = strtolower(end($fileExt));
+
+    // Check if the file extension is allowed
+    if (in_array($fileActualExt, $allowed)) {
+        // Check for upload errors
+        if($fileError === 0){
+            // Check the file size
+            if($fileSize < 100000000){ // Adjust the file size limit as needed
+                // Generate a unique file name
+                $fileNameNew = uniqid('', true).".".$fileActualExt;
+                // Set the file destination
+                $fileDestination = 'uploads/'.$fileNameNew;
+                // Move the uploaded file to the destination
+                move_uploaded_file($fileTmpName, $fileDestination);
+                // Create a new instance of the Vol class and set its properties
+                $vol = new Vol(
+                  //$_POST['IDvol'],           // IDvol
+                  $_POST['Compagnie'],      // Compagnie
+                  $_POST['Num_vol'],        // Num_vol
+                  $_POST['Depart'],         // Depart
+                  $_POST['Arrive'],         // Arrive
+                  $_POST['DateDepart'],     // DateDepart
+                  $_POST['DateArrive'],     // DateArrive
+                  $_POST['DureeOffre'],     // DureeOffre
+                  $_POST['Prix'],           // Prix
+                  $_POST['Classe'],         // Classe
+                  $_POST['Evaluation'],     // Evaluation
+                  $fileNameNew
+              );
+              
+
+              // Set the flag to indicate that the data is valid
+              $s = 1;
+
+                
+            } else {
+                echo "Your file is too big!";
+            }
+        } else {
+            echo "There was an error uploading your file!";
+        }
+    } else {
+        echo "You cannot upload files of this type!";
+    }
+} else {
+    echo "No file uploaded!";
 }
+}
+
+    
 ?>
 
 <!DOCTYPE html>
@@ -246,7 +292,7 @@ if (
   </nav>
   <div class="main_body">
     <h2>Ajouter un vol</h2>
-    <form method="POST" action="">
+    <form method="POST" action="" enctype="multipart/form-data">
 
         <!-- <label for="IDvol">ID Vol:</label><br> -->
         <!-- <input type="number" id="IDvol" name="IDvol" placeholder="L'id doit etre un nombre" required><br> -->
@@ -285,6 +331,9 @@ if (
         
         <label for="Evaluation">Évaluation:</label><br>
         <input type="number" id="Evaluation" name="Evaluation" min="0" max="5" placeholder="Noter sur 5 étoiles" required><br><br>
+
+        <label for="File">File :</label>
+        <input type="File" id="File" name="File" accept="File/*" required><br><br>
         
         <input type="submit" value="Ajouter">
     </form>

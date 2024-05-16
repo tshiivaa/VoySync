@@ -11,7 +11,7 @@ class Logement
     private $Evaluation;
     private $Disponibilite;
     private $IDvol;
-    //private ?string $img = null;
+    private $File;
 
     function getIDlogement()
     {
@@ -110,29 +110,18 @@ class Logement
         $this->IDvol = $IDvol;
     }
 
-    /*public function getImage()
+    function getFile()
     {
-        return $this->img;
+        return $this->File;
     }
 
-    public function setImage($img)
+    // Méthode pour définir le nom du fichier de l'image
+    function setFile($File)
     {
-        return $this->img = $img;
-    }*/
-    /*function __construct($IDlogement, $Nom, $Type, $Adresse, $Prix, $Description, $Capacite, $Evaluation, $Disponibilite, $IDvol = null, string $img) {
-        $this->IDlogement = $IDlogement;
-        $this->Nom = $Nom;
-        $this->Type = $Type;
-        $this->Adresse = $Adresse;
-        $this->Prix = $Prix;
-        $this->Description = $Description;
-        $this->Capacite = $Capacite;
-        $this->Evaluation = $Evaluation;
-        $this->Disponibilite = $Disponibilite;
-        $this->IDvol = $IDvol; // Initialiser IDvol
-        //$this->img = $img;
-    }*/
-    function __construct($Nom, $Type, $Adresse, $Prix, $Description, $Capacite, $Evaluation, $Disponibilite, $IDvol)
+        $this->File = $File;
+    }
+
+    function __construct($Nom, $Type, $Adresse, $Prix, $Description, $Capacite, $Evaluation, $Disponibilite, $IDvol, $File)
     {
         $this->Nom = $Nom;
         $this->Type = $Type;
@@ -143,6 +132,7 @@ class Logement
         $this->Evaluation = $Evaluation;
         $this->Disponibilite = $Disponibilite;
         $this->IDvol = $IDvol;
+        $this->File = $File;
     }
 }
 ?>

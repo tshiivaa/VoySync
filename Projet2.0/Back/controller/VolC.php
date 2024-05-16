@@ -54,8 +54,8 @@ class VolC
     }*/
     public function addVol($vol)
     {
-        $sql = "INSERT INTO vol (Compagnie, Num_vol, Depart, Arrive, DateDepart, DateArrive, DureeOffre, Prix, Classe, Evaluation)
-                VALUES (:Compagnie, :Num_vol, :Depart, :Arrive, :DateDepart, :DateArrive, :DureeOffre, :Prix, :Classe, :Evaluation)";
+        $sql = "INSERT INTO vol (Compagnie, Num_vol, Depart, Arrive, DateDepart, DateArrive, DureeOffre, Prix, Classe, Evaluation, File)
+                VALUES (:Compagnie, :Num_vol, :Depart, :Arrive, :DateDepart, :DateArrive, :DureeOffre, :Prix, :Classe, :Evaluation, :File)";
         $db = config::getConnexion();
         try {
             $query = $db->prepare($sql);
@@ -69,7 +69,8 @@ class VolC
                 'DureeOffre' => $vol->getDureeOffre(),
                 'Prix' => $vol->getPrix(),
                 'Classe' => $vol->getClasse(),
-                'Evaluation' => $vol->getEvaluation()
+                'Evaluation' => $vol->getEvaluation(),
+                'File' =>$vol->getFile()
             ]);
         } catch (Exception $e) {
             throw new Exception('Error adding vol: ' . $e->getMessage());
@@ -81,7 +82,7 @@ class VolC
     {
         $sql = "UPDATE vol SET Compagnie = :Compagnie, Num_vol = :Num_vol, Depart = :Depart, Arrive = :Arrive, 
                 DateDepart = :DateDepart, DateArrive = :DateArrive, DureeOffre = :DureeOffre, Prix = :Prix, 
-                Classe = :Classe, Evaluation = :Evaluation WHERE IDvol = :IDvol";
+                Classe = :Classe, Evaluation = :Evaluation, File = :File WHERE IDvol = :IDvol";
         $db = config::getConnexion();
         try {
             $query = $db->prepare($sql);
@@ -96,7 +97,8 @@ class VolC
                 'DureeOffre' => $vol->getDureeOffre(),
                 'Prix' => $vol->getPrix(),
                 'Classe' => $vol->getClasse(),
-                'Evaluation' => $vol->getEvaluation()
+                'Evaluation' => $vol->getEvaluation(),
+                'File' =>$vol->getFile()
             ]);
         } catch (Exception $e) {
             throw new Exception('Error updating vol: ' . $e->getMessage());

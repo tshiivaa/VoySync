@@ -33,8 +33,8 @@ class LogementC
     public function addLogement($logement)
     {
         $db = config::getConnexion();
-        $sql = "INSERT INTO logement (Nom, Type, Adresse, Prix, Description, Capacite, Evaluation, Disponibilite, IDvol)
-                VALUES (:Nom, :Type, :Adresse, :Prix, :Description, :Capacite, :Evaluation, :Disponibilite, :IDvol)";
+        $sql = "INSERT INTO logement (Nom, Type, Adresse, Prix, Description, Capacite, Evaluation, Disponibilite, IDvol, File)
+                VALUES (:Nom, :Type, :Adresse, :Prix, :Description, :Capacite, :Evaluation, :Disponibilite, :IDvol, :File)";
         
         try {
             $query = $db->prepare($sql);
@@ -47,7 +47,8 @@ class LogementC
                 'Capacite' => $logement->getCapacite(),
                 'Evaluation' => $logement->getEvaluation(),
                 'Disponibilite' => $logement->getDisponibilite(),
-                'IDvol' => $logement->getIDvol()
+                'IDvol' => $logement->getIDvol(),
+                'File' =>$logement->getFile()
             ]);
 
             // Retrieve the auto-generated ID
@@ -61,7 +62,7 @@ class LogementC
     public function updateLogement($logement, $IDlogement)
     {
         $sql = "UPDATE logement SET Nom = :Nom, Type = :Type, Adresse = :Adresse, Prix = :Prix, Description = :Description, 
-                Capacite = :Capacite, Evaluation = :Evaluation, Disponibilite = :Disponibilite, IDvol = :IDvol WHERE IDlogement = :IDlogement";
+                Capacite = :Capacite, Evaluation = :Evaluation, Disponibilite = :Disponibilite, IDvol = :IDvol, File = :File WHERE IDlogement = :IDlogement";
         $db = config::getConnexion();
         try {
             $query = $db->prepare($sql);
@@ -76,7 +77,8 @@ class LogementC
                 'Capacite' => $logement->getCapacite(),
                 'Evaluation' => $logement->getEvaluation(),
                 'Disponibilite' => $logement->getDisponibilite(),
-                'IDvol' => $logement->getIDvol()
+                'IDvol' => $logement->getIDvol(),
+                'File' =>$logement->getFile()
                 
             ]);
         } 

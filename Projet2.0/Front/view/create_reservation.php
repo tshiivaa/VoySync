@@ -94,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
          $destinationSms = new SmsDestination(to: $telephone); // Numéro de téléphone
          $smsMessage = new SmsTextualMessage(
              destinations: [$destinationSms],
-             text: "Bonjour $nom, votre réservation a été confirmée pour le $date_reservation à $destination. Merci de nous avoir choisis!",
+             text: "Bonjour $nom, votre réservation a été confirmée pour le $date_reservation à $destination. Merci de nous avoir choisi!",
              from: "VoySync"
          );
  

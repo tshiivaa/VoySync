@@ -142,7 +142,8 @@ $logements = $logementC->listLogement();
         <!-- <p >"Découvrez nos logements disponibles"</p> -->
         <br />
         <div class="Ajouter" style="text-align: center; margin-bottom: 20px; margin-top: 0px;">
-            <a href="AjouterLogement.php" class="btn btn-ajouter">Ajouter un logement</a>
+            <a href="AjouterLogement copy.php" class="btn btn-ajouter">Ajouter un logement</a>
+            <!-- <a href="AjouterLogement.php" class="btn btn-ajouter">Ajouter un logement</a> -->
         </div>
 
     </div>
@@ -158,7 +159,12 @@ $logements = $logementC->listLogement();
                 <p><strong>Capacité :</strong> <?= $logement['Capacite']; ?></p>
                 <p><strong>Évaluation :</strong> <?= $logement['Evaluation']; ?></p>
                 <p><strong>Disponibilité :</strong> <?= $logement['Disponibilite']; ?></p>
-                <!-- Add image display if needed -->
+                <!-- Affichage de l'image -->
+                <?php if (!empty($logement['File'])): ?>
+                    <img src="uploads/<?= $logement['File']; ?>" alt="Image du logement">
+                <?php else: ?>
+                    <p>Aucune image disponible</p>
+                <?php endif; ?>
                 <div class="button-container">
                     
                     <a href="#" class="btn" onclick="return confirmModification('<?= $logement['IDlogement']; ?>')">Modifier</a>                    <!-- formulaire de suppression avec alerte de confirmation -->

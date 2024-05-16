@@ -160,6 +160,12 @@ $vols = $volC->listVols();
                 <p><strong>Prix :</strong> <?= $vol['Prix']; ?></p>
                 <p><strong>Classe :</strong> <?= $vol['Classe']; ?></p>
                 <p><strong>Évaluation :</strong> <?= $vol['Evaluation']; ?></p>
+                <!-- Affichage de l'image -->
+                <?php if (!empty($vol['File'])): ?>
+                    <img src="uploads/<?= $vol['File']; ?>" alt="Image du logement">
+                <?php else: ?>
+                    <p>Aucune image disponible</p>
+                <?php endif; ?>
                 <!-- Add buttons for actions -->
                 <div class="button-container">
                     

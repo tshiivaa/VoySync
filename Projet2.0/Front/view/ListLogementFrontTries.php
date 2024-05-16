@@ -183,7 +183,7 @@ $logements = $logementC->getFilteredLogements($date_reservation, $destination, $
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="image">
-                                    <img src="/Projet2.0/Front/view/images/deals-01.jpg" alt="">
+                                  <img src="../../Back/view/uploads/<?= $logement['File']; ?>" alt="Image du logement">
                                 </div>
                             </div>
                             <div class="col-lg-6 align-self-center">
@@ -228,112 +228,7 @@ $logements = $logementC->getFilteredLogements($date_reservation, $destination, $
     </div>
 </div>
 
-        <!-- <div class="col-lg-6 col-sm-6"> 
-          <div class="item">
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="image">
-                  <img src="http://localhost/Projet2.0/Front/view/images/deals-02.jpg" alt="">
-                </div>
-              </div>
-              <div class="col-lg-6 align-self-center">
-                <div class="content">
-                  <span class="info">*Today & Tomorrow Only</span>
-                  <h4>Venezia Italy Ipsum</h4>
-                  <div class="row">
-                    <div class="col-6">
-                      <i class="fa fa-clock"></i>
-                      <span class="list">5 Days</span>
-                    </div>
-                    <div class="col-6">
-                      <i class="fa fa-map"></i>
-                      <span class="list">Daily Places</span>
-                    </div>
-                  </div>
-                  <p>Lorem ipsum dolor sit amet dire consectetur adipiscing elit.</p>
-                  <div class="main-button">
-                    <a href="reservation.html">Reserver</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-6 col-sm-6">
-          <div class="item">
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="image">
-                  <img src="http://localhost/Projet2.0/Front/view/images/deals-03.jpg" alt="">
-                </div>
-              </div>
-              <div class="col-lg-6 align-self-center">
-                <div class="content">
-                  <span class="info">**Undefined</span>
-                  <h4>Glasgow City Lorem</h4>
-                  <div class="row">
-                    <div class="col-6">
-                      <i class="fa fa-clock"></i>
-                      <span class="list">5 Days</span>
-                    </div>
-                    <div class="col-6">
-                      <i class="fa fa-map"></i>
-                      <span class="list">Daily Places</span>
-                    </div>
-                  </div>
-                  <p>Lorem ipsum dolor sit amet dire consectetur adipiscing elit.</p>
-                  <div class="main-button">
-                    <a href="reservation.html">Reserver</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-6 col-sm-6">
-          <div class="item">
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="image">
-                  <img src="http://localhost/Projet2.0/Front/view/images/deals-04.jpg" alt="">
-                </div>
-              </div>
-              <div class="col-lg-6 align-self-center">
-                <div class="content">
-                  <span class="info">*Offer Until 24th March</span>
-                  <h4>Glasgow City Lorem</h4>
-                  <div class="row">
-                    <div class="col-6">
-                      <i class="fa fa-clock"></i>
-                      <span class="list">5 Days</span>
-                    </div>
-                    <div class="col-6">
-                      <i class="fa fa-map"></i>
-                      <span class="list">Daily Places</span>
-                    </div>
-                  </div>
-                  <p>This free CSS template is provided by Template Mo website.</p>
-                  <div class="main-button">
-                    <a href="reservation.html">Reserver</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-12">
-          <ul class="page-numbers">
-            <li><a href="#"><i class="fa fa-arrow-left"></i></a></li>
-            <li><a href="#">1</a></li>
-            <li class="active"><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#"><i class="fa fa-arrow-right"></i></a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
--->
+
   <div class="call-to-action">
     <div class="container">
       <div class="row">

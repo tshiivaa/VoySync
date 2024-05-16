@@ -12,6 +12,7 @@ class Vol
     private $Prix;
     private $Classe;
     private $Evaluation;
+    private $File;
 
     function getIDvol()
     {
@@ -123,9 +124,18 @@ class Vol
         $this->Evaluation = $Evaluation;
     }
 
-    function __construct($IDvol, $Compagnie, $Num_vol, $Depart, $Arrive, $DateDepart, $DateArrive, $DureeOffre, $Prix, $Classe, $Evaluation)
+    function getFile()
     {
-        $this->IDvol = $IDvol;
+        return $this->File;
+    }
+
+    // Méthode pour définir le nom du fichier de l'image
+    function setFile($File)
+    {
+        $this->File = $File;
+    }
+    function __construct($Compagnie, $Num_vol, $Depart, $Arrive, $DateDepart, $DateArrive, $DureeOffre, $Prix, $Classe, $Evaluation, $File)
+    {
         $this->Compagnie = $Compagnie;
         $this->Num_vol = $Num_vol;
         $this->Depart = $Depart;
@@ -136,6 +146,8 @@ class Vol
         $this->Prix = $Prix;
         $this->Classe = $Classe;
         $this->Evaluation = $Evaluation;
+        $this->File = $File;
     }
+
 }
 ?>

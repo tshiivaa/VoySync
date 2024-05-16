@@ -10,6 +10,8 @@ class Logement
     private $Capacite;
     private $Evaluation;
     private $Disponibilite;
+    private $IDvol;
+    private $File;
 
     function getIDlogement()
     {
@@ -100,10 +102,27 @@ class Logement
     {
         $this->Disponibilite = $Disponibilite;
     }
+    function getIDvol() { // Ajout de la méthode getIDvol
+        return $this->IDvol;
+    }
 
-    function __construct($IDlogement, $Nom, $Type, $Adresse, $Prix, $Description, $Capacite, $Evaluation, $Disponibilite)
+    function setIDvol($IDvol) { // Ajout de la méthode setIDvol
+        $this->IDvol = $IDvol;
+    }
+
+    function getFile()
     {
-        $this->IDlogement = $IDlogement;
+        return $this->File;
+    }
+
+    // Méthode pour définir le nom du fichier de l'image
+    function setFile($File)
+    {
+        $this->File = $File;
+    }
+
+    function __construct($Nom, $Type, $Adresse, $Prix, $Description, $Capacite, $Evaluation, $Disponibilite, $IDvol, $File)
+    {
         $this->Nom = $Nom;
         $this->Type = $Type;
         $this->Adresse = $Adresse;
@@ -112,6 +131,8 @@ class Logement
         $this->Capacite = $Capacite;
         $this->Evaluation = $Evaluation;
         $this->Disponibilite = $Disponibilite;
+        $this->IDvol = $IDvol;
+        $this->File = $File;
     }
 }
 ?>

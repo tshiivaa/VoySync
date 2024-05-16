@@ -19,28 +19,71 @@ if (
     isset($_POST['Classe']) &&
     isset($_POST['Evaluation']) 
 ) {
-    // Create a new instance of the Vol class and set its properties
-    $vol = new Vol(
-        //$_POST['IDvol'],           // IDvol
-        $_POST['Compagnie'],      // Compagnie
-        $_POST['Num_vol'],        // Num_vol
-        $_POST['Depart'],         // Depart
-        $_POST['Arrive'],         // Arrive
-        $_POST['DateDepart'],     // DateDepart
-        $_POST['DateArrive'],     // DateArrive
-        $_POST['DureeOffre'],     // DureeOffre
-        $_POST['Prix'],           // Prix
-        $_POST['Classe'],         // Classe
-        $_POST['Evaluation']      // Evaluation
-    );
+  if(isset($_FILES['File'])) {
+    $file = $_FILES['File'];
 
-    // Update the flight using the VolController
-    try {
-        $volC->updateVol($vol, $_POST['IDvol']);
-        $s = 1; // Set flag for successful update
-    } catch (Exception $e) {
-        echo 'Error updating vol: ' . $e->getMessage();
+    // File details
+    $fileName = $_FILES['File']['name'];
+    $fileTmpName = $_FILES['File']['tmp_name'];
+    $fileSize = $_FILES['File']['size'];
+    $fileError = $_FILES['File']['error'];
+    $fileType = $_FILES['File']['type'];
+
+    // Allowed file extensions
+    $allowed = array('jpg', 'jpeg', 'png', 'pdf');
+
+    // Get the file extension
+    $fileExt = explode('.', $fileName);
+    $fileActualExt = strtolower(end($fileExt));
+
+    // Check if the file extension is allowed
+    if (in_array($fileActualExt, $allowed)) {
+        // Check for upload errors
+        if($fileError === 0){
+            // Check the file size
+            if($fileSize < 100000000){ // Adjust the file size limit as needed
+                // Generate a unique file name
+                $fileNameNew = uniqid('', true).".".$fileActualExt;
+                // Set the file destination
+                $fileDestination = 'uploads/'.$fileNameNew;
+                // Move the uploaded file to the destination
+                move_uploaded_file($fileTmpName, $fileDestination);
+                // Create the new Logement instance with valid data including the file name
+                // Create a new instance of the Vol class and set its properties
+                $vol = new Vol(
+                  //$_POST['IDvol'],           // IDvol
+                  $_POST['Compagnie'],      // Compagnie
+                  $_POST['Num_vol'],        // Num_vol
+                  $_POST['Depart'],         // Depart
+                  $_POST['Arrive'],         // Arrive
+                  $_POST['DateDepart'],     // DateDepart
+                  $_POST['DateArrive'],     // DateArrive
+                  $_POST['DureeOffre'],     // DureeOffre
+                  $_POST['Prix'],           // Prix
+                  $_POST['Classe'],         // Classe
+                  $_POST['Evaluation'],      // Evaluation
+                  $fileNameNew
+              );
+
+              // Update the flight using the VolController
+              try {
+                  $volC->updateVol($vol, $_POST['IDvol']);
+                  $s = 1; // Set flag for successful update
+              } catch (Exception $e) {
+                  echo 'Error updating vol: ' . $e->getMessage();
+              }
+            } else {
+                echo "Your file is too big!";
+            }
+        } else {
+            echo "There was an error uploading your file!";
+        }
+    } else {
+        echo "You cannot upload files of this type!";
     }
+} else {
+    echo "No file uploaded!";
+}
 }
 
 // Fetch the flight details to prepopulate the form
@@ -258,7 +301,7 @@ if (isset($_GET['IDvol'])) {
   </nav>
   <div class="main_body">
     <h2>Modifier un vol</h2>
-    <form method="POST" action="UpdateVol.php">
+    <form method="POST" action="UpdateVol.php" enctype="multipart/form-data">
 
         <!-- Hidden input field to pass IDvol -->
         <input type="hidden" id="IDvol" name="IDvol" value="<?= isset($volDetails['IDvol']) ? $volDetails['IDvol'] : ''; ?>" required>
@@ -298,6 +341,8 @@ if (isset($_GET['IDvol'])) {
         <label for="Evaluation">Évaluation:</label><br>
         <input type="number" id="Evaluation" name="Evaluation" min="0" max="5" value="<?= isset($volDetails['Evaluation']) ? $volDetails['Evaluation'] : ''; ?>" placeholder="Noter sur 5 étoiles" required><br><br>
         
+        <label for="File">File :</label>
+        <input type="file" id="File" name="File" accept="image/*">
 
         <input type="submit" value="Modifier">
     </form>
