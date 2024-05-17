@@ -113,7 +113,7 @@ class ReservationController {
             
                 echo "Réservation créée avec succès !";
                 // Redirection
-                 header("Location: indexf.html");
+                 header("Location: indexf.php");
                 
                 exit();
             

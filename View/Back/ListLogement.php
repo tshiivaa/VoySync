@@ -21,7 +21,7 @@ $logements = $logementC->listLogement();
   <nav class="navbar">
     <div class="logo_item">
       <i class="bx bx-menu" id="sidebarOpen"></i>
-      <img src="../images/logo.png" alt="">Voysync
+      <img src="../images/logo.png" alt="">
     </div>
     <div class="search_bar">
       <input type="text" placeholder="Search">
@@ -30,7 +30,7 @@ $logements = $logementC->listLogement();
       <i class="bi bi-grid"></i>
       <i class='bx bx-sun' id="darkLight"></i>
       <i class='bx bx-bell'></i>
-      <img src="../images/profileAsma.jpg" alt="" class="profile">
+      <img src="../images/profile.jpg" alt="" style="width: 35px; height: 35px; object-fit: cover; border-radius: 50%; " class="profile">
     </div>
   </nav>
   <nav class="sidebar">

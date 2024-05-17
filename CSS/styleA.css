@@ -50,12 +50,18 @@ body.dark {
   font-size: 22px;
   font-weight: 500;
   color: var(--yellow-color);
+  
 }
-.navbar img {
+/* .navbar img {
   width: 35px;
   height: 35px;
   object-fit: cover;
   border-radius: 50%;
+} */
+.navbar img {
+  width: 150px;
+  height: 35px;
+
 }
 .search_bar {
   height: 47px;

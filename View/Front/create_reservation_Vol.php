@@ -131,7 +131,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         sendConfirmationSMS($_POST['nom'], $_POST['telephone'], $_POST['destination'], $_POST['date_reservation']);
 
         // Redirect to a success page
-        header("Location: indexf.html");
+        header("Location: indexf.php");
         exit();
     } catch (Exception $e) {
         // Handle any exceptions gracefully

@@ -1,6 +1,6 @@
 <?php
 
-include '../Controller/DepenseC.php';
+include '../../Controller/DepenseC.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id'])) {
   $error = "";
   $id = $_POST['id'];
@@ -50,16 +50,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
   <title>Voysync</title>
-  <link rel="stylesheet" href="../CSS/style.css" type="text/css">
-  <link rel="stylesheet" href="../CSS/budget.css" type="text/css">
-  <link rel="stylesheet" href="../CSS/expanding.css" type="text/css">
+  <link rel="stylesheet" href="../../CSS/style.css" type="text/css">
+  <link rel="stylesheet" href="../../CSS/budget.css" type="text/css">
+  <link rel="stylesheet" href="../../CSS/expanding.css" type="text/css">
 </head>
 
 <body>
   <nav class="navbar">
     <div class="logo_item">
       <i class="bx bx-menu" id="sidebarOpen"></i>
-      <img src="images/logo.png" alt="">Voysync
+      <img src="images/logo.png" alt="">
     </div>
     <div class="search_bar">
       <input type="text" placeholder="Search">

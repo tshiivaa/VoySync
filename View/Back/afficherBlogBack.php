@@ -115,22 +115,42 @@
             color: #555;
         }
     </style>
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var searchInput = document.getElementById("searchInput");
+      var articles = document.querySelectorAll(".article");
+
+      searchInput.addEventListener("input", function () {
+        var searchTerm = searchInput.value.toLowerCase();
+
+        articles.forEach(function (article) {
+          var title = article.querySelector("h2").innerText.toLowerCase();
+
+          if (title.includes(searchTerm)) {
+            article.style.display = "block";
+          } else {
+            article.style.display = "none";
+          }
+        });
+      });
+    });
+  </script>
 </head>
 
 <body>
     <nav class="navbar">
         <div class="logo_item">
             <i class="bx bx-menu" id="sidebarOpen"></i>
-            <img src="../images/logo.png" alt="">Voysync
+            <img src="../images/logo.png" alt="">
         </div>
         <div class="search_bar">
-            <input type="text" placeholder="Search">
-        </div>
+              <input type="text" id="searchInput" placeholder="Rechercher par titre...">
+            </div>
         <div class="navbar_content">
             <i class="bi bi-grid"></i>
             <i class='bx bx-sun' id="darkLight"></i>
             <i class='bx bx-bell'></i>
-            <img src="../images/profile2.jpg" alt="" class="profile">
+            <img src="../images/profile2.jpg" alt="" style="width: 35px; height: 35px; object-fit: cover; border-radius: 50%; " class="profile">
         </div>
     </nav>
     <nav class="sidebar">

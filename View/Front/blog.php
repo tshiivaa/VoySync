@@ -367,6 +367,9 @@
                         <img src="../../View/images/logo.png" alt="">
                     </a>
                     <!-- ***** Logo End ***** -->
+                    <div class="search_bar">
+                      <input type="text" id="searchInput" placeholder="Rechercher par titre...">
+                    </div>
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav">
                         <li><a id="accueil-link" href="indexf.php" class="active">Accueil</a></li>

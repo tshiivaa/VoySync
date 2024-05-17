@@ -59,7 +59,7 @@ $destination = isset($_GET['destination']) ? htmlspecialchars($_GET['destination
 <body>
     <header>
         <!-- Logo et navigation -->
-        <a href="indexf.html" class="logo">
+        <a href="indexf.php" class="logo">
             <img src="../images/logo.png" alt="">
         </a>
     </header>

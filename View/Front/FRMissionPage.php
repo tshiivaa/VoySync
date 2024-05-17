@@ -209,7 +209,7 @@ if (isset($_GET['trie'])) {
                     </div>
                     <p class ="description"><strong><?php echo $mission['description']; ?></strong></p>
                     <div class="main-button">
-                        <a class="btn" href="info.php?id_m=<?= $mission['id_m']; ?>?id=<?php echo $utilisateurs['id']; ?>" role="button">Plus d'info</a>
+                        <a class="btn" href="info.php?id_m=<?= $mission['id_m']; ?>" role="button">Plus d'info</a>
                     </div>
                   </div>
                 </div>

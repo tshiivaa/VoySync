@@ -21,11 +21,107 @@ require "connexion.php";
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
 </head>
 
-<body style="background-color: #1D548DFF;">
-<nav class="navbar navbar-light justify-content-center fs-3 mb-5"
-     style="background-color: #fbcd5a;color: #1D548DFF;">
-    Users Dashboard
-</nav>
+    <nav class="navbar">
+        <div class="logo_item">
+            <i class="bx bx-menu" id="sidebarOpen"></i>
+            <img src="../View/images/logo.png" alt="">
+        </div>
+        <div class="search_bar">
+            <input type="text" placeholder="Search">
+        </div>
+        <div class="navbar_content">
+            <i class="bi bi-grid"></i>
+            <i class='bx bx-sun' id="darkLight"></i>
+            <i class='bx bx-bell'></i>
+            <img src="../View/images/profiled.jpg" alt="" style="width: 35px; height: 35px; object-fit: cover; border-radius: 50%; " class="profile">
+        </div>
+    </nav>
+    <nav class="sidebar">
+        <div class="menu_content">
+            <ul class="menu_items">
+                <div class="menu_title menu_dahsboard"></div>
+                <li class="item">
+                    <div href="index.html" class="nav_link submenu_item">
+                <span class="navlink_icon">
+                <i class="bx bx-home-alt"></i>
+                </span>
+                        <span class="navlink">Home</span>
+                    </div>
+                </li>
+                <li class="item">
+                    <a href="../View/Back/Depenses_back.php" class="nav_link">
+                <span class="navlink_icon">
+                <i class='bx bx-wallet'></i>
+                </span>
+                        <span class="navlink">Pochette de voyage</span>
+                    </a>
+                </li>
+                <li class="item">
+                    <div href="#" class="nav_link submenu_item">
+                        <span class="navlink_icon">
+                            <i class="bx bxs-magic-wand"></i>
+                        </span>
+                        <span class="navlink">Itineraire magique</span>
+                        <i class="bx bx-chevron-right arrow-left"></i>
+                    </div>
+                    <ul class="menu_items submenu">
+                        <a href="../View/Back/backofficeDestination.php" class="nav_link sublink">Destinations</a>
+                        <a href="../View/Back/backofficeTransport.php" class="nav_link sublink">Transport</a>
+                    </ul>
+                </li>
+                <li class="item">
+                    <a href="../View/Back/afficherBlogBack.php" class="nav_link">
+                <span class="navlink_icon">
+                <i class='bx bxs-chat'></i>
+                </span>
+                        <span class="navlink">Blog</span>
+                    </a>
+                </li>
+                <li class="item">
+                    <a href="../View/Back/HomePage.php" class="nav_link">
+                <span class="navlink_icon">
+                <i class='bx bx-map-alt'></i>
+                </span>
+                        <span class="navlink">Missions</span>
+                    </a>
+                </li>
+                <li class="item">
+                    <a href="index.php" class="nav_link">
+                <span class="navlink_icon">
+                <i class='bx bxs-user-account'></i>
+                </span>
+                        <span class="navlink">Compte</span>
+                    </a>
+                </li>
+                <li class="item">
+                    <div href="#" class="nav_link submenu_item">
+                        <span class="navlink_icon">
+                        <i class='bx bx-wallet'></i>
+                        </span>
+                        <span class="navlink">Offre</span>
+                        <i class="bx bx-chevron-right arrow-left"></i>
+                    </div>
+                    <ul class="menu_items submenu">
+                        <a href="../View/Back/ListLogement.php" class="nav_link sublink">Logement</a>
+                        <a href="../View/Back/ListVol.php" class="nav_link sublink">Vol</a>
+                        <a href="../View/Back/ListReservation.php" class="nav_link sublink">Reservation</a>
+                    </ul>
+                </li>
+            </ul>
+
+            <div class="bottom_content">
+                <div class="bottom expand_sidebar">
+                    <span> Expand</span>
+                    <i class='bx bx-log-in'></i>
+                </div>
+                <div class="bottom collapse_sidebar">
+                    <span> Collapse</span>
+                    <i class='bx bx-log-out'></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+<div class="main_body">
 
 <div class="container">
     <?php
@@ -82,6 +178,7 @@ require "connexion.php";
         </tbody>
     </table>
 </div>
+    </div>
 
 <!-- Bootstrap -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"

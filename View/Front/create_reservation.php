@@ -105,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Redirection après succès
         // header("Location: ListLogementFrontTries.php");
-        header("Location: indexf.html");
+        header("Location: indexf.php");
         exit();
     } catch (Exception $e) {
         die('Erreur lors de la réservation: ' . $e->getMessage());
