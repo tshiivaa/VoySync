@@ -1,0 +1,86 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, input {
+    background-color: #ffffff;
+    font-family: "Poppins", sans-serif;
+}
+
+#page-title {
+    color: #1D548DFF;
+    text-align: center;
+}
+
+#title_hr {
+    border-color: #1D548DFF;
+}
+
+#login-wrapper {
+    background-color: #FFFFFF;
+    width: 500px; /* Augmentez la largeur selon vos besoins */
+    margin: 0 auto;
+    padding: 60px; /* Ajustez la marge intérieure pour compenser la taille plus grande */
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+}
+
+
+.input-field {
+    margin-bottom: 15px;
+}
+
+.input-label {
+    color: #1D548DFF;
+}
+
+.login-btn {
+    background-color: #1D548DFF;
+    color: #FFFFFF;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0px 2px 4px rgba(29, 84, 141, 0.2);
+    font-family: "Poppins", sans-serif;
+}
+
+.login-btn:hover {
+    background-color: #153E6EFF;
+    transform: translateY(-2px);
+    box-shadow: 0px 4px 8px rgba(29, 84, 141, 0.3);
+}
+
+
+.message-error {
+    color: red;
+}
+
+/* Pour la page Reset Password */
+.message-success {
+    color: green;
+}
+
+.reset-btn {
+    background-color: #1D548DFF;
+    color: #FFFFFF;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0px 2px 4px rgba(29, 84, 141, 0.2);
+    font-family: "Poppins", sans-serif;
+
+}
+
+.reset-btn:hover {
+    background-color: #153E6EFF;
+    transform: translateY(-2px);
+    box-shadow: 0px 4px 8px rgba(29, 84, 141, 0.3);
+}

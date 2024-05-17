@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="MessDetectorOptionsConfiguration">
+    <option name="transferred" value="true" />
+  </component>
+  <component name="PHPCSFixerOptionsConfiguration">
+    <option name="transferred" value="true" />
+  </component>
+  <component name="PHPCodeSnifferOptionsConfiguration">
+    <option name="highlightLevel" value="WARNING" />
+    <option name="transferred" value="true" />
+  </component>
+  <component name="PhpIncludePathManager">
+    <include_path>
+      <path value="$PROJECT_DIR$/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/phpmailer/phpmailer" />
+      <path value="$PROJECT_DIR$/vendor/tecnickcom/tcpdf" />
+      <path value="$PROJECT_DIR$/vendor/twilio/sdk" />
+      <path value="$PROJECT_DIR$/View/SMS/vendor/doctrine/annotations" />
+      <path value="$PROJECT_DIR$/View/SMS/vendor/doctrine/deprecations" />
+      <path value="$PROJECT_DIR$/View/SMS/vendor/doctrine/lexer" />
+      <path value="$PROJECT_DIR$/View/SMS/vendor/ralouphie/getallheaders" />
+      <path value="$PROJECT_DIR$/View/SMS/vendor/webmozart/assert" />
+      <path value="$PROJECT_DIR$/View/SMS/vendor/guzzlehttp/guzzle" />
+      <path value="$PROJECT_DIR$/View/SMS/vendor/guzzlehttp/promises" />
+      <path value="$PROJECT_DIR$/View/SMS/vendor/guzzlehttp/psr7" />
+      <path value="$PROJECT_DIR$/View/SMS/vendor/phpdocumentor/reflection-common" />
+      <path value="$PROJECT_DIR$/View/SMS/vendor/phpdocumentor/reflection-docblock" />
+      <path value="$PROJECT_DIR$/View/SMS/vendor/phpdocumentor/type-resolver" />
+      <path value="$PROJECT_DIR$/View/SMS/vendor/composer" />
+      <path value="$PROJECT_DIR$/View/SMS/vendor/psr/cache" />
+      <path value="$PROJECT_DIR$/View/SMS/vendor/psr/container" />
+      <path value="$PROJECT_DIR$/View/SMS/vendor/psr/http-client" />
+      <path value="$PROJECT_DIR$/View/SMS/vendor/psr/http-factory" />
+      <path value="$PROJECT_DIR$/View/SMS/vendor/psr/http-message" />
+      <path value="$PROJECT_DIR$/View/SMS/vendor/psr/log" />
+      <path value="$PROJECT_DIR$/View/SMS/vendor/infobip/infobip-api-php-client" />
+      <path value="$PROJECT_DIR$/View/SMS/vendor/phpstan/phpdoc-parser" />
+      <path value="$PROJECT_DIR$/View/SMS/vendor/symfony/cache" />
+      <path value="$PROJECT_DIR$/View/SMS/vendor/symfony/cache-contracts" />
+      <path value="$PROJECT_DIR$/View/SMS/vendor/symfony/deprecation-contracts" />
+      <path value="$PROJECT_DIR$/View/SMS/vendor/symfony/polyfill-ctype" />
+      <path value="$PROJECT_DIR$/View/SMS/vendor/symfony/polyfill-intl-grapheme" />
+      <path value="$PROJECT_DIR$/View/SMS/vendor/symfony/polyfill-intl-normalizer" />
+      <path value="$PROJECT_DIR$/View/SMS/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/View/SMS/vendor/symfony/polyfill-php80" />
+      <path value="$PROJECT_DIR$/View/SMS/vendor/symfony/polyfill-php83" />
+      <path value="$PROJECT_DIR$/View/SMS/vendor/symfony/property-access" />
+      <path value="$PROJECT_DIR$/View/SMS/vendor/symfony/property-info" />
+      <path value="$PROJECT_DIR$/View/SMS/vendor/symfony/serializer" />
+      <path value="$PROJECT_DIR$/View/SMS/vendor/symfony/service-contracts" />
+      <path value="$PROJECT_DIR$/View/SMS/vendor/symfony/string" />
+      <path value="$PROJECT_DIR$/View/SMS/vendor/symfony/translation-contracts" />
+      <path value="$PROJECT_DIR$/View/SMS/vendor/symfony/validator" />
+      <path value="$PROJECT_DIR$/View/SMS/vendor/symfony/var-exporter" />
+    </include_path>
+  </component>
+  <component name="PhpProjectSharedConfiguration" php_language_level="7.4" />
+  <component name="PhpStanOptionsConfiguration">
+    <option name="transferred" value="true" />
+  </component>
+  <component name="PsalmOptionsConfiguration">
+    <option name="transferred" value="true" />
+  </component>
+</project>
