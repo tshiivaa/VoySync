@@ -219,7 +219,7 @@ if (isset($_GET['IDvol'])) {
                 <li class="item">
                     <div href="#" class="nav_link submenu_item">
                         <span class="navlink_icon">
-                            <i class="bx bxs-magic-wand"></i>
+                        <i class='bx bxs-magic-wand'></i>
                         </span>
                         <span class="navlink">Itineraire magique</span>
                         <i class="bx bx-chevron-right arrow-left"></i>

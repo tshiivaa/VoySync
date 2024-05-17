@@ -41,7 +41,7 @@ require "connexion.php";
             <ul class="menu_items">
                 <div class="menu_title menu_dahsboard"></div>
                 <li class="item">
-                    <div href="index.html" class="nav_link submenu_item">
+                    <div href="../View/Back/index.html" class="nav_link submenu_item">
                 <span class="navlink_icon">
                 <i class="bx bx-home-alt"></i>
                 </span>
@@ -59,7 +59,7 @@ require "connexion.php";
                 <li class="item">
                     <div href="#" class="nav_link submenu_item">
                         <span class="navlink_icon">
-                            <i class="bx bxs-magic-wand"></i>
+                        <i class='bx bxs-magic-wand'></i>
                         </span>
                         <span class="navlink">Itineraire magique</span>
                         <i class="bx bx-chevron-right arrow-left"></i>
@@ -86,7 +86,7 @@ require "connexion.php";
                     </a>
                 </li>
                 <li class="item">
-                    <a href="index.php" class="nav_link">
+                    <a href="../../Controller/index.php" class="nav_link">
                 <span class="navlink_icon">
                 <i class='bx bxs-user-account'></i>
                 </span>
