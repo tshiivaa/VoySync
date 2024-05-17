@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32x32.png">
     <title>Back-office Destinations</title>
     <link rel="stylesheet" href="Back.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
@@ -15,7 +15,7 @@
 <nav class="navbar">
     <div class="logo_item">
         <i class="bx bx-menu" id="sidebarOpen"></i>
-        <img src="./assets/images/logo.png" alt="">Voysync
+        <img src="../assets/images/logo.png" alt="">Voysync
     </div>
     <div class="search_bar">
         <input type="text" placeholder="Search">
@@ -24,7 +24,7 @@
         <i class="bi bi-grid"></i>
         <i class='bx bx-sun' id="darkLight"></i>
         <i class='bx bx-bell'></i>
-        <img src="./assets/images/profile.png" alt="" class="profile">
+        <img src="../assets/images/profile.png" alt="" class="profile">
     </div>
 </nav>
 <nav class="sidebar">

@@ -93,7 +93,7 @@ if (isset($_GET["destinationide"]) && !empty($_GET["destinationide"])) {
     <div class="main">
         
         <div class="sidebar">
-            <img src="./assets/images/bg-sidebar-desktop.svg" alt="side-bar" class="side-bar">
+            <img src="../assets/images/bg-sidebar-desktop.svg" alt="side-bar" class="side-bar">
         </div>
         <div class="form-container">
             <?php
@@ -120,7 +120,7 @@ if (isset($_GET["destinationide"]) && !empty($_GET["destinationide"])) {
             ?>
         </div>
         <div class="sidebar_right ">
-            <img src="./assets/images/bg-sidebar-desktop.svg" alt="side-bar" class="side-bar">
+            <img src="../assets/images/bg-sidebar-desktop.svg" alt="side-bar" class="side-bar">
         </div>
     </div>
 </body>

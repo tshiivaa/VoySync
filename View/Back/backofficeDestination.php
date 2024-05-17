@@ -1,45 +1,40 @@
 <?php
-include_once '../Controller/TransportC.php';
+include_once '../Controller/DestinationC.php';
 
-$transportController = new TransportController();
+$destinationController = new DestinationController();
 
 if (isset($_POST['create'])) {
-    $type = $_POST['type'];
-    $pays_depart = $_POST['pays_depart'];
-    $pays_arrivee = $_POST['pays_arrivee'];
-    $lieux_depart = $_POST['lieux_depart'];
-    $lieux_arrivee = $_POST['lieux_arrivee'];
-    $temps_depart = $_POST['temps_depart'];
-    $temps_arrivee = $_POST['temps_arrivee'];
-    $prix = $_POST['prix'];
+
+    $nom = $_POST['nom'];
+    $description = $_POST['description'];
+    $pays = $_POST['pays'];
     
-    $transportController->createTransport($type, $pays_depart, $pays_arrivee, $lieux_depart, $lieux_arrivee, $temps_depart, $temps_arrivee, $prix);
+    $destinationController->createDestination($nom, $description, $pays);
 } elseif (isset($_POST['update'])) {
-    $id_transport = $_POST['id_transport'];
-    $type = $_POST['type'];
-    $pays_depart = $_POST['pays_depart'];
-    $pays_arrivee = $_POST['pays_arrivee'];
-    $lieux_depart = $_POST['lieux_depart'];
-    $lieux_arrivee = $_POST['lieux_arrivee'];
-    $temps_depart = $_POST['temps_depart'];
-    $temps_arrivee = $_POST['temps_arrivee'];
-    $prix = $_POST['prix'];
+
+    $id_destination = $_POST['id_destination'];
+    $nom = $_POST['nom'];
+    $description = $_POST['description'];
+    $pays = $_POST['pays'];
     
-    $transportController->updateTransport($id_transport, $type, $pays_depart, $pays_arrivee, $lieux_depart, $lieux_arrivee, $temps_depart, $temps_arrivee, $prix);
+    $destinationController->updateDestination($id_destination, $nom, $description, $pays);
 } elseif (isset($_GET['delete'])) {
-    $id_transport = $_GET['delete'];
-    $transportController->deleteTransport($id_transport);
+
+    $id_destination = $_GET['delete'];
+    
+    $destinationController->deleteDestination($id_destination);
 }
 
-$listTransports = $transportController->listTransports();
-?>
 
+$listDestinations = $destinationController->listDestinations();
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Back-office Transports</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32x32.png">
+    <title>Back-office Destinations</title>
     <link rel="stylesheet" href="Back.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style_back.css">
@@ -48,9 +43,9 @@ $listTransports = $transportController->listTransports();
 </head>
 <body>
 <nav class="navbar">
-<div class="logo_item">
+    <div class="logo_item">
         <i class="bx bx-menu" id="sidebarOpen"></i>
-        <img src="./assets/images/logo.png" alt="">Voysync
+        <img src="../assets/images/logo.png" alt="">Voysync
     </div>
     <div class="search_bar">
         <input type="text" placeholder="Search">
@@ -59,7 +54,7 @@ $listTransports = $transportController->listTransports();
         <i class="bi bi-grid"></i>
         <i class='bx bx-sun' id="darkLight"></i>
         <i class='bx bx-bell'></i>
-        <img src="./assets/images/profile.png" alt="" class="profile">
+        <img src="../assets/images/profile.png" alt="" class="profile">
     </div>
 </nav>
 <nav class="sidebar">
@@ -96,7 +91,7 @@ $listTransports = $transportController->listTransports();
                     <i class="bx bx-chevron-right arrow-left"></i>
                 </div>
                 <ul class="menu_items submenu">
-                    <a href="backofficeDestination.php" class="nav_link sublink">Destinations</a>
+                    <a href="backoffice.php" class="nav_link sublink">Destinations</a>
                     <a href="backofficeTransport.php" class="nav_link sublink">Transport</a>
                 </ul>
             </li>
@@ -164,101 +159,68 @@ $listTransports = $transportController->listTransports();
 <script src="script_form.js"></script>
     <div class="itineraire-content">
         <div class="container">
-            <h1>Gestion des Transports</h1>
+            <h1>Gestion des Destinations</h1>
+
             <div class="form-container">
-                <h2>Créer un nouveau transport</h2>
-                <form method="post" class="form" id="transportForm">
+                <h2>Créer une nouvelle destination</h2>
+                <form method="post" class="form" id="destinationForm">
                     <div class="form-group">
-                        <label for="type">Type :</label>
-                        <input type="text" id="type" name="type">
+                        <label for="nom">Nom :</label>
+                        <input type="text" id="nom" name="nom">
+                        <span class="error" id="nomError"></span>
                     </div>
                     <div class="form-group">
-                        <label for="pays_depart">Pays de départ :</label>
-                        <input type="text" id="pays_depart" name="pays_depart">
+                        <label for="description">Description :</label>
+                        <textarea id="description" name="description"></textarea>
+                        <span class="error" id="descriptionError"></span>
                     </div>
                     <div class="form-group">
-                        <label for="pays_arrivee">Pays d'arrivée :</label>
-                        <input type="text" id="pays_arrivee" name="pays_arrivee">
-                    </div>
-                    <div class="form-group">
-                        <label for="lieux_depart">Lieux de départ :</label>
-                        <input type="text" id="lieux_depart" name="lieux_depart">
-                    </div>
-                    <div class="form-group">
-                        <label for="lieux_arrivee">Lieux d'arrivée :</label>
-                        <input type="text" id="lieux_arrivee" name="lieux_arrivee">
-                    </div>
-                    <div class="form-group">
-                        <label for="temps_depart">Temps de départ :</label>
-                        <input type="datetime-local" id="temps_depart" name="temps_depart">
-                    </div>
-                    <div class="form-group">
-                        <label for="temps_arrivee">Temps d'arrivée :</label>
-                        <input type="datetime-local" id="temps_arrivee" name="temps_arrivee">
-                    </div>
-                    <div class="form-group">
-                        <label for="prix">Prix :</label>
-                        <input type="number" id="prix" name="prix">
+                        <label for="pays">Pays :</label>
+                        <input type="text" id="pays" name="pays">
+                        <span class="error" id="paysError"></span>
                     </div>
                     <button type="submit" name="create" class="btn">Ajouter</button>
                 </form>
+
             </div>
-            <div class="transport-list">
-                <h2>Liste des Transports</h2>
+
+            <div class="destination-list">
+                <h2>Liste des Destinations</h2>
                 <ul>
-                    <?php foreach ($listTransports as $transport): ?>
+                    <?php foreach ($listDestinations as $destination): ?>
                         <li>
-                            <div class="transport-info">
-                                <strong><?php echo $transport->getType(); ?></strong>
-                                <span class="details">(<?php echo $transport->getLieuxDepart(); ?> to <?php echo $transport->getLieuxArrivee(); ?>)</span>
+                            <div class="destination-info">
+                                <strong><?php echo $destination->getNom(); ?></strong>
+                                <span class="description">(<?php echo $destination->getDescription(); ?>), <?php echo $destination->getPays(); ?></span>
                             </div>
-                            <a href="?delete=<?php echo $transport->getIdTransport(); ?>" class="delete-btn" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce transport ?')">Supprimer</a>
+                            <a href="?delete=<?php echo $destination->getIdDestination(); ?>" class="delete-btn" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette destination ?')">Supprimer</a>
                         </li>
                     <?php endforeach; ?>
                 </ul>
             </div>
+
             <div class="form-container">
-                <h2>Modifier un transport</h2>
+                <h2>Modifier une destination</h2>
                 <form method="post" class="form">
                     <div class="form-group">
-                        <label for="transport">Choisir un transport :</label>
-                        <select id="transport" name="id_transport">
-                            <?php foreach ($listTransports as $transport): ?>
-                                <option value="<?php echo $transport->getIdTransport(); ?>"><?php echo $transport->getType(); ?></option>
+                        <label for="destination">Choisir une destination :</label>
+                        <select id="destination" name="id_destination">
+                            <?php foreach ($listDestinations as $destination): ?>
+                                <option value="<?php echo $destination->getIdDestination(); ?>"><?php echo $destination->getNom(); ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="type">Nouveau type :</label>
-                        <input type="text" id="type" name="type">
+                        <label for="nom">Nouveau nom :</label>
+                        <input type="text" id="nom" name="nom">
                     </div>
                     <div class="form-group">
-                        <label for="pays_depart">Nouveau pays de départ :</label>
-                        <input type="text" id="pays_depart" name="pays_depart">
+                        <label for="description">Nouvelle description :</label>
+                        <textarea id="description" name="description"></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="pays_arrivee">Nouveau pays d'arrivée :</label>
-                        <input type="text" id="pays_arrivee" name="pays_arrivee">
-                    </div>
-                    <div class="form-group">
-                        <label for="lieux_depart">Nouveaux lieux de départ :</label>
-                        <input type="text" id="lieux_depart" name="lieux_depart">
-                    </div>
-                    <div class="form-group">
-                        <label for="lieux_arrivee">Nouveaux lieux d'arrivée :</label>
-                        <input type="text" id="lieux_arrivee" name="lieux_arrivee">
-                    </div>
-                    <div class="form-group">
-                        <label for="temps_depart">Nouveau temps de départ :</label>
-                        <input type="datetime-local" id="temps_depart" name="temps_depart">
-                    </div>
-                    <div class="form-group">
-                        <label for="temps_arrivee">Nouveau temps d'arrivée :</label>
-                        <input type="datetime-local" id="temps_arrivee" name="temps_arrivee">
-                    </div>
-                    <div class="form-group">
-                        <label for="prix">Nouveau prix :</label>
-                        <input type="number" id="prix" name="prix">
+                        <label for="pays">Nouveau pays :</label>
+                        <input type="text" id="pays" name="pays">
                     </div>
                     <button type="submit" name="update" class="btn">Modifier</button>
                 </form>

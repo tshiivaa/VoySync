@@ -17,7 +17,7 @@ $listTransport = $TransportController->listTransports();
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32x32.png">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="back.css">
   <title>VoySync | Filter Magique</title>
@@ -25,7 +25,7 @@ $listTransport = $TransportController->listTransports();
 <body>
 <div class="main">
   <div class="sidebar">
-      <img src="./assets/images/bg-sidebar-desktop.svg" alt="side-bar" class="side-bar">
+      <img src="../assets/images/bg-sidebar-desktop.svg" alt="side-bar" class="side-bar">
       <div class="step">
         <div class="step-1">
           <h2 class="number step-indicator">1</h2>
@@ -178,7 +178,7 @@ $listTransport = $TransportController->listTransports();
     </div>
   </div>
   <div class="sidebar_right ">
-            <img src="./assets/images/bg-sidebar-desktop.svg" alt="side-bar" class="side-bar">
+            <img src="../assets/images/bg-sidebar-desktop.svg" alt="side-bar" class="side-bar">
   </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
