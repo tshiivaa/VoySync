@@ -1,5 +1,5 @@
 <?php
-include_once '../config.php';
+include_once 'config.php';
 
 // Check if depart and arrive parameters are set
 if(isset($_GET['depart']) && isset($_GET['arrive'])) {

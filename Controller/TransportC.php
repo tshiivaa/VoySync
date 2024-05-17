@@ -1,6 +1,6 @@
 <?php
-include_once '../Model/Transport.php';
-include_once '../config.php';
+require_once __DIR__ . '/../Model/Transport.php';
+include_once 'config.php';
 
 class TransportController {
     

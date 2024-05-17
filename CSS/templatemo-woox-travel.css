@@ -174,13 +174,15 @@ p {
   line-height: 30px;
   color: #1e1e1e;
 }
-img{
+
+img {
   margin: 0;
   padding: 0;
   border: 0;
   outline: 0;
   width: 100%;
 }
+
 /* 
 ---------------------------------------------
 Global Styles
@@ -277,7 +279,7 @@ body {
   font-size: 30px;
   font-weight: 700;
   text-transform: capitalize;
-  color:#1e1e1e;
+  color: #1e1e1e;
 }
 
 /* 
@@ -474,10 +476,9 @@ Header Style
   -o-transition: all 0.3s ease 0s;
   transition: all 0.3s ease 0s;
   border: transparent;
-  padding: 8px 15px;
+  padding: 8px 4px;
   position: relative;
   border-radius: 18px;
-  letter-spacing: 0.5px;
 }
 
 .header-area .main-nav .nav li.has-sub ul.sub-menu li:last-child a:hover,
@@ -2679,11 +2680,12 @@ body {
 .plan .button:focus {
   background-color: #1e558d;
 }
+
 .back-button {
   margin-top: 10px;
   top: 20px;
   left: 20px;
-  color:#1e558d;
+  color: #1e558d;
   border: none;
   cursor: pointer;
   background-color: transparent;
@@ -2691,9 +2693,11 @@ body {
 
 .back-button i {
   font-size: 24px;
-  color: #333; /* Adjust color as needed */
+  color: #333;
+  /* Adjust color as needed */
 }
 
 .back-button:hover i {
-  color: #555; /* Adjust hover color as needed */
+  color: #555;
+  /* Adjust hover color as needed */
 }

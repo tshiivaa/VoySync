@@ -278,7 +278,7 @@ section {
   font-size: 30px;
   font-weight: 700;
   text-transform: capitalize;
-  color:#1e1e1e;
+  color: #1e1e1e;
 }
 
 /* 
@@ -475,10 +475,9 @@ Header Style
   -o-transition: all 0.3s ease 0s;
   transition: all 0.3s ease 0s;
   border: transparent;
-  padding: 8px 15px;
+  padding: 8px 4px;
   position: relative;
   border-radius: 18px;
-  letter-spacing: 0.5px;
 }
 
 .header-area .main-nav .nav li.has-sub ul.sub-menu li:last-child a:hover,
@@ -2105,6 +2104,7 @@ Deals Page Style
   width: 100%;
   cursor: pointer;
 }
+
 .search-form #search-form input[name="searchQuery"] {
   background-color: transparent;
   border: none;
@@ -2537,7 +2537,7 @@ body {
     margin-bottom: 30px;
   }
 
-  
+
   .amazing-deals .item {
     padding-right: 0px;
   }
@@ -2686,9 +2686,11 @@ body {
 .plan .button:focus {
   background-color: #1e558d;
 }
+
 .visit-country .item .image img {
   border-radius: 23px;
 }
+
 .amazing-deals .item .image {
   border-top-left-radius: 23px;
   border-bottom-left-radius: 23px;
@@ -2715,7 +2717,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* Hauteur de la fenêtre visible */
+  height: 100vh;
+  /* Hauteur de la fenêtre visible */
 }
 
 .info-box {
@@ -2758,15 +2761,19 @@ body {
 
 .description {
   display: -webkit-box;
-  -webkit-line-clamp: 2; /* Limite le texte à 2 lignes */
+  -webkit-line-clamp: 2;
+  /* Limite le texte à 2 lignes */
   -webkit-box-orient: vertical;
   overflow: hidden;
-  text-overflow: ellipsis; /* Ajoute des points de suspension (...) pour indiquer que le texte est tronqué */
+  text-overflow: ellipsis;
+  /* Ajoute des points de suspension (...) pour indiquer que le texte est tronqué */
 }
+
 /*FRMissionPage*/
 .rating {
-  display: inline-flex; 
-  direction: rtl;    /* Ajoutez cette ligne pour inverser l'affichage de droite à gauche */
+  display: inline-flex;
+  direction: rtl;
+  /* Ajoutez cette ligne pour inverser l'affichage de droite à gauche */
 }
 
 .rating input {
@@ -2777,8 +2784,9 @@ body {
   cursor: pointer;
   width: 15px;
   height: 15px;
-  margin : 1px;
-  background-image: url('../View/imagesFront/star.png'); /* Remplacez 'star.png' par votre image d'étoile */
+  margin: 1px;
+  background-image: url('../View/imagesFront/star.png');
+  /* Remplacez 'star.png' par votre image d'étoile */
   background-size: cover;
 }
 
@@ -2788,14 +2796,16 @@ body {
   color: transparent;
 }
 
-.rating input:checked ~ label {
-  background-image: url('../View/imagesFront/starF.png'); /* Remplacez 'star-filled.png' par votre image d'étoile remplie */
+.rating input:checked~label {
+  background-image: url('../View/imagesFront/starF.png');
+  /* Remplacez 'star-filled.png' par votre image d'étoile remplie */
 }
 
 /*info.php*/
 .ratingINFO {
   display: inline-block;
-  direction: rtl; /* Ajoutez cette ligne pour inverser l'affichage de droite à gauche */
+  direction: rtl;
+  /* Ajoutez cette ligne pour inverser l'affichage de droite à gauche */
 }
 
 .ratingINFO input {
@@ -2806,8 +2816,9 @@ body {
   cursor: pointer;
   width: 40px;
   height: 40px;
-  margin : 1px;
-  background-image: url('../View/imagesFront/star.png'); /* Remplacez 'star.png' par votre image d'étoile */
+  margin: 1px;
+  background-image: url('../View/imagesFront/star.png');
+  /* Remplacez 'star.png' par votre image d'étoile */
   background-size: cover;
 }
 
@@ -2817,6 +2828,7 @@ body {
   color: transparent;
 }
 
-.ratingINFO input:checked ~ label {
-  background-image: url('../View/imagesFront/starF.png'); /* Remplacez 'star-filled.png' par votre image d'étoile remplie */
+.ratingINFO input:checked~label {
+  background-image: url('../View/imagesFront/starF.png');
+  /* Remplacez 'star-filled.png' par votre image d'étoile remplie */
 }

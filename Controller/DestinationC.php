@@ -1,6 +1,7 @@
 <?php
-include_once '../Model/Destination.php';
-include_once '../config.php';
+
+require_once __DIR__ . '/../Model/Destination.php';
+require_once 'config.php';
 
 class DestinationController {
     
@@ -99,7 +100,6 @@ class DestinationController {
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $options .= "<option value='" . $row['nom'] . "'>" . $row['nom'] . "</option>";
         }
-    
         return $options;
     }
 }

@@ -231,7 +231,7 @@ $documentList = $documentC->listDocumentVoyages();
     </section>
   </div>
   <!-- JavaScript -->
-  <script src="../js/script.js"></script>
+  <script src="../../js/script.js"></script>
 </body>
 
 </html>

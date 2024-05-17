@@ -40,10 +40,10 @@ function result() {
     }
 
     // Make the fetch request to ResultC.php with the query
-    fetch(`../Controller/ResultC.php?depart=${encodeURIComponent(selectedDestination)}&arrive=${encodeURIComponent(selectedDestination2)}`)
+    fetch(`../../Controller/ResultC.php?depart=${encodeURIComponent(selectedDestination)}&arrive=${encodeURIComponent(selectedDestination2)}`)
         .then(response => response.text())
         .then(data => {
-            const resultContainer = document.getElementById("result-container");
+            const resultContainer = document.getElementById("result-container2");
             resultContainer.innerHTML = ""; // Clear previous results
             const jsonData = JSON.parse(data);
 
@@ -82,10 +82,11 @@ function result() {
 
 }
 function GetAccom() {
-    fetch(`../Controller/ResultC.php?prix=${encodeURIComponent(budgetInput)}&adresse=${encodeURIComponent(selectedDestination2)}&heb=${encodeURIComponent(hebb)}`)
+    fetch(`../../Controller/ResultC.php?prix=${encodeURIComponent(budgetInput)}&adresse=${encodeURIComponent(selectedDestination2)}&heb=${encodeURIComponent(hebb)}`)
         .then(response2 => response2.text())
         .then(data2 => {
-            const accomContainer = document.getElementById("accommodation-container");
+            console.log(data2)
+            const accomContainer = document.getElementById("accommodation-container2");
             accomContainer.innerHTML = ""; // Clear previous results
             const jsonData2 = JSON.parse(data2);
 
@@ -136,11 +137,12 @@ function formDestinations() {
     if (selectedCountry === "") {
         return;
     }
-
+    console.log(selectedCountry);
     // Appeler la fonction PHP pour récupérer les destinations associées au pays sélectionné
-    fetch('../Controller/DestinationC.php?country=' + encodeURIComponent(selectedCountry))
+    fetch('../../Controller/DestinationC.php?country=' + encodeURIComponent(selectedCountry))
         .then(response => response.text())
         .then(options => {
+            console.log(options);
             destinationSelect.innerHTML = options;
             selectedDestination = destinationSelect.value;
         });
@@ -163,9 +165,9 @@ function formDestinations2() {
     if (selectedCountry === "") {
         return;
     }
-
+    console.log(selectedCountry);
     // Appeler la fonction PHP pour récupérer les destinations associées au pays sélectionné
-    fetch('../Controller/DestinationC.php?country=' + encodeURIComponent(selectedCountry))
+    fetch('../../Controller/DestinationC.php?country=' + encodeURIComponent(selectedCountry))
         .then(response => response.text())
         .then(options => {
             destinationSelect.innerHTML = options;
@@ -197,7 +199,7 @@ function formTransports(selectedDestination2, selectedDestination) {
     ide.value = selectedDestination;
 
     // Appeler la fonction PHP pour récupérer les transports associés à la destination et au lieu actuel sélectionnés
-    fetch('../Controller/TransportC.php?destination=' + encodeURIComponent(selectedDestination) + '&currentLocation=' + encodeURIComponent(selectedDestination2))
+    fetch('../../Controller/TransportC.php?destination=' + encodeURIComponent(selectedDestination) + '&currentLocation=' + encodeURIComponent(selectedDestination2))
         .then(response => response.text()) // Récupérer la réponse en tant que texte
         .then(options => {
             console.log("Response from server:", options);

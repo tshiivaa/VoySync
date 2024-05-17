@@ -150,7 +150,8 @@ if ($valid == 1) {
                         <li><a id="mission-link" href="FRMissionPage.php">Missions</a></li>
                         <li><a id="blog-link" href="blog.php">Blog</a></li>
                         <li><a id="depenses-link" href="depenses_f.php">Dépenses</a></li>
-                        <input type="submit" name="connect" value="Connexion" class="btn solid" id="connect" style="background-color:#FBCD5AFF;"/>
+                        <li><input type="submit" name="connect" value="Connexion" class="btn solid" id="connect" style="background-color:#FBCD5AFF;"/></li>
+                        <li><a href="filtre_Magique.php" class="active"><i class='bx bxs-magic-wand'></i> Itineraire magique</a></li>
                     </ul>
                     <a class='menu-trigger'>
                         <span>Menu</span>

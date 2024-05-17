@@ -1,7 +1,7 @@
 <?php
-include_once '../Controller/DestinationC.php';
-include_once '../Controller/TransportC.php';
-include_once '../Controller/ResultC.php';
+include_once '../../Controller/DestinationC.php';
+include_once '../../Controller/TransportC.php';
+include_once '../../Controller/ResultC.php';
 
 $DestinationController = new DestinationController();
 $listDestinations = $DestinationController->listDestinations();
@@ -15,14 +15,60 @@ $listTransport = $TransportController->listTransports();
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet">
+
+  
+    <!-- Bootstrap core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  
+    <!-- Fichiers CSS supplémentaires -->
+    <link rel="stylesheet" href="../../CSS/templatemo-woox-travelA.css">
+    <link rel="stylesheet" href="../../CSS/owl.css">
+    <link rel="stylesheet" href="../../CSS/animate.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32x32.png">
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="back.css">
+ 
+  
   <title>VoySync | Filter Magique</title>
 </head>
 <body>
+<header class="header-area header-sticky">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+        <nav class="main-nav">
+                    <!-- ***** Logo Start ***** -->
+                    <a href="indexf.php" class="logo">
+                        <img src="../../View/images/logo.png" alt="">
+                    </a>
+                    <!-- ***** Logo End ***** -->
+                    <!-- ***** Menu Start ***** -->
+                    <ul class="nav">
+                        <li><a id="accueil-link" href="indexf.php">Accueil</a></li>
+                        <li><a href="ListLogementFront copy 2.php">Logements</a></li>
+                        <li><a href="ListVolFront copy.php">Vols</a></li>
+                        <li><a id="mission-link" href="FRMissionPage.php">Missions</a></li>
+                        <li><a id="blog-link" href="blog.php">Blog</a></li>
+                        <li><a id="depenses-link" href="depenses_f.php">Dépenses</a></li>
+                        <li><input type="submit" name="connect" value="Connexion" class="btn solid" id="connect" style="background-color:#FBCD5AFF;"/></li>
+                        <li><a href="filtre_Magique.php" class="active"><i class='bx bxs-magic-wand'></i> Itineraire magique</a></li>
+                    </ul>
+                    <a class='menu-trigger'>
+                        <span>Menu</span>
+                    </a>
+                    <!-- ***** Menu End ***** -->
+                </nav>
+        </div>
+      </div>
+    </div>
+  </header>
 <div class="main">
   <div class="sidebar">
       <img src="../assets/images/bg-sidebar-desktop.svg" alt="side-bar" class="side-bar">
@@ -64,7 +110,7 @@ $listTransport = $TransportController->listTransports();
         </div>
       </div>
     </div>
-  <div class="form-container">
+  <div class="form-container2">
       <div class="form-step" data-step="1">
       <h1 class="title">Destination :</h1>
       <p class="step-description"> Veuillez choisir le pays </p>
@@ -164,15 +210,15 @@ $listTransport = $TransportController->listTransports();
       <h1 class="title">Pack :</h1>
       <p class="step-description"> Voici Votre Pack </p>
       <br>
-      <div id="result-container"></div>
-      <div id="accommodation-container"></div>
+      <div id="result-container2"></div>
+      <div id="accommodation-container2"></div>
       <button class="prev-step">Previous</button>
-      <button class="submit">Confirm</button>
+      <button class="submit2">Confirm</button>
       <div>
         <form id="myForm" action="idea.php?destinationide=" method="post">
           <input type="text" id="destinationide" name="destinationide" style="display: none;">
           <br>
-          <button type="submit" id="submitButton" class="submit">Idee D'activites</button>
+          <button type="submit" id="submitButton" class="submit2">Idee D'activites</button>
         </form>        
       </div>
     </div>

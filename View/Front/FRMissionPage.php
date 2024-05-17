@@ -86,14 +86,14 @@ if (isset($_GET['trie'])) {
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav">
-                        <li><a id="accueil-link" href="indexf.php" class="active">Accueil</a></li>
+                        <li><a id="accueil-link" href="indexf.php" >Accueil</a></li>
                         <li><a href="ListLogementFront copy 2.php">Logements</a></li>
                         <li><a href="ListVolFront copy.php">Vols</a></li>
-                        <li><a id="mission-link" href="FRMissionPage.php">Missions</a></li>
+                        <li><a id="mission-link" href="FRMissionPage.php" class="active">Missions</a></li>
                         <li><a id="blog-link" href="blog.php">Blog</a></li>
                         <li><a id="depenses-link" href="depenses_f.php">Dépenses</a></li>
-                        <input type="submit" name="connect" value="Connexion" class="btn solid" id="connect" style="background-color:#FBCD5AFF;"/>
-                    </ul>
+                        <li><input type="submit" name="connect" value="Connexion" class="btn solid" id="connect" style="background-color:#FBCD5AFF;"/></li>
+                        <li><a href="filtre_Magique.php" ><i class='bx bxs-magic-wand'></i> Itineraire magique</a></li>
                     <a class='menu-trigger'>
                         <span>Menu</span>
                     </a>
