@@ -8,7 +8,8 @@
 <body>
 <?php
 require 'connexion.php';
-
+require '../../Model/utilisateurs.php';
+//include "C:\Users\INFOKOM\Documents\github\VoySync\Model\utilisateurs.php";
 $emailErr = "";
 $dateErr = "";
 $passwordErr = "";
@@ -33,15 +34,21 @@ class utilisateurc
             }
 
             if (empty($_POST["date_nais"])) {
-                $GLOBALS['dateErr'] = "date is required";
-
+                $GLOBALS['dateErr'] = "Date is required";
                 $GLOBALS['validForm'] = false;
             } else {
                 $date = htmlspecialchars($_POST["date_nais"]);
-                // You may need additional validation for the date of birth
                 if (!strtotime($date)) {
                     $GLOBALS['dateErr'] = "Invalid date format";
                     $GLOBALS['validForm'] = false;
+                } else {
+                    $birthDate = new DateTime($date);
+                    $today = new DateTime();
+                    $age = $today->diff($birthDate)->y;
+                    if ($age < 18) {
+                        $GLOBALS['dateErr'] = "You must be at least 18 years old";
+                        $GLOBALS['validForm'] = false;
+                    }
                 }
             }
 
@@ -66,7 +73,7 @@ class utilisateurc
 
             /*if (isset($_POST['email']) && $GLOBALS['validForm']) {
                 $sql = "INSERT INTO utilisateurs (email, date_nais, password, phone) VALUES (:email, :date_nais, :password, :phone)";
-                $stmt = config::connexion()->prepare($sql);
+                $stmt = configU::connexion()->prepare($sql);
                 $utilisateur = new utilisateurs($_POST["email"], $_POST["date_nais"], $_POST["password"], $_POST["phone"]);
                 $stmt->execute([':email' => $utilisateur->getEmail(), ':date_nais' => $utilisateur->getDateNaissance(), ':password' => $utilisateur->getPassword(), ':phone' => $utilisateur->getPhone()]);
                 $stmt = null;
